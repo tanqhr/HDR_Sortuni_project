@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{index.html :: head-include}">&nbsp;</th:block>
+    <title>Healthy_desserts_recipes :: Login</title>
+</head>
+
+<body>
+
+<header th:replace="~{index.html :: header}">&nbsp;</header>
+
+<nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
+
+<div class="content">
+
+    <h4 th:if="${param.logout}" th:text="#{logout_message}">Log out message</h4>
+    <br>
+
+    <p th:text="#{login_message}">Please fill the form below<span th:if="${param.logout}"
+                                                            th:text="' to log in again'">&nbsp;</span>:</p>
+    <br>
+    <div class="max-width-800px">
+        <form id="login-form" class="login-form"
+              th:action="@{/login}" th:method="post">
+
+            <div class="grid-label-input-ctr">
+                <div class="grid-label">
+                    <label for="email" th:text="#{login_email}">Email:</label>
+                </div>
+                <div class="angle-border grid-input">
+                    <input id="email" name="email"
+                           type="email"
+                           placeholder='e.g., "user@example.com"'
+                           required>
+                </div>
+            </div>
+
+            <div class="grid-label-input-ctr">
+                <div class="grid-label">
+                    <label for="password" th:text="#{login_password}">Password:</label>
+                </div>
+                <div class="angle-border grid-input">
+                    <input id="password" name="password"
+                           type="password"
+                           placeholder='e.g., "1234"'
+                           required>
+                </div>
+            </div>
+            <div th:if="${param.error}" class="grid-label-input-ctr">
+                <h4 th:text="'Bad Credentials'" class="error-text grid-input">Error</h4>
+            </div>
+        </form>
+        <button id="login-submit-btn" class="submit-btn"
+                type="submit" form="login-form" th:text="#{nav_bar_login}">Login
+        </button>
+    </div>
+</div>
+
+<nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
+
+<footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+
+</body>
+
+</html>

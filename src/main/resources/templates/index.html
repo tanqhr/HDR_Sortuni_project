@@ -1,0 +1,127 @@
+<!doctype html>
+<!--suppress HtmlUnknownTag -->
+<html th:fragment="html"
+      lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head th:fragment="head">
+<th:block th:fragment="head-include">
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Satisfy&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/x-icon" href="/images/logo.png">
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+</th:block>
+    <title>Healthy desserts recipes</title>
+</head>
+
+
+<body>
+
+<header th:fragment="header"
+        class="header">
+    <div th:fragment="login-panel" class="login-panel">
+        <div sec:authorize="isAnonymous()"
+             class="signup">
+            <a th:href="@{/registration}" class="sign-up" th:text="#{nav_bar_register}">Register</a>
+        </div>
+
+        <div sec:authorize="isAnonymous()"
+             class="login">
+            <a th:href="@{/login}" class="login" th:text="#{nav_bar_login}">Login</a>
+        </div>
+
+
+        <div sec:authorize="isAuthenticated()"
+             class="displayName">
+                    <span th:text="#{logged_in}"></span>
+                        <a th:href="@{/users/me}"><span sec:authentication="name">Kosta</span></a>
+
+        </div>
+
+        <div sec:authorize="isAuthenticated()">
+            <form th:method="POST"
+                  th:action="@{/logout}"
+                  >
+                <button type="submit" class="like-anchor" th:text="#{nav_bar_logout}">Logout</button>
+            </form>
+        </div>
+    </div>
+    <div th:fragment="logo-circle" class="btn btn-primary""nav-link text-uppercase">&nbsp></div>
+    <div th:fragment="logo-panel" class="logo-panel">
+        <div th:fragment="logo" class="logo">
+
+            <a th:href="@{/}" class="hdp-logo" th:text="#{logo}">HDR /Healthy desserts recipes/</a>
+
+        </div>
+        <div th:fragment="search" class="search"></div>
+
+    </div>
+
+    <div class="admin-panel danger-area"
+         th:fragment="admin-panel"
+         sec:authorize="hasRole('ROLE_ADMIN')">
+        <a class="danger-text padded-10 border-dashed-2" th:href="@{/admin/board}" th:text="#{admin2}">Admin Area</a>
+    </div>
+
+</header>
+
+<nav th:fragment="leftbar" class="left-bar">
+    <ul>
+        <div sec:authorize="isAnonymous()" class="left-link-ctr">
+            <form th:href="@{/change-language}">
+                <select name="lang" id="lang">
+                    <option value="en">English</option>
+                    <option value="bg">Bulgarian</option>
+                    <option value="de">German</option>
+                </select>
+                <button type="submit">Change Language</button>
+
+            </form>
+        </div>
+    </ul>
+    <div sec:authorize="isAuthenticated()" class="left-link-ctr">
+        <a th:href="@{/recipes/all}">
+            <span class="dot">&nbsp;</span>
+            <span th:text="#{home_all_recipes}">Link</span>
+        </a>
+    </div>
+    <div sec:authorize="isAuthenticated()" class="left-link-ctr">
+        <a th:href="@{/recipes/mine}">
+            <span class="dot">&nbsp;</span>
+            <span th:text="#{home_my_recipes}">Link</span>
+        </a>
+    </div>
+    <div sec:authorize="isAuthenticated()" class="left-link-ctr">
+        <a th:href="@{/recipes/add}" href=#>
+            <span class="dot">&nbsp;</span>
+            <span th:text="#{home_add_recipes}">Link</span>
+            <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="/images/recipes.png" alt="..." />
+        </a>
+
+    </div>
+
+</nav>
+
+<div th:fragment="content" class="content">Some content</div>
+
+<nav th:fragment="rightbar" class="right-bar">&nbsp;
+
+</nav>
+
+<footer th:fragment="footer" class="footer">
+    <a th:href="@{/terms}" th:text="#{footer_privacy_policy}">Terms & Privacy</a>
+    <a href=# th:text="#{footer_about_us}">Link</a>
+    <a href=# th:text="#{footer_contact_us}">Link</a>
+    <a href=# th:text="#{footer_faq}">Link</a>
+</footer>
+
+</body>
+
+</html>

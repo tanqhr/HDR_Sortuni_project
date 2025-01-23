@@ -1,0 +1,176 @@
+<!doctype html>
+<!--suppress ThymeleafVariablesResolveInspection -->
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{index.html :: head-include}">&nbsp;</th:block>
+    <title>Healthy_desserts_recipes :: Registration</title>
+</head>
+
+<body>
+
+<header th:replace="~{index.html :: header}">&nbsp;</header>
+
+<nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
+<div class="content">
+    <p th:text="#{registration_message}">Please fill in and submit the form below:</p>
+    <br>
+
+<!--    <div class="content-vw shadowed">-->
+
+    <div class="content-vw shadowed rounded-10">
+        <div class="form-top rounded-10 top"></div>
+        <form id="reg-form" class="max-width-800px registration-form rounded-10 bottom"
+              th:method="POST" th:action="@{/registration}"
+              th:object="${userRegistrationBM}">
+
+            <!-- First Name-->
+            <div class="section">
+                <div class="grid-label-input-ctr">
+                    <label for="first-name"
+                           class="grid-label" th:text="#{register_f_name}">First Name:</label>
+                    <div class="grid-input angle-border">
+                        <input id="first-name" th:field="*{firstName}"
+                               type="text"
+                               placeholder="John" autocomplete="given-name" title="Your given name"
+                               required>
+                    </div>
+                </div>
+                <div class="grid-label-input-ctr">
+                    <div class="errors-ctr grid-input">
+                        <ul th:if="${#fields.hasErrors('firstName')}">
+                            <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}">Error</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Last Name-->
+            <div class="section">
+                <div class="grid-label-input-ctr">
+                    <label for="last-name"
+                           class="grid-label" th:text="#{register_l_name}">Last Name:</label>
+                    <div class="grid-input angle-border">
+                        <input id="last-name" th:field="*{lastName}"
+                               type="text"
+                               placeholder="Smith" autocomplete="family-name" title="Your family name"
+                               required>
+                    </div>
+                </div>
+                <div class="grid-label-input-ctr">
+                    <div class="errors-ctr grid-input">
+                        <ul th:if="${#fields.hasErrors('lastName')}">
+                            <li th:each="err : ${#fields.errors('lastName')}" th:text="${err}">Error</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Display Name-->
+            <div class="section">
+                <div class="grid-label-input-ctr">
+                    <label for="display-name"
+                           class="grid-label" th:text="#{register_u_name}">Username:</label>
+                    <div class="grid-input angle-border">
+                        <input id="display-name" th:field="*{displayName}"
+                               type="text"
+                               placeholder="Chef Johny" autocomplete="nickname"
+                               title="This name will be displayed to other users"
+                               required>
+                    </div>
+                </div>
+                <div class="grid-label-input-ctr">
+                    <div class="errors-ctr grid-input">
+                        <ul th:if="${#fields.hasErrors('displayName')}">
+                            <li th:each="err : ${#fields.errors('displayName')}" th:text="${err}">Error</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- E-mail-->
+            <div class="section">
+                <div class="grid-label-input-ctr">
+                    <label for="email"
+                           class="grid-label" th:text="#{login_email}">Email:</label>
+                    <div class="grid-input angle-border">
+                        <input id="email" th:field="*{email}"
+                               type="email"
+                               placeholder="johny@example.com" autocomplete="email" title="Please enter a valid email"
+                               required>
+                    </div>
+                </div>
+                <div class="grid-label-input-ctr">
+                    <div class="errors-ctr grid-input">
+                        <ul th:if="${#fields.hasErrors('email')}">
+                            <li th:each="err : ${#fields.errors('email')}" th:text="${err}">Error</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Password-->
+            <div class="section">
+                <div class="grid-label-input-ctr">
+                    <label for="password"
+                           class="grid-label" th:text="#{login_password}">Password:</label>
+                    <div class="grid-input angle-border">
+                        <input id="password" th:field="*{password}"
+                               type="password"
+                               placeholder="Enter password here" autocomplete="new-password"
+                               required>
+                    </div>
+                </div>
+                <div class="grid-label-input-ctr">
+                    <div class="grid-input errors-ctr">
+                        <ul th:if="${#fields.hasErrors('password')}">
+                            <li th:each="err : ${#fields.errors('password')}" th:text="${err}">Error</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Confirm Password-->
+            <div class="section">
+                <div class="grid-label-input-ctr">
+
+                    <label for="password-confirm"
+                           class="grid-label" th:text="#{confirm_password}">Confirm Password:</label>
+                    <div class="grid-input angle-border">
+                        <input id="password-confirm" th:field="*{confirmPassword}"
+                               type="password"
+                               placeholder="Repeat password here" autocomplete="new-password"
+                               required>
+                    </div>
+                </div>
+                <div class="grid-label-input-ctr">
+                    <div class="grid-input errors-ctr">
+                        <ul th:if="${#fields.hasErrors('confirmPassword')}">
+                            <li th:each="err : ${#fields.errors('confirmPassword')}" th:text="${err}">Error</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <br>
+            <p th:text="#{privacy_policy}">By creating an account you agree to our <a th:href="@{/terms}"><u>Terms & Privacy</u></a>.</p>
+            <!--Submit-->
+            <button type="submit" form="reg-form" class="submit-btn" th:text="#{nav_bar_register}">Register</button>
+            <div class="registration sign-in-para">
+                <p th:text="#{customer_question}">Already have an account? <a th:href="@{/login}" th:text="#{nav_bar_login}"><u>Sign in</u></a>.</p>
+            </div>
+
+        </form>
+
+    </div>
+</div>
+
+<nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
+
+<footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+
+</body>
+
+</html>

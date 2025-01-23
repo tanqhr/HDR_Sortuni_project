@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+
+<head>
+    <th:block th:insert="~{index.html :: head-include}">&nbsp;</th:block>
+    <title>Healthy desserts recipes :: Home</title>
+</head>
+
+<body>
+
+    <header th:replace="~{index.html :: header}">&nbsp;</header>
+
+    <nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
+
+    <div sec:authorize="isAuthenticated() == false" class="content"><a th:href="@{/}" th:text="#{index_greeting}" >WELCOME TO HEALTHY DESSERTS RECIPES!</a>
+        <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="/images/desserts.jpg" alt="..." />
+    </div>
+
+    <div sec:authorize="isAuthenticated()" class="content" th:text="#{greeting}">Welcome <span sec:authentication="name"></span>!> Nice to see you!</div>
+    <nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
+
+    <footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+
+</body>
+
+</html>

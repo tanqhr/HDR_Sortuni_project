@@ -1,0 +1,1225 @@
+/* Bootstrap Reset */
+:root,
+html,
+body,
+fieldset,
+legend,
+dl,
+ol,
+ul {
+    all : revert;
+}
+
+:root {
+
+    accent-color          : olivedrab;
+    --main-font-size      : 16px;
+    --color-primary       : rgba(107, 142, 35, .9);
+    --color-danger        : indianred;
+    --color-darkgrey      : #4B5347;
+    --color-teal          : #304B59;
+    --color-lavender      : #715780;
+    --color-pale-lavender : #BBB0BD;
+    --color-blush-pink    : #F4AC94;
+}
+
+*, *::before, *::after {
+
+    box-sizing : border-box;
+}
+
+* {
+
+    margin : 0;
+}
+
+
+html, body {
+
+    height     : 100%;
+    width      : 100%;
+    overflow-x : hidden;
+    font-size  : var(--main-font-size);
+    margin     : 0;
+    padding    : 0;
+}
+
+body {
+
+    line-height            : 1.2;
+    -webkit-font-smoothing : antialiased;
+}
+
+body {
+    display               : grid;
+    grid-template-columns : 20vw minmax(600px, 900px) 1fr;
+    grid-template-rows    : 120px 1fr 60px;
+    grid-template-areas   :
+        "header header header"
+        "leftbar content rightbar"
+        "footer footer footer";
+    grid-gap              : 0;
+
+    min-height            : 100vh;
+}
+
+body .header {
+
+    grid-area : header;
+
+    position  : relative;
+}
+
+body .header .login-panel {
+
+    position : absolute;
+    top      : 10px;
+    right    : 0;
+
+    display  : flex;
+    gap      : 2vw;
+
+    padding  : 0 2vw;
+}
+body .header .login-language {
+
+    position : absolute;
+    top      : 10px;
+    right    : 0;
+
+    display  : flex;
+    gap      : 2vw;
+
+    padding  : 0 2vw;
+}
+
+
+
+body .header .logo-circle {
+    position      : absolute;
+    top           : 50%;
+    left          : 20px;
+
+    width         : 80px;
+    height        : 80px;
+
+    background    : black;
+    border-radius : 50%;
+
+    transform     : translateY(-50%);
+}
+
+body .header .logo-panel {
+
+    position   : absolute;
+    top        : 50%;
+    left       : 47px;
+
+    width      : 100%;
+    height     : 50px;
+
+    background : brown;
+    text-align: center;
+
+
+
+
+
+
+
+
+
+
+
+    transform  : translateY(-50%);
+}
+
+body .header .hdp-logo {
+
+    vertical-align : middle;
+
+    color          : white;
+    font-family    : 'Satisfy', cursive;
+    font-size      : 44px;
+}
+
+body .header .hdp-logo,
+body .header .hdp-logo:hover,
+body .header .hdp-logo:focus,
+body .header .hdp-logo:active {
+
+    color : lavender;
+}
+
+body .left-bar {
+
+    grid-area  : leftbar;
+
+    padding    : 10px 10px 10px 0;
+    height     : auto;
+    background : white;
+}
+
+body .left-bar .left-link-ctr {
+
+    position   : relative;
+
+    background : yellowgreen;
+
+}
+
+body .left-bar .left-link-ctr a {
+
+    display    : block;
+    background : white;
+    transform  : translateX(15px);
+}
+
+body .left-bar .left-link-ctr a .dot {
+
+    position       : relative;
+    display        : inline-block;
+    vertical-align : middle;
+
+    height         : 30px;
+    width          : 15px;
+
+    transform      : translateY(-25%);
+}
+
+body .left-bar .left-link-ctr:hover a .dot {
+
+    width         : 30px;
+
+    border        : 0 solid black;
+    background    : black;
+    border-radius : 50%;
+
+    transform     : translateX(-17px);
+}
+
+body .right-bar {
+
+    grid-area : rightbar;
+
+    padding   : 10px 15px 10px 30px;
+}
+
+body .content {
+
+    grid-area : content;
+    padding   : 10px 30px;
+    color     : black;
+    text-align: center;
+    text-shadow: 1px 1px 2px pink;
+    text-decoration: lavenderblush;
+
+
+
+}
+
+body .footer {
+
+    grid-area  : footer;
+    display    : inline;
+    text-align : center;
+
+    padding    : 1vw;
+
+    background : black;
+    color      : white;
+}
+
+body .footer a,
+body .footer a:hover,
+body .footer a:focus,
+body .footer a:active {
+
+    padding : 5px 15px;
+    color   : white;
+}
+
+a,
+a:hover,
+a:focus,
+a:active {
+
+    text-decoration : none;
+    cursor          : pointer;
+    color           : var(--color-primary);
+}
+
+img,
+picture,
+video,
+canvas,
+svg {
+
+    display   : block;
+
+    max-width : 100%;
+}
+
+input,
+button,
+textarea,
+select {
+
+    font : inherit;
+}
+
+input:focus-visible {
+
+    outline : none;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:focus {
+
+    transition         : background-color 600000s 0s, color 600000s 0s;
+    -webkit-box-shadow : 0 0 0 50px white inset;
+}
+
+input[data-autocompleted] {
+
+    background-color : white;
+}
+
+input::placeholder,
+textarea::placeholder {
+
+    color   : var(--color-pale-lavender);
+    opacity : 1;
+}
+
+input:placeholder-shown {
+
+    border : 1px solid var(--color-lavender);
+}
+
+input.sign-x {
+
+    text-align : center;
+}
+
+a[href],
+input[type='submit'],
+input[type='image'],
+label[for],
+select,
+button,
+.pointer {
+
+    cursor : pointer;
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+
+    overflow-wrap : break-word;
+}
+
+dl,
+ol,
+ul {
+
+    padding : 0 0 0 15px;
+    margin  : 0;
+}
+
+ul.no-bullets {
+
+    list-style-type : none;
+}
+
+fieldset {
+
+    margin-bottom : 2vh;
+    border        : 1px black dashed;
+
+}
+
+fieldset legend {
+
+    margin-bottom : 1vh;
+    padding       : 0;
+}
+
+fieldset legend .legend-lbl {
+
+    padding : 0 0.5rem;
+}
+
+select::-ms-expand {
+
+    display : none;
+}
+
+select {
+
+    flex             : 1;
+
+    padding          : 0 0 0 10px;
+
+    outline          : 0;
+    border           : 3px solid var(--color-primary);
+    border-top       : none;
+    border-right     : none;
+
+    box-shadow       : none;
+
+    color            : black;
+    background-color : white;
+    background-image : none;
+
+    cursor           : pointer;
+    appearance       : none;
+}
+
+.select {
+
+    position : relative;
+
+    display  : flex;
+
+    width    : 70%;
+    height   : 40px;
+
+    overflow : hidden;
+}
+
+/* Arrow */
+#root, #__next {
+    isolation : isolate;
+}
+
+
+.select::after {
+
+    position       : absolute;
+    top            : 3px;
+    right          : 3px;
+
+    padding        : 8px;
+
+    content        : '\25BD';
+    color          : black;
+
+    pointer-events : none;
+}
+
+.hidden {
+
+    display : none;
+}
+
+.angle-border {
+
+    grid-area    : input-field;
+
+    display      : block;
+
+    padding      : 0 0 10px 10px;
+
+    width        : 100%;
+
+    border       : 3px solid var(--color-primary);
+    border-top   : none;
+    border-right : none;
+}
+
+.angle-border:focus-within {
+
+    border       : 3px dashed var(--color-primary);
+    border-top   : none;
+    border-right : none;
+}
+
+.angle-border input {
+
+    width  : 100%;
+    border : none;
+}
+
+.sign-x {
+
+    text-align : center;
+
+    width      : 30px;
+    height     : 25px;
+
+    border     : 2px solid #35383D;
+    background : white;
+}
+
+.sign-x:hover {
+
+    background : var(--color-blush-pink);
+}
+
+.sign-plus {
+
+    width       : 100%;
+    height      : 40px;
+
+    border      : 2px solid black;
+    font-weight : bold;
+    background  : transparent;
+}
+
+.sign-plus:hover {
+
+    border     : 2px solid white;
+    outline    : 2px solid var(--color-primary);
+    color      : white;
+    background : var(--color-primary);
+}
+
+.text-align-center {
+
+    text-align : center;
+}
+
+.flex-centered {
+
+    display     : flex;
+    align-items : center;
+}
+
+.like-anchor {
+
+    display            : inline;
+    box-sizing         : content-box;
+    align-items        : normal;
+    text-align         : start;
+
+    width              : auto;
+    height             : auto;
+
+    padding            : 0;
+    background-color   : rgba(0, 0, 0, 0);
+    border-color       : rgb(0, 0, 238);
+    border-style       : none;
+    color              : var(--color-primary);
+    outline            : 1 solid var(--color-danger);
+
+    font               : inherit;
+    cursor             : pointer;
+
+    perspective-origin : 0 0;
+    transform-origin   : 0 0;
+
+    -moz-appearance    : none;
+
+}
+
+@supports (-moz-appearance:none) {
+    .like-anchor::-moz-focus-inner {
+
+        border  : none;
+        padding : 0;
+    }
+
+    .like-anchor:focus {
+
+        outline-style : dotted;
+        outline-width : 1px;
+    }
+}
+
+.nav-button, .nav-link {
+    background-color: #212121;
+    color: white;
+    border: none;
+    padding: 5px 20px;
+    cursor: pointer;
+    font-size: 16px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.nav-button:hover, .nav-link:hover {
+    background-color: #555;
+}
+
+.submit-btn {
+
+    padding          : 14px 20px;
+    margin           : 8px 0;
+
+    width            : 100%;
+
+    background-color : rgb(107 142 35);
+    border           : none;
+    color            : white;
+    opacity          : 0.9;
+
+    cursor           : pointer;
+}
+
+.left-buttons {
+    display: flex;
+    align-items: center;
+}
+
+.right-buttons {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+ul {
+    display: flex;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+
+.submit-btn:hover {
+
+    opacity : 1;
+}
+
+.upload-btn {
+    padding          : 10px 20px;
+    margin           : 0 0;
+
+    width            : 100%;
+
+    background-color : white;
+    color            : black;
+    opacity          : 1;
+
+    cursor           : pointer;
+}
+
+.upload-btn:hover {
+
+    opacity          : 0.7;
+    background-color : var(--color-primary);
+    color            : white;
+
+    border           : 2px solid white;
+    outline          : 2px solid var(--color-primary);
+}
+
+.errors-ctr ul {
+
+    padding : 0 0 0 15px;
+}
+
+.errors-ctr li {
+
+    color           : var(--color-danger);
+    list-style-type : none;
+}
+
+.error-text {
+
+    color : var(--color-danger);
+}
+
+.section {
+
+    padding : 2vh 0;
+}
+
+.section-title {
+
+    padding          : 14px 20px;
+    margin           : 8px 0;
+
+    width            : 100%;
+
+    border           : 3px solid black;
+    background-color : var(--color-pale-lavender);
+    color            : black;
+}
+
+.grid-label-input-ctr {
+
+    display               : grid;
+    grid-template-columns : minmax(125px, 12vw) 1fr;
+    grid-auto-rows        : auto;
+    grid-template-areas   :
+        "input-label    input-field";
+    padding               : 1.5vh 0;
+}
+
+.grid-label-input-ctr.lbl80 {
+
+    grid-template-columns : minmax(80px, 10vw) 1fr;
+}
+
+.grid-label {
+
+    grid-area : input-label;
+}
+
+.grid-input {
+
+    grid-area : input-field;
+    width     : 100%;
+}
+
+.form-top {
+
+    height     : 50px;
+    background : black;
+}
+
+.form-top.text {
+
+    color       : white;
+    font-weight : bold;
+}
+
+.form-top .recipe-title {
+
+    font-size   : 30px;
+
+    margin-left : 20px;
+}
+
+.form-top.text.author {
+
+    color       : white;
+    font-weight : bold;
+}
+
+.form-top.text.author:hover,
+.form-top.text.author:active {
+
+    color : var(--color-primary);
+}
+
+.add-form,
+.registration-form,
+.recipe-show {
+
+    padding : 2.5vw;
+}
+
+.shadowed {
+
+    box-shadow : 10px 10px 40px rgba(0, 0, 0, 0.15);
+}
+
+.rounded-10 {
+    border-radius : 10px 10px;
+}
+
+.rounded-10.bottom {
+    border-radius : 0 0 10px 10px;
+}
+
+.rounded-10.top {
+    border-radius : 10px 10px 0 0;
+}
+
+.photo-box {
+
+    display : inline;
+    height  : 150px;
+}
+
+.grid-photo {
+
+    display               : inline-grid;
+    grid-template-columns : 40px 120px 30px;
+    grid-auto-rows        : auto;
+    grid-template-areas   :
+        "left  center  right"
+        "none  bottom  bottom";
+    padding               : 10px 10px;
+
+
+}
+
+.grid-photo:has(.sign-x:hover) {
+
+    outline : 2px var(--color-danger) dashed;
+}
+
+.grid-photo-left {
+
+    grid-area    : left;
+
+    align-self   : center;
+    justify-self : center;
+}
+
+.grid-photo-center {
+
+    grid-area  : center;
+
+    width      : 150px;
+    height     : 150px;
+    object-fit : contain;
+    overflow   : hidden;
+    background : white;
+    border     : 1px solid var(--color-pale-lavender);
+}
+
+.grid-photo-right {
+
+    grid-area    : right;
+    justify-self : right;
+}
+
+.grid-photo-bottom {
+
+    grid-area     : bottom;
+    overflow-wrap : break-word;
+    -ms-word-wrap : break-word;
+    word-wrap     : break-word;
+    -ms-hyphens   : auto;
+}
+
+.new-photo-ctr {
+    padding : 0;
+}
+
+.ingredient-box {
+
+    padding : 10px 5px;
+}
+
+.ingredient-box .grid-ingredient {
+
+    display               : inline-grid;
+    grid-template-columns : 2fr 1fr 1fr minmax(40px, 3vw);
+    grid-auto-rows        : auto;
+    grid-template-areas   :
+        "left  center  right  btn-x";
+    padding               : 0 0 10px 10px;
+    width                 : 100%;
+}
+
+.ingredient-box .grid-ingredient .left {
+
+    grid-area : left;
+    width     : 100%;
+}
+
+.ingredient-box .grid-ingredient .center {
+
+    grid-area : center;
+    width     : 100%;
+}
+
+.ingredient-box .grid-ingredient .right {
+
+    grid-area  : right;
+    width      : 100%;
+    text-align : right;
+}
+
+.ingredient-box .grid-ingredient .btn-x {
+
+    grid-area    : btn-x;
+    justify-self : end;
+}
+
+.ingredient-box .angle-border .sign-x {
+
+    border     : 2px solid #35383D;
+    width      : 30px;
+    height     : 25px;
+    text-align : center;
+}
+
+.ingredient-box:has(.sign-x:hover) {
+
+    outline : 2px var(--color-danger) dashed;
+}
+
+.max-width-800px {
+
+    max-width : 800px;
+}
+
+.registration.sign-in-para {
+
+    text-align : center;
+}
+
+.time-servings-ctr {
+
+    grid-area             : time-servings;
+    display               : grid;
+    grid-template-columns : min(160px) 1fr min(160px) 1fr 1fr min(180px);
+    grid-template-areas   :
+        "preparation gap1 cooking gap2 gap3 servings";
+}
+
+.time-servings-ctr .preparation {
+
+    grid-area : preparation;
+}
+
+.time-servings-ctr .cooking {
+
+    grid-area : cooking;
+}
+
+.time-servings-ctr .servings {
+
+    grid-area : servings;
+}
+
+.time-picker,
+.servings-picker {
+
+    display : flex;
+}
+
+.hours-input,
+.minutes-input,
+.servings-input {
+
+    background    : transparent;
+
+    border        : none;
+    border-bottom : 2px solid #35383D;
+
+    text-align    : center;
+    padding       : 0;
+}
+
+.description .notepad {
+
+    min-width   : 100%;
+    max-width   : 100%;
+    border      : none;
+    overflow    : hidden;
+    background  : repeating-linear-gradient(#FFFFFF, #FFFFFF 20px, #C1C1C1 20px, #C1C1C13D 22px);
+    line-height : 22px;
+    min-height  : 30vh;
+    resize      : vertical;
+}
+
+.description .notepad:focus,
+.description .notepad:active {
+
+    border   : none;
+    overflow : hidden;
+    outline  : none;
+}
+
+.carousel.slide {
+
+    height           : 480px;
+    max-width        : 100%;
+    background-color : white;
+    display          : flex;
+    justify-content  : center;
+    align-items      : center;
+}
+
+.carousel-img-ctr {
+
+    height  : 300px;
+
+    width   : 300px;
+
+    margin  : auto;
+
+    display : flex;
+}
+
+.carousel-img-ctr img {
+
+    object-fit : contain;
+}
+
+.carousel-control-prev,
+.carousel-control-next {
+
+    opacity : 0.7;
+    width   : 10%;
+}
+
+.carousel-control-prev:hover,
+.carousel-control-next:hover {
+
+    opacity : 1;
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+
+    display         : inline-block;
+    width           : 30px;
+    height          : 20px;
+    background      : var(--color-darkgrey) no-repeat center center;
+    background-size : 160% 160%;
+    border-radius   : 30%;
+}
+
+.carousel-control-next-icon {
+
+    background-image : url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M2.75 0l-1.5 1.5 2.5 2.5-2.5 2.5 1.5 1.5 4-4-4-4z'/%3E%3C/svg%3E");
+}
+
+.carousel-control-prev-icon {
+
+    background-image : url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 8 8'%3E%3Cpath d='M5.25 0l-4 4 4 4 1.5-1.5-2.5-2.5 2.5-2.5-1.5-1.5z'/%3E%3C/svg%3E");
+}
+
+.carousel-indicators {
+
+    gap : 1%;
+}
+
+.carousel-indicators li {
+
+    background-color : white;
+    height           : 10px;
+    color            : white;
+    border           : 2px solid var(--color-darkgrey);
+}
+
+.carousel-indicators .active {
+
+    background-color : olivedrab;
+}
+
+.show-ingredient-grid,
+.space-between-grid {
+
+    display             : grid;
+    grid-template-areas :
+            "left right";
+    justify-content     : space-between;
+    padding             : 0 10px;
+}
+
+.show-ingredient-name,
+.space-between-left {
+
+    grid-area : left;
+}
+
+.show-ingredient-qty,
+.space-between-right {
+
+    grid-area : right;
+}
+
+.show-likes-ctr {
+
+    display : inline-flex;
+    gap     : 10px;
+}
+
+.admin-panel {
+
+    color          : var(--color-danger);
+    display        : inline-flex;
+    flex-direction : row;
+    padding        : 0 10px;
+}
+
+div.admin-panel > a {
+
+    position : absolute;
+    top      : 40px;
+    right    : 10px;
+}
+
+.danger-area {
+
+    color        : var(--color-danger);
+    border-color : var(--color-danger);
+}
+
+.danger-text {
+
+    color : var(--color-danger);
+}
+
+a:hover.danger-text,
+a:focus.danger-text,
+a:active.danger-text {
+
+    text-decoration : none;
+    cursor          : pointer;
+    color           : var(--color-danger);
+    background      : var(--color-blush-pink);
+}
+
+.admin-panel a.danger-text,
+.admin-panel a:hover.danger-text,
+.admin-panel a:focus.danger-text,
+.admin-panel a:active.danger-text {
+
+    color        : white;
+    border-color : var(--color-danger);
+}
+
+.border-dashed-2 {
+
+    border : 2px dashed;
+}
+
+.padded-10 {
+
+    padding : 10px;
+}
+
+.flex-space-between {
+
+    display         : flex;
+    justify-content : space-between;
+}
+
+div.recipe-show > div.gap-10.flex-space-between {
+
+    padding : 5px 2px 10px 2px;
+}
+
+.gap-10 {
+    gap : 10px;
+}
+
+span.icon-ctr,
+span.icon-ctr:not(:hover) {
+    color       : black;
+    background  : white;
+
+    height      : 30px;
+    width       : 40px;
+
+    font-size   : 20px;
+    font-weight : bolder;
+    border      : 2px solid var(--color-darkgrey);
+}
+
+span.icon-ctr:hover,
+span.icon-ctr:active,
+span.icon-ctr:focus {
+    background : var(--color-primary);
+}
+
+.card.box {
+    padding    : 20px;
+    margin     : 20px 0;
+    background : white;
+}
+
+.card.grid {
+    display               : grid;
+    grid-template-columns : 2fr 1fr 1fr;
+    grid-template-rows    : 1fr auto auto 1fr;
+    grid-template-areas   : "photo none none"
+        "photo title title"
+        "photo author author"
+        "photo update update";
+    padding               : 5px 10px;
+    cursor                : pointer;
+}
+
+.card.photo {
+    grid-area    : photo;
+    display      : flex;
+    min-height   : 15vh;
+    height       : 20vw;
+    align-self   : center;
+    justify-self : start;
+}
+
+.card.photo img {
+    object-fit : contain;
+}
+
+.card.title {
+    grid-area    : title;
+    font-size    : 30px;
+    font-weight  : bold;
+    justify-self : center;
+}
+
+.card.author {
+    grid-area    : author;
+    width        : 50%;
+    justify-self : end;
+    text-align   : end;
+}
+
+.card.author:hover,
+.card.author:focus,
+.card.author:active {
+    color : var(--color-primary);
+}
+
+.card.last-updated {
+    grid-area    : update;
+    align-self   : end;
+    justify-self : end;
+}
+
+
+@media screen and (max-width : 800px) {
+
+    html, body {
+        height     : 100%;
+        width      : 100%;
+        overflow-x : hidden;
+        font-size  : 14px;
+        padding    : 0;
+        margin     : 0;
+    }
+
+    body {
+        display               : grid;
+        grid-template-columns : 1fr;
+        grid-template-rows    : 120px auto 1fr 60px 60px;
+        grid-template-areas   :
+            "header"
+            "leftbar"
+            "content"
+            "rightbar"
+            "footer";
+        grid-gap              : 0;
+    }
+
+    body .left-bar {
+        padding : 5px 20px 20px 0;
+    }
+
+    body .right-bar {
+        padding : 5px 30px;
+    }
+
+    body .content {
+        grid-area    : content;
+        padding      : 10px 2.5VW;
+        width        : 95vw;
+        justify-self : center;
+    }
+
+    .content-vw {
+        width : 95vw;
+    }
+
+
+}
+
+@media screen and (max-width : 600px) {
+
+    .time-servings-ctr {
+        grid-area             : time-servings;
+        display               : grid;
+        grid-template-columns : min(160px) 1fr min(120px);
+        grid-template-areas   :
+    "preparation gap servings"
+    "cooking     gap none ";
+    }
+
+    .carousel-img-ctr {
+        height : 60vw;
+        width  : 60vw;
+    }
+}

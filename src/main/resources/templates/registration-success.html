@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{index.html :: head-include}">&nbsp;</th:block>
+    <title>Healthy_desserts_recipes :: Registration</title>
+</head>
+
+<body>
+
+    <header th:replace="~{index.html :: header}">&nbsp;</header>
+
+    <nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
+    <div th:if="${displayName}" class="content">
+        Congratulations, <th:block th:text="${displayName}"></th:block>!
+        You have registered successfully.
+        You can now log in from <a th:href="@{/login}">here</a> using your credentials!
+    </div>
+    <div th:unless="${displayName}">
+        <p>Your registration was successful! Please log in from <a th:href="@{/login}">here</a> using your credentials.</p>
+        <p>Do not have an account? Get one from <a th:href="@{/registration}">here</a>.</p>
+    </div>
+    <nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
+
+    <footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+
+</body>
+
+</html>
