@@ -24,11 +24,9 @@
 
 <body>
 
-<header th:fragment="header"
-        class="header">
+<header th:fragment="header" class="header">
     <div th:fragment="login-panel" class="login-panel">
-        <div sec:authorize="isAnonymous()"
-             class="signup">
+        <div sec:authorize="isAnonymous()" class="signup">
             <a th:href="@{/registration}" class="sign-up" th:text="#{nav_bar_register}">Register</a>
         </div>
 
@@ -53,7 +51,7 @@
             </form>
         </div>
     </div>
-    <div th:fragment="logo-circle" class="btn btn-primary""nav-link text-uppercase">&nbsp></div>
+    <div th:fragment="logo-circle" class="btn btn-primary""nav-link text-uppercase">&nbsp>
     <div th:fragment="logo-panel" class="logo-panel">
         <div th:fragment="logo" class="logo">
 
@@ -72,6 +70,8 @@
 
 </header>
 
+
+
 <nav th:fragment="leftbar" class="left-bar">
     <ul>
         <div sec:authorize="isAnonymous()" class="left-link-ctr">
@@ -82,10 +82,10 @@
                     <option value="de">German</option>
                 </select>
                 <button type="submit">Change Language</button>
-
             </form>
         </div>
     </ul>
+
     <div sec:authorize="isAuthenticated()" class="left-link-ctr">
         <a th:href="@{/recipes/all}">
             <span class="dot">&nbsp;</span>
@@ -111,7 +111,7 @@
 
 <div th:fragment="content" class="content">Some content</div>
 
-<nav th:fragment="rightbar" class="right-bar">&nbsp;
+<nav th:fragment="rightbar" class="right-bar">
 
 </nav>
 

@@ -35,3 +35,7 @@ logging:
 cloud:
   service:
     mocked: false
+
+    whether:
+      api-key: "30bbc14329b65a2e4a74dc84dc4a4765"
+

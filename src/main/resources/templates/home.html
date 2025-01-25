@@ -16,6 +16,10 @@
     <nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
 
     <div sec:authorize="isAuthenticated() == false" class="content"><a th:href="@{/}" th:text="#{index_greeting}" >WELCOME TO HEALTHY DESSERTS RECIPES!</a>
+        <p th:text="#{weather_town}">Sofia</p>
+        <a th:text="#{weather_tem}">Temperature:</a> <span th:text="${temperature}">Температура на въздуха</span> °C
+        <p>
+        <a th:text="#{weather_wind}">Wind:</a> <span th:text="${wind}">Скорост на вятъра</span> m/s</p>
         <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="/images/desserts.jpg" alt="..." />
     </div>
 
