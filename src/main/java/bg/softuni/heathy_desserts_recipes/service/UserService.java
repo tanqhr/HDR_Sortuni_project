@@ -18,6 +18,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -180,5 +181,9 @@ public class UserService {
     private RoleEntity getRole (Role role) {
 
         return this.roleRepository.getByRole(role);
+    }
+
+    public void deleteUser(Long id) { 
+       userRepository.deleteById(id);
     }
 }

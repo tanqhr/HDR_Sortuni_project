@@ -24,7 +24,7 @@
         <div class="form-top rounded-10 top"></div>
         <form id="reg-form" class="max-width-800px registration-form rounded-10 bottom"
               th:method="POST" th:action="@{/registration}"
-              th:object="${userRegistrationBM}">
+              th:object="${userRegistrationDTO}">
 
             <!-- First Name-->
             <div class="section">
@@ -74,7 +74,7 @@
                     <label for="display-name"
                            class="grid-label" th:text="#{register_u_name}">Username:</label>
                     <div class="grid-input angle-border">
-                        <input id="display-name" th:field="*{displayName}"
+                        <input id="display-name" th:field="*{username}"
                                type="text"
                                placeholder="Chef Johny" autocomplete="nickname"
                                title="This name will be displayed to other users"
@@ -83,8 +83,8 @@
                 </div>
                 <div class="grid-label-input-ctr">
                     <div class="errors-ctr grid-input">
-                        <ul th:if="${#fields.hasErrors('displayName')}">
-                            <li th:each="err : ${#fields.errors('displayName')}" th:text="${err}">Error</li>
+                        <ul th:if="${#fields.hasErrors('username')}">
+                            <li th:each="err : ${#fields.errors('username')}" th:text="${err}">Error</li>
                         </ul>
                     </div>
                 </div>
