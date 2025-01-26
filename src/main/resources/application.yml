@@ -39,3 +39,16 @@ cloud:
     whether:
       api-key: "30bbc14329b65a2e4a74dc84dc4a4765"
 
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: ${mail}
+    password: ${password}
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+        api:
+          to: ${business-mail}
