@@ -26,7 +26,7 @@
     <div sec:authorize="isAuthenticated()" class="content" th:text="#{greeting}">Welcome <span sec:authentication="name"></span>!> Nice to see you!</div>
     <nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
 
-    <footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+    <footer th:replace="~{index.html :: footer}"></footer>
 
 </body>
 
