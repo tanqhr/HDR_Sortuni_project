@@ -1249,11 +1249,40 @@ table {
 table, th, td {
     border: 1px solid #ccc;
 }
-.connect {
+
+.newsletter form {
+    margin: 0 auto;
+    padding: 12px 0 18px;
+    width: 200px;
+}
+ .newsletter form #email {
+    color: #cbc9c9;
+    background: #fff;
+    border: 0;
+    display: block;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    font-style: italic;
+    height: 18px;
+    line-height: 18px;
+    margin: 0;
+    padding: 0 5px;
+    width: 129px;
+}
+.newsletter form #submit1 {
     background: #202958;
-    padding: 20px 0;
+    border: 0;
+    color: #fff;
+    display: block;
+    float: left;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+    height: 18px;
+    line-height: 18px;
+    margin: 0;
+    padding: 0;
+    text-align: center;
+    width: 61px;
 }
-.contact ul li.mail span {
-    background-position: -8px -279px;
-    height: 17px;
-}
+

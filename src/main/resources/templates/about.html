@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{index.html :: head-include}">&nbsp;</th:block>
+    <title>Healthy deserts recipes :: About</title>
+</head>
+
+<body>
+
+<header th:replace="~{index.html :: header}">&nbsp;</header>
+<nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
+<div class="content"><a th:text="#{about}">Find healthy, delicious dessert recipes including brownies, cakes, cookies, and pie recipes. Healthier recipes, from our customers at HDR.
+    We are situated in SOFIA, BULGARIA.></a>
+  <div class="newsletter">
+        <b th:text="#{join_list}">If you want, you can join for our newsletter:</b>
+
+        <form>
+            <input type="text" name="email" value="Enter email-address" id="email">
+            <input type="submit" name="submit1"  th:value="#{sign_up}" id="submit1">
+        </form>
+    </div>
+</div>
+<nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
+<footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+</body>
+</html>

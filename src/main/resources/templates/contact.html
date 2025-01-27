@@ -11,13 +11,25 @@
 <body>
 
 <header th:replace="~{index.html :: header}">&nbsp;</header>
-
+<nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
 <div class="content">
     <span th:text="#{email}">email:</span>
             <a href="http://www.freewebsitetemplates.com/misc/contact">info@healthydesserts.com</a>
-
+    <form action="index.html">
+        <label for="name"><span th:text="#{contact_name}">name</span>
+            <input type="text" name="name" id="name">
+        </label>
+        <label for="email2"><span th:text="#{email}">email</span>
+            <input type="text" th:name="email2" id="email2">
+        </label>
+      <label for="message"><span th:text="#{contact_message}">message</span>
+            <textarea id="message" cols="20" rows="5"></textarea>
+        </label>
+        <input type="submit" name="submit2" id="submit2" th:value="#{contact_send}">
+    </form>
 
 </div>
+<nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
 <footer th:replace="~{index.html :: footer}">&nbsp;</footer>
 </body>
 

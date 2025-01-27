@@ -41,14 +41,20 @@ cloud:
 
   mail:
     host: smtp.gmail.com
-    port: 587
-    username: ${mail}
-    password: ${password}
+    port: 578
+    username: ${email_username}
+    password: ${password_email}
+    test-connection: true
     properties:
       mail:
         smtp:
-          auth: true
-          starttls:
-            enable: true
-        api:
-          to: ${business-mail}
+          auth=true:
+
+            properties:
+              mail:
+                smtp:
+                  starttls:
+                    enable=true:
+                      connectiontimeout: 5000  # Максимално време за изчакване на свързване (в милисекунди)
+                      timeout: 5000            # Максимално време за отговор
+                      writetimeout: 5000

@@ -22,17 +22,18 @@ public class HomeController {
         model.addAttribute("temperature", weatherData.path("main").path("temp").asText());
         model.addAttribute("wind", weatherData.path("wind").path("speed").asText());
 
-        String rain = "без валеж";
-        if (weatherData.has("rain") && weatherData.path("rain").has("1h")) {
-            rain = weatherData.path("rain").path("1h").asText();
-        }
-        model.addAttribute("rain", rain);
-
         return "home";
     }
+
     @GetMapping("/contact")
-    public String getContact(){
+    public String getContact() {
         return "contact";
 
-}
+    }
+
+    @GetMapping("/about")
+    public String getAbout() {
+        return "about";
+
+    }
 }
