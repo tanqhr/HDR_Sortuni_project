@@ -1286,3 +1286,13 @@ table, th, td {
     width: 61px;
 }
 
+/*input:valid{
+    border: green solid 2px;
+}
+
+input:invalid{
+    border: darkred solid 2px;
+}*/
+input:invalid:required{
+    background-image: linear-gradient(to right , azure, darkred);
+}

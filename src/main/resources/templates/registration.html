@@ -33,15 +33,17 @@
                            class="grid-label" th:text="#{register_f_name}">First Name:</label>
                     <div class="grid-input angle-border">
                         <input id="first-name" th:field="*{firstName}"
+                               th:errorclass="is-invalid"
                                type="text"
                                placeholder="John" autocomplete="given-name" title="Your given name"
-                               required>
+                               required
+                        minlength="3" maxlength="30">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
                     <div class="errors-ctr grid-input">
                         <ul th:if="${#fields.hasErrors('firstName')}">
-                            <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}">Error</li>
+                            <li th:each="err : ${#fields.errors('firstName')}" th:text="${err}">>Error</li>
                         </ul>
                     </div>
                 </div>
@@ -53,10 +55,11 @@
                     <label for="last-name"
                            class="grid-label" th:text="#{register_l_name}">Last Name:</label>
                     <div class="grid-input angle-border">
-                        <input id="last-name" th:field="*{lastName}"
+                        <input id="last-name" th:field="*{lastName}"\
                                type="text"
                                placeholder="Smith" autocomplete="family-name" title="Your family name"
-                               required>
+                               required
+                               minlength="3" maxlength="30">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
@@ -78,7 +81,8 @@
                                type="text"
                                placeholder="Chef Johny" autocomplete="nickname"
                                title="This name will be displayed to other users"
-                               required>
+                               required
+                               minlength="5" maxlength="30">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
@@ -98,7 +102,7 @@
                     <div class="grid-input angle-border">
                         <input id="email" th:field="*{email}"
                                type="email"
-                               placeholder="johny@example.com" autocomplete="email" title="Please enter a valid email"
+                               placeholder="mail@example.com" autocomplete="email" title="Please enter a valid email"
                                required>
                     </div>
                 </div>
@@ -120,7 +124,8 @@
                         <input id="password" th:field="*{password}"
                                type="password"
                                placeholder="Enter password here" autocomplete="new-password"
-                               required>
+                               required
+                               minlength="5" maxlength="30">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
@@ -142,7 +147,8 @@
                         <input id="password-confirm" th:field="*{confirmPassword}"
                                type="password"
                                placeholder="Repeat password here" autocomplete="new-password"
-                               required>
+                               required
+                               minlength="5" maxlength="30">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">

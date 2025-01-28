@@ -23,21 +23,19 @@ public class UserEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(nullable = false,name = "first_name",length = 30)
     private String firstName;
 
-    @Column
+    @Column(nullable = false,name = "last_name",length = 30)
     private String lastName;
 
-    @Column
+    @Column(nullable = false,length = 30)
     private String username;
 
-    @Column(unique = true)
-    @NotNull
+    @Column(unique = true, nullable = false)
     private String email;
 
-    @Column
-    @NotNull
+    @Column(nullable = false, length = 30)
     private String password;
 
     @Column
