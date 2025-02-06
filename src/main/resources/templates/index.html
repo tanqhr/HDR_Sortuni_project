@@ -45,8 +45,7 @@
 
         <div sec:authorize="isAuthenticated()">
             <form th:method="POST"
-                  th:action="@{/logout}"
-                  >
+                  th:action="@{/logout}">
                 <button type="submit" class="like-anchor" th:text="#{nav_bar_logout}">Logout</button>
             </form>
         </div>

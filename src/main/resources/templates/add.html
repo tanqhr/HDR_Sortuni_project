@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<!--suppress HtmlFormInputWithoutLabel, ThymeleafVariablesResolveInspection -->
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <th:block th:insert="~{index.html :: head-include}">&nbsp;</th:block>
+    <title>Healthy desserts recipes :: New Recipe</title>
+    <meta id="csrf" hidden th:name="${_csrf.getHeaderName()}" th:value="${_csrf.getToken()}">
+</head>
+
+<body>
+
+<header th:replace="~{index.html :: header}">&nbsp;</header>
+<nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
+
+<div class="content">
+
+    <p th:text="#{add_recipe}">Please fill in and submit the form below to create a recipe:</p>
+    <br>
+
+    <div class="content-vw shadowed rounded-10">
+
+        <!-- TOP -->
+
+        <form class="form-wrapper">
+            <form th:object="${recipeDto}" th:action="@{/recipes/add}" th:method="POST">
+                <div class="row">
+                    <div class="form-col">
+                        <div class="form__item">
+                            <label class="recipe__name" >Recipe Name<i class="red"></i></label>
+                            <input name="recipe-name"/>
+                        </div>
+                        <div class="form__item">
+                            <label >Short Description</label>
+                            <textarea name="short-desc" cols="30" rows="5"></textarea>
+                        </div>
+                        <div class="form__item">
+                            <label >Ingredients</label>
+                            <fieldset class="ingredients">
+                                <div id="ingredient-boxes" class="ingredients" name="ingredients">
+                                </div>
+
+                                    <div class="grid-label-input-ctr lbl80">
+                                        <input class="sign-plus grid-input"
+                                               type="button"
+                                               value="+"
+                                               onclick="addIngredient()">
+                                    </div>
+                                </fieldset>
+
+                        </div>
+                        </div>
+                    <div class="form-col">
+                        <div class="row">
+                            <div class="form__item">
+                                <label class="recipe__time">Prep Time</label>
+                                <input class="time__input" type="text"/>
+                            </div>
+                            <div class="form__item">
+                                <label class="recipe__time">Cooking Time</label>
+                                <input class="time__input" type="text"/>
+                            </div>
+                            <div class="form__item">
+                                <label class="recipe__time">Servings</label>
+                                <input class="time__input" type="text"/>
+                            </div>
+                        </div>
+                        <div class="form__item">
+                            <label >Photos</label>
+                            <div name="photos" rows="10">
+                            <div id="photos-ctr" class="photos-ctr">
+                                    <div class="photo-box">
+                                        <div class="grid-photo">
+                                            <input type="hidden">
+                                            <input type="hidden">
+                                            <label class="grid-photo-left">
+                                                <input class="grid-photo-left photo-primary"
+                                                       type="radio">
+                                            </label>
+                                            <div class="grid-photo-center">
+                                                <img class="photo-file">
+                                            </div>
+
+                                            <div class="grid-photo-right align-sign-minus">
+                                                <input type="button"
+                                                       class="sign-x"
+                                                       value="X">
+                                            </div>
+
+                                            <div class="grid-photo-bottom photo-filename"></div>
+                                        </div>
+                                    </div>
+
+
+                            <!-- Upload Photo Form -->
+                            <div id="new-photo-ctr" class="new-photo-ctr">
+
+
+                                <div class="grid-label-input-ctr lbl80 new-photo-file">
+                                    <label class="grid-label">File:</label>
+                                    <div class="double-border grid-input">
+                                        <input id="new-photo-file-data" class="new-photo-file-data"
+                                               type="file" accept="image/*">
+                                    </div>
+                                </div>
+
+                                <div class="grid-label-input-ctr lbl80">
+                                    <label for="new-photo-description-text"
+                                           id="new-photo-description-lbl" class="grid-label">Description:</label>
+                                    <div class="grid-input double-border">
+                                        <input id="new-photo-description-text"
+                                               type="text" placeholder="Photo Description">
+                                    </div>
+                                </div>
+
+                                <div id="new-photo-error-ctr"></div>
+
+                                <div class="grid-label-input-ctr lbl80">
+                                    <input id="upload-btn-new-photo" class="grid-input submit-btn" type="button" value="Upload"
+                                           onclick="uploadPhoto();">
+                                </div>
+                                </div>
+                            </div>
+                        <div class="form__item">
+                            <label >Preparation</label>
+                            <textarea name="cook-tips" rows="5"></textarea>
+                        </div>
+                                <input id="submit-btn-add-recipe" class="submit-btn"
+                                       type="submit" name="submit-btn" value="Submit">
+                    </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </form>
+</div>
+</div>
+
+    <nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
+    <footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+
+    <!-- JAVA SCRIPT -->
+    <script src="/javascript/recipe-add.js"></script>
+</body>
+
+</html>

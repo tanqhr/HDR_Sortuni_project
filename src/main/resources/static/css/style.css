@@ -423,15 +423,15 @@ select {
     width        : 100%;
 
     border       : 3px solid var(--color-primary);
-    border-top   : none;
-    border-right : none;
+    border-top   : 3px solid var(--color-primary);
+    border-right : 3px solid var(--color-primary);
 }
 
 .angle-border:focus-within {
 
     border       : 3px dashed var(--color-primary);
-    border-top   : none;
-    border-right : none;
+    border-top   : 3px dashed var(--color-primary);
+    border-right : 3px dashed var(--color-primary);
 }
 
 .angle-border input {
@@ -822,7 +822,7 @@ ul {
     justify-self : end;
 }
 
-.ingredient-box .angle-border .sign-x {
+.ingredient-box .double-border .sign-x {
 
     border     : 2px solid #35383D;
     width      : 30px;
@@ -832,7 +832,7 @@ ul {
 
 .ingredient-box:has(.sign-x:hover) {
 
-    outline : 2px var(--color-danger) dashed;
+    outline : 2px var(--color-danger);
 }
 
 .max-width-800px {
@@ -1296,3 +1296,40 @@ input:invalid{
 input:invalid:required{
     background-image: linear-gradient(to right , azure, darkred);
 }
+.form-wrapper {
+    padding: 10px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+}
+
+.red{
+    color: red;
+}
+
+.form-col {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    max-width: 1120;
+    padding-left: 10px;
+}
+
+.form__item {
+    display: flex;
+    flex-direction: column;
+    padding-top: 15px;
+}
+
+label {
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+.time__input {
+    max-width: 100px;
+    margin-right: 25px;
+}
+
