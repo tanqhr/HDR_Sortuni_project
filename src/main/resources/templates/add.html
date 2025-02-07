@@ -24,8 +24,8 @@
 
         <!-- TOP -->
 
-        <form class="form-wrapper">
-            <form th:object="${recipeDto}" th:action="@{/recipes/add}" th:method="POST">
+        <form th:object="${recipeDto}" th:action="@{/recipes/add}" th:method="POST" class="form-wrapper">
+
                 <div class="row">
                     <div class="form-col">
                         <div class="form__item">
@@ -33,38 +33,29 @@
                             <input name="recipe-name"/>
                         </div>
                         <div class="form__item">
-                            <label >Short Description</label>
-                            <textarea name="short-desc" cols="30" rows="5"></textarea>
-                        </div>
-                        <div class="form__item">
                             <label >Ingredients</label>
-                            <fieldset class="ingredients">
                                 <div id="ingredient-boxes" class="ingredients" name="ingredients">
-                                </div>
 
-                                    <div class="grid-label-input-ctr lbl80">
-                                        <input class="sign-plus grid-input"
+                                        <input
                                                type="button"
                                                value="+"
                                                onclick="addIngredient()">
-                                    </div>
-                                </fieldset>
 
-                        </div>
+                                </div>
                         </div>
                     <div class="form-col">
                         <div class="row">
                             <div class="form__item">
                                 <label class="recipe__time">Prep Time</label>
-                                <input class="time__input" type="text"/>
+                                <input class="time__input" type="text" placeholder="Minutes"/>
                             </div>
                             <div class="form__item">
                                 <label class="recipe__time">Cooking Time</label>
-                                <input class="time__input" type="text"/>
+                                <input class="time__input" type="text" placeholder="Minutes"/>
                             </div>
                             <div class="form__item">
                                 <label class="recipe__time">Servings</label>
-                                <input class="time__input" type="text"/>
+                                <input class="time__input" type="text" placeholder="Numbers"/>
                             </div>
                         </div>
                         <div class="form__item">
@@ -122,7 +113,7 @@
                                            onclick="uploadPhoto();">
                                 </div>
                                 </div>
-                            </div>
+
                         <div class="form__item">
                             <label >Preparation</label>
                             <textarea name="cook-tips" rows="5"></textarea>
@@ -131,10 +122,18 @@
                                        type="submit" name="submit-btn" value="Submit">
                     </div>
                         </div>
-                    </div>
-                </div>
-            </form>
+                        </div>
+
         </form>
+    </div>
+</div>
+<div>
+
+
+    <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="/images/chef-cartoon-vector.jpg" alt="..." />
+
+</div>
+</div>
 </div>
 </div>
 

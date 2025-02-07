@@ -22,11 +22,16 @@ import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
+import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.BINDING_RESULT_PATH;
 
 
 @Controller
 public class RecipeController {
+    @ModelAttribute("recipeDto")
+    public void initRecipeBM (Model model) {
 
+        model.addAttribute("recipeDto", new RecipeDto());
+    }
 
     @GetMapping("/recipes/add")
     public String addRecipe (Model model,
@@ -34,6 +39,28 @@ public class RecipeController {
 
         return "add";
     }
+
+    @PostMapping("/recipes/add")
+    public ModelAndView addRecipe (@Valid RecipeDto recipeDto,
+                                   BindingResult bindingResult,
+                                   RedirectAttributes redirectAttrs,
+                                   @AuthenticationPrincipal CurrentUser author) {
+
+
+        if (bindingResult.hasErrors()) {
+
+            redirectAttrs.addFlashAttribute("recipeDto", recipeDto);
+            redirectAttrs.addFlashAttribute(BINDING_RESULT_PATH.concat("recipeDto"), bindingResult);
+
+            return new ModelAndView("redirect:/recipes/add", HttpStatus.BAD_REQUEST);
+        }
+
+        final Long recipeId = recipeDto.getAuthorId();
+
+        return new ModelAndView("redirect:/recipes/%d".formatted(recipeId),
+                HttpStatus.FOUND);
+    }
+
 
 
 
