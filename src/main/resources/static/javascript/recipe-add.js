@@ -37,15 +37,15 @@ function addIngredient() {
         <div class="grid-ingredient angle-border">
             <input type="text" 
                    id="ingredient-name-${ingredientIdx}" class="ingredient-name left" 
-                   name="listIngredientBM[${ingredientIdx}].ingredientName"
+                   name="listIngredientDto[${ingredientIdx}].ingredientName"
                    placeholder="Name">
             <input type="text" 
                    id="ingredient-quantity-${ingredientIdx}" class="ingredient-quantity center" 
-                   name="listIngredientBM[${ingredientIdx}].quantity"
+                   name="listIngredientDto[${ingredientIdx}].quantity"
                    placeholder="Quantity">
             <input list="units" 
                    id="ingredient-unit-${ingredientIdx}" class="ingredient-unit right" 
-                   name="listIngredientBM[${ingredientIdx}].unitName"
+                   name="listIngredientDto[${ingredientIdx}].unitName"
                    placeholder="Unit">
             <input type="button" 
                    class="sign-x btn-x" 
@@ -159,7 +159,7 @@ function addPhoto(photo) {
         `
         <div id="photo-box-${fileIdx}" class="grid-photo">
             <input type="hidden" id="photo-id-${fileIdx}" name="recipeBM.photoVMList[${fileIdx}].tempId}" value="${photo.tempId}">
-            <input type="hidden" name="recipeBM.photoVMList[${fileIdx}].tempRecipeId}" value="${photo.tempRecipeId}">
+            <input type="hidden" name="recipeDto.photoVMList[${fileIdx}].tempRecipeId}" value="${photo.tempRecipeId}">
             
             <label class="grid-photo-left">
                 <input id="photo-primary-${photo.tempId}" class="grid-photo-left photo-primary" 

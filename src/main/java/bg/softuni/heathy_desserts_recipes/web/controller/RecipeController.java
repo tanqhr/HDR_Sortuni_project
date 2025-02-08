@@ -3,6 +3,8 @@ package bg.softuni.heathy_desserts_recipes.web.controller;
 
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeDto;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
+import bg.softuni.heathy_desserts_recipes.service.RecipeService;
+import bg.softuni.heathy_desserts_recipes.service.utility.RecipeForm;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,12 +29,24 @@ import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.BINDING_
 
 @Controller
 public class RecipeController {
+    private final RecipeForm recipeForm;
+    private final RecipeService recipeService;
+
+    public RecipeController(RecipeForm recipeForm, RecipeService recipeService) {
+        this.recipeForm = recipeForm;
+        this.recipeService = recipeService;
+    }
+
     @ModelAttribute("recipeDto")
-    public void initRecipeBM (Model model) {
+    public void initRecipe (Model model) {
 
         model.addAttribute("recipeDto", new RecipeDto());
     }
+    @ModelAttribute("units")
+    public void initUnits (Model model) {
 
+        model.addAttribute("units", recipeForm.getDistinctUnitNames());
+    }
     @GetMapping("/recipes/add")
     public String addRecipe (Model model,
                              @AuthenticationPrincipal CurrentUser author) {

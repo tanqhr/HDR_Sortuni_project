@@ -30,11 +30,36 @@
                     <div class="form-col">
                         <div class="form__item">
                             <label class="recipe__name" >Recipe Name<i class="red"></i></label>
-                            <input name="recipe-name"/>
+                            <input name="recipe-name" id="title-input" class="input"
+                                   type="text" th:field="*{title}"/>
                         </div>
                         <div class="form__item">
                             <label >Ingredients</label>
                                 <div id="ingredient-boxes" class="ingredients" name="ingredients">
+                                    <datalist id="units">
+                                        <option th:each="unit : ${units}" th:text="${unit}">Some unit</option>
+                                    </datalist>
+                                    <th:block th:if="${recipeDto.listIngredientDto}"
+                                              th:each="ingredient, itemStat : ${recipeDto.listIngredientDto}">
+                                    <input type="text" th:value="${ingredient.getIngredientName}"
+                                           th:id="|ingredient-name-${itemStat.index}|" class="ingredient-name left"
+                                           th:name="|listIngredientDto[${itemStat.index}].ingredientName|"
+                                           placeholder="Name">
+
+                                    <input type="text" th:value="${ingredient.getQuantity}"
+                                           th:id="|ingredient-quantity-${itemStat.index}|"
+                                           class="ingredient-quantity center"
+                                           th:name="|listIngredientDto[${itemStat.index}].quantity|"
+                                           placeholder="Quantity">
+
+                                        <input list="units" th:value="${ingredient.getUnitName}"
+                                               th:id="|ingredient-unit-${itemStat.index}|" class="ingredient-unit right"
+                                               th:name="|listIngredientDto[${itemStat.index}].unitName|"
+                                               placeholder="Unit">
+                                    <input type="button" value="X"
+                                           class="sign-x btn-x"
+                                           th:onclick="|removeElement('ingredient-box-${itemStat.index}')|">
+                                    </th:block>
 
                                         <input
                                                type="button"
@@ -59,30 +84,43 @@
                             </div>
                         </div>
                         <div class="form__item">
-                            <label >Photos</label>
+                            <label>Photos</label>
                             <div name="photos" rows="10">
                             <div id="photos-ctr" class="photos-ctr">
-                                    <div class="photo-box">
+                                <th:block th:each="photoViewModel, upStat : *{photoVMList}">
+                                    <div th:id="|photo-box-${upStat.index}|" class="photo-box">
                                         <div class="grid-photo">
-                                            <input type="hidden">
-                                            <input type="hidden">
+                                            <input type="hidden"
+                                                   th:id="|photo-id-${upStat.index}|"
+                                                   th:field="*{photoVMList[__${upStat.index}__].tempId}">
+                                            <input type="hidden"
+                                                   th:field="*{photoVMList[__${upStat.index}__].tempRecipeId}">
+
                                             <label class="grid-photo-left">
-                                                <input class="grid-photo-left photo-primary"
-                                                       type="radio">
+                                                <input th:id="|photo-primary-${upStat.index}|" class="grid-photo-left photo-primary"
+                                                       th:name="primaryPhotoId"
+                                                       th:value="*{photoVMList[__${upStat.index}__].tempId}"
+                                                       type="radio" th:checked="${photoViewModel.tempId == recipeDto.primaryPhotoId}">
                                             </label>
+
                                             <div class="grid-photo-center">
-                                                <img class="photo-file">
+                                                <img class="photo-file"
+                                                     th:src="*{photoVMList[__${upStat.index}__].url}" src=""
+                                                     th:alt="*{photoVMList[__${upStat.index}__].description}" alt="">
                                             </div>
 
                                             <div class="grid-photo-right align-sign-minus">
                                                 <input type="button"
                                                        class="sign-x"
-                                                       value="X">
+                                                       value="X"
+                                                       th:onclick="removePhoto(__${upStat.index}__)">
                                             </div>
 
-                                            <div class="grid-photo-bottom photo-filename"></div>
+                                            <div class="grid-photo-bottom photo-filename"
+                                                 th:text="*{photoVMList[__${upStat.index}__].filename}"></div>
                                         </div>
                                     </div>
+                                </th:block>
 
 
                             <!-- Upload Photo Form -->
@@ -113,6 +151,8 @@
                                            onclick="uploadPhoto();">
                                 </div>
                                 </div>
+
+
 
                         <div class="form__item">
                             <label >Preparation</label>
