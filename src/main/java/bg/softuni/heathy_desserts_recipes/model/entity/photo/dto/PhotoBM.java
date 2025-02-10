@@ -14,7 +14,7 @@ import java.util.UUID;
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-public class PhotoDto {
+public class PhotoBM {
 
     @NotNull(message = "Please select file!")
     private MultipartFile fileData;

@@ -24,7 +24,10 @@
 
         <!-- TOP -->
 
-        <form th:object="${recipeDto}" th:action="@{/recipes/add}" th:method="POST" class="form-wrapper">
+        <form id="recipe-add-form" class="add-form" th:object="${recipeDto}" th:action="@{/recipes/add}"
+              th:method="POST" enctype="multipart/form-data">
+            <input id="recipe-bm-id" type="hidden" th:field="*{tempRecipeId}">
+            <input id="author-id" type="hidden" th:field="*{authorId}">
 
                 <div class="row">
                     <div class="form-col">
@@ -84,30 +87,32 @@
                             </div>
                         </div>
                         <div class="form__item">
-                            <label>Photos</label>
+                            <label><i class="legend-lbl">Photos</i></label>
+                            <div id="photos-error-ctr" class="errors-ctr"></div>
                             <div name="photos" rows="10">
+
                             <div id="photos-ctr" class="photos-ctr">
-                                <th:block th:each="photoViewModel, upStat : *{photoVMList}">
+                                <th:block th:each="photoVM, upStat : *{photoVMList}">
                                     <div th:id="|photo-box-${upStat.index}|" class="photo-box">
-                                        <div class="grid-photo">
+                                        <div class="photos">
                                             <input type="hidden"
                                                    th:id="|photo-id-${upStat.index}|"
                                                    th:field="*{photoVMList[__${upStat.index}__].tempId}">
-                                            <input type="hidden"
+                                             <input type="hidden"
                                                    th:field="*{photoVMList[__${upStat.index}__].tempRecipeId}">
 
                                             <label class="grid-photo-left">
                                                 <input th:id="|photo-primary-${upStat.index}|" class="grid-photo-left photo-primary"
                                                        th:name="primaryPhotoId"
                                                        th:value="*{photoVMList[__${upStat.index}__].tempId}"
-                                                       type="radio" th:checked="${photoViewModel.tempId == recipeDto.primaryPhotoId}">
+                                                       type="radio" th:checked="${photoVM.tempId == recipeBM.primaryPhotoId}">
                                             </label>
-
-                                            <div class="grid-photo-center">
-                                                <img class="photo-file"
-                                                     th:src="*{photoVMList[__${upStat.index}__].url}" src=""
-                                                     th:alt="*{photoVMList[__${upStat.index}__].description}" alt="">
-                                            </div>
+                                                <div class="grid-photo-center">
+                                                    <img class="photo-file"
+                                                         th:src="*{photoVMList[__${upStat.index}__].url}" src=""
+                                                         th:alt="*{photoVMList[__${upStat.index}__].description}" alt=""
+                                                         >
+                                                </div>
 
                                             <div class="grid-photo-right align-sign-minus">
                                                 <input type="button"
@@ -121,8 +126,8 @@
                                         </div>
                                     </div>
                                 </th:block>
-
-
+                            </div>
+                            </div>
                             <!-- Upload Photo Form -->
                             <div id="new-photo-ctr" class="new-photo-ctr">
 
@@ -152,8 +157,6 @@
                                 </div>
                                 </div>
 
-
-
                         <div class="form__item">
                             <label >Preparation</label>
                             <textarea name="cook-tips" rows="5"></textarea>
@@ -161,8 +164,6 @@
                                 <input id="submit-btn-add-recipe" class="submit-btn"
                                        type="submit" name="submit-btn" value="Submit">
                     </div>
-                        </div>
-                        </div>
 
         </form>
     </div>

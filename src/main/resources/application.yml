@@ -5,6 +5,7 @@ spring:
     password: "12345"
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+
   jpa:
     defer-datasource-initialization: true
     open-in-view: true

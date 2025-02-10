@@ -37,34 +37,50 @@ public class RecipeController {
         this.recipeService = recipeService;
     }
 
-    @ModelAttribute("recipeDto")
-    public void initRecipe (Model model) {
 
-        model.addAttribute("recipeDto", new RecipeDto());
-    }
+
     @ModelAttribute("units")
-    public void initUnits (Model model) {
+    public void initUnits(Model model) {
 
         model.addAttribute("units", recipeForm.getDistinctUnitNames());
     }
+
+    @ModelAttribute("recipeDto")
+    public void initRecipe(Model model) {
+
+        model.addAttribute("recipeDto", new RecipeDto());
+    }
+
     @GetMapping("/recipes/add")
-    public String addRecipe (Model model,
-                             @AuthenticationPrincipal CurrentUser author) {
+    public String addRecipe(Model model,
+                            @AuthenticationPrincipal CurrentUser author) {
+        final RecipeDto recipeDto = (RecipeDto) model.getAttribute("recipeDto");
+        if (null != recipeDto &&
+                null == recipeDto.getTempRecipeId()) {
+
+            recipeDto
+                    .setTempRecipeId(UUID.randomUUID())
+                    .setAuthorId(author.getId());
+        }
 
         return "add";
     }
 
     @PostMapping("/recipes/add")
-    public ModelAndView addRecipe (@Valid RecipeDto recipeDto,
-                                   BindingResult bindingResult,
-                                   RedirectAttributes redirectAttrs,
-                                   @AuthenticationPrincipal CurrentUser author) {
+    public ModelAndView addRecipe(@Valid RecipeDto recipeDto,
+                                  BindingResult bindingResult,
+                                  RedirectAttributes redirectAttributes,
+                                  @AuthenticationPrincipal CurrentUser author) {
+
+        this.recipeForm.process(recipeDto);
+
+        checkUniqueTitle(bindingResult);
 
 
         if (bindingResult.hasErrors()) {
 
-            redirectAttrs.addFlashAttribute("recipeDto", recipeDto);
-            redirectAttrs.addFlashAttribute(BINDING_RESULT_PATH.concat("recipeDto"), bindingResult);
+            redirectAttributes.addFlashAttribute("recipeDto", recipeDto);
+            redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH.concat("recipeDto"), bindingResult);
 
             return new ModelAndView("redirect:/recipes/add", HttpStatus.BAD_REQUEST);
         }
@@ -75,7 +91,16 @@ public class RecipeController {
                 HttpStatus.FOUND);
     }
 
+    private static void checkUniqueTitle (BindingResult bindingResult) {
 
+        if (bindingResult.getGlobalErrors()
+                .stream()
+                .anyMatch(error -> Objects.requireNonNull(error.getCode()).contains("UniqueRecipeForUser"))) {
 
+            bindingResult.addError(new FieldError("recipeDto",
+                    "title",
+                    "You already have recipe with the same title."));
+        }
+    }
 
 }
