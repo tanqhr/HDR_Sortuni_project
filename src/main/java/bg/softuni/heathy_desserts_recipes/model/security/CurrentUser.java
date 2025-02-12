@@ -1,5 +1,7 @@
 package bg.softuni.heathy_desserts_recipes.model.security;
 
+import bg.softuni.heathy_desserts_recipes.common.enums.ContextAuthority;
+import bg.softuni.heathy_desserts_recipes.common.enums.ContextRole;
 import bg.softuni.heathy_desserts_recipes.common.enums.Role;
 import bg.softuni.heathy_desserts_recipes.model.entity.role.RoleEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
@@ -29,6 +31,9 @@ public class CurrentUser extends User {
     private String lastName;
 
     private String username;
+    private Map<ContextAuthority, Boolean> contextAuthorities;
+
+    private Map<ContextRole, Boolean> contextRoles;
 
     public CurrentUser (String username, String password, Collection<? extends GrantedAuthority> authorities) {
 
@@ -66,6 +71,35 @@ public class CurrentUser extends User {
                 .map(entity -> ROLE_PREFIX.concat(entity.getRole().name()))
                 .toArray(String[]::new));
     }
+
+    public void resetContextRoles () {
+
+        this.contextRoles.put(ContextRole.AUTHOR, Boolean.FALSE);
+        this.contextRoles.put(ContextRole.FOLLOWER, Boolean.FALSE);
+        this.contextRoles.put(ContextRole.BLOCKED, Boolean.FALSE);
+    }
+
+    public void resetContextAuthorities () {
+
+        this.contextAuthorities.put(ContextAuthority.VIEW, Boolean.FALSE);
+        this.contextAuthorities.put(ContextAuthority.EDIT, Boolean.FALSE);
+        this.contextAuthorities.put(ContextAuthority.DELETE, Boolean.FALSE);
+    }
+    public void put (ContextRole role, Boolean value) {
+
+        this.contextRoles.put(role, value);
+    }
+
+    public void put (ContextAuthority authority, Boolean value) {
+
+        this.contextAuthorities.put(authority, value);
+    }
+
+    public Boolean has (ContextAuthority contextAuthority) {
+
+        return this.contextAuthorities.get(contextAuthority);
+    }
+
 
 }
 

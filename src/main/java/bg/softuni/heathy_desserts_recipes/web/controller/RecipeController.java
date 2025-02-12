@@ -3,10 +3,8 @@ package bg.softuni.heathy_desserts_recipes.web.controller;
 
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeDto;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
-import bg.softuni.heathy_desserts_recipes.service.RecipeService;
 import bg.softuni.heathy_desserts_recipes.service.utility.RecipeForm;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -30,11 +28,9 @@ import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.BINDING_
 @Controller
 public class RecipeController {
     private final RecipeForm recipeForm;
-    private final RecipeService recipeService;
 
-    public RecipeController(RecipeForm recipeForm, RecipeService recipeService) {
+    public RecipeController(RecipeForm recipeForm) {
         this.recipeForm = recipeForm;
-        this.recipeService = recipeService;
     }
 
 
@@ -50,7 +46,17 @@ public class RecipeController {
 
         model.addAttribute("recipeDto", new RecipeDto());
     }
+    private static void checkUniqueTitle (BindingResult bindingResult) {
 
+        if (bindingResult.getGlobalErrors()
+                .stream()
+                .anyMatch(error -> Objects.requireNonNull(error.getCode()).contains("UniqueRecipeForUser"))) {
+
+            bindingResult.addError(new FieldError("recipeDto",
+                    "title",
+                    "You already have recipe with the same title."));
+        }
+    }
     @GetMapping("/recipes/add")
     public String addRecipe(Model model,
                             @AuthenticationPrincipal CurrentUser author) {
@@ -84,23 +90,22 @@ public class RecipeController {
 
             return new ModelAndView("redirect:/recipes/add", HttpStatus.BAD_REQUEST);
         }
-
-        final Long recipeId = recipeDto.getAuthorId();
+        final Long recipeId = this.recipeForm.save(recipeDto, author.getId());
 
         return new ModelAndView("redirect:/recipes/%d".formatted(recipeId),
                 HttpStatus.FOUND);
     }
 
-    private static void checkUniqueTitle (BindingResult bindingResult) {
+        @GetMapping("/recipes/{id}")
+        public String getRecipe (@PathVariable Long id,
+                Model model,
+                @AuthenticationPrincipal CurrentUser currentUser) {
 
-        if (bindingResult.getGlobalErrors()
-                .stream()
-                .anyMatch(error -> Objects.requireNonNull(error.getCode()).contains("UniqueRecipeForUser"))) {
+            model.addAttribute("recipeViewModel", this.recipeForm.getRecipeVMForUser(id, currentUser));
+            model.addAttribute("contextAuthorities", currentUser.getContextAuthorities());
+            model.addAttribute("contextRoles", currentUser.getContextRoles());
 
-            bindingResult.addError(new FieldError("recipeDto",
-                    "title",
-                    "You already have recipe with the same title."));
+            return "show";
         }
     }
 
-}

@@ -11,6 +11,7 @@ import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
+import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -45,10 +46,10 @@ public class RecipeEntity {
     private List<IngredientEntity> ingredients;
 
     @Column
-    private Duration preparationTime;
+    private Integer preparationTime;
 
     @Column
-    private Duration cookingTime;
+    private Integer cookingTime;
 
     @Column
     private Integer servings;
@@ -77,48 +78,23 @@ public class RecipeEntity {
         this.photos = new ArrayList<>();
         this.ingredients = new ArrayList<>();
 
-        this.preparationTime = Duration.ZERO;
-        this.cookingTime = Duration.ZERO;
-    }
-
-    public RecipeEntity addPreparationHours (int hours) {
-
-        this.preparationTime = this.preparationTime.plusHours(hours);
-
-        return this;
-    }
-
-    public RecipeEntity addPreparationMinutes (int minutes) {
-
-        this.preparationTime = this.preparationTime.plusMinutes(minutes);
-
-        return this;
+        this.preparationTime = 0;
+        this.cookingTime = 0;
     }
 
     public RecipeEntity resetPreparationTime () {
 
-        this.preparationTime = Duration.ZERO;
+        this.preparationTime = 0;
 
         return this;
     }
 
-    public RecipeEntity addCookingHours (int hours) {
 
-        this.cookingTime = this.cookingTime.plusHours(hours);
 
-        return this;
-    }
-
-    public RecipeEntity addCookingMinutes (int minutes) {
-
-        this.cookingTime = this.cookingTime.plusMinutes(minutes);
-
-        return this;
-    }
 
     public RecipeEntity resetCookingTime () {
 
-        this.cookingTime = Duration.ZERO;
+        this.cookingTime = 0;
 
         return this;
     }

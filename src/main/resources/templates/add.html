@@ -75,15 +75,18 @@
                         <div class="row">
                             <div class="form__item">
                                 <label class="recipe__time">Prep Time</label>
-                                <input class="time__input" type="text" placeholder="Minutes"/>
+                                <input class="time__input" type="text" placeholder="Minutes" name="preparationMinutes"
+                                       th:field="*{preparationMinutes}"/>
                             </div>
                             <div class="form__item">
                                 <label class="recipe__time">Cooking Time</label>
-                                <input class="time__input" type="text" placeholder="Minutes"/>
+                                <input class="time__input" type="text" placeholder="Minutes" name="cookingMinutes"
+                                       th:field="*{cookingMinutes}"/>
                             </div>
                             <div class="form__item">
                                 <label class="recipe__time">Servings</label>
-                                <input class="time__input" type="text" placeholder="Numbers"/>
+                                <input class="time__input" type="text" placeholder="Numbers" name="servings"
+                                       th:field="*{servings}"/>
                             </div>
                         </div>
                         <div class="form__item">
@@ -103,9 +106,9 @@
 
                                             <label class="grid-photo-left">
                                                 <input th:id="|photo-primary-${upStat.index}|" class="grid-photo-left photo-primary"
-                                                       th:name="primaryPhotoId"
+                                                       th:name="recipeDto.primaryPhotoId"
                                                        th:value="*{photoVMList[__${upStat.index}__].tempId}"
-                                                       type="radio" th:checked="${photoVM.tempId == recipeBM.primaryPhotoId}">
+                                                       type="radio" th:checked="${photoVM.tempId == recipeDto.primaryPhotoId}">
                                             </label>
                                                 <div class="grid-photo-center">
                                                     <img class="photo-file"
@@ -159,7 +162,14 @@
 
                         <div class="form__item">
                             <label >Preparation</label>
-                            <textarea name="cook-tips" rows="5"></textarea>
+                            <textarea name="cook-tips" rows="5" th:field="*{description}"></textarea>
+                            <th:block th:each="err : ${#fields.errors('description')}">
+                                <div class="errors-ctr">
+                                    <ul>
+                                        <li th:text="${err}">Error</li>
+                                    </ul>
+                                </div>
+                            </th:block>
                         </div>
                                 <input id="submit-btn-add-recipe" class="submit-btn"
                                        type="submit" name="submit-btn" value="Submit">

@@ -53,7 +53,7 @@ public class RecipeDto {
     @NotEmpty(message = "Description is required.")
     private String description;
 
-    @NotNull(message = "Visibility status is required.")
+
     private VisibilityStatus visibilityStatus;
 
     private Long authorId;
@@ -68,11 +68,9 @@ public class RecipeDto {
         return new RecipeEntity()
                 .setTitle(this.getTitle())
                 .resetPreparationTime()
-                .addPreparationHours(this.getPreparationHours())
-                .addPreparationMinutes(this.getPreparationMinutes())
+                .setPreparationTime(this.getPreparationMinutes())
                 .resetCookingTime()
-                .addCookingHours(this.getCookingHours())
-                .addCookingMinutes(this.getCookingMinutes())
+                .setCookingTime(this.getCookingMinutes())
                 .setServings(this.getServings())
                 .setDescription(this.getDescription())
                 .setVisibilityStatus(this.getVisibilityStatus());
