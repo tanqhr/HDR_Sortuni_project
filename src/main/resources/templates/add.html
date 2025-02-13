@@ -44,6 +44,7 @@
                                     </datalist>
                                     <th:block th:if="${recipeDto.listIngredientDto}"
                                               th:each="ingredient, itemStat : ${recipeDto.listIngredientDto}">
+
                                     <input type="text" th:value="${ingredient.getIngredientName}"
                                            th:id="|ingredient-name-${itemStat.index}|" class="ingredient-name left"
                                            th:name="|listIngredientDto[${itemStat.index}].ingredientName|"
@@ -62,6 +63,13 @@
                                     <input type="button" value="X"
                                            class="sign-x btn-x"
                                            th:onclick="|removeElement('ingredient-box-${itemStat.index}')|">
+                                        <div th:if="*{listIngredientDto[__${itemStat.index}__].ingredientName.isEmpty()}"
+                                             th:class="errors-ctr">
+                                            <ul>
+                                                <li th:errors="*{listIngredientDto[__${itemStat.index}__].ingredientName}">Error
+                                                </li>
+                                            </ul>
+                                        </div>
                                     </th:block>
 
                                         <input

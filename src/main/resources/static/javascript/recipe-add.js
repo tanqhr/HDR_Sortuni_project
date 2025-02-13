@@ -287,9 +287,9 @@ function renumberIngredientBoxes() {
     let ingredientUnits = document.getElementsByClassName("ingredient-unit");
 
     for (let idx = 0; idx < ingredientBoxes.length; idx++) {
-        ingredientNames[idx].name = `listIngredientBM[${idx}].ingredientName`;
-        ingredientQuantities[idx].name = `listIngredientBM[${idx}].quantity`;
-        ingredientUnits[idx].name = `listIngredientBM[${idx}].unitName`;
+        ingredientNames[idx].name = `listIngredientDto[${idx}].ingredientName`;
+        ingredientQuantities[idx].name = `listIngredientDto[${idx}].quantity`;
+        ingredientUnits[idx].name = `listIngredientDto[${idx}].unitName`;
     }
 }
 

@@ -42,6 +42,7 @@ public class InitDataService implements CommandLineRunner {
 
         if (this.roleRepository.findAll().isEmpty()) initRoles();
         if (this.userRepository.findAll().isEmpty()) initUsers();
+        if (this.unitRepository.findAll().isEmpty()) initUnits();
     }
 
     public void initRoles () {

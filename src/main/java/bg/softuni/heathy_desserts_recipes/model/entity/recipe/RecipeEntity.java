@@ -35,14 +35,12 @@ public class RecipeEntity {
 
     @OneToMany(
             mappedBy = "recipe",
-            cascade = CascadeType.ALL
-    )
+            cascade = CascadeType.ALL)
     private List<PhotoEntity> photos;
 
     @OneToMany(
             mappedBy = "recipe",
-            cascade = CascadeType.ALL
-    )
+            cascade = CascadeType.ALL)
     private List<IngredientEntity> ingredients;
 
     @Column
