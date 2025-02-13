@@ -46,10 +46,10 @@ public class RecipeEntity {
     private List<IngredientEntity> ingredients;
 
     @Column
-    private Integer preparationTime;
+    private Duration preparationTime;
 
     @Column
-    private Integer cookingTime;
+    private Duration cookingTime;
 
     @Column
     private Integer servings;
@@ -78,23 +78,49 @@ public class RecipeEntity {
         this.photos = new ArrayList<>();
         this.ingredients = new ArrayList<>();
 
-        this.preparationTime = 0;
-        this.cookingTime = 0;
+        this.preparationTime= Duration.ZERO;
+        this.cookingTime = Duration.ZERO;
     }
+
 
     public RecipeEntity resetPreparationTime () {
 
-        this.preparationTime = 0;
+        this.preparationTime = Duration.ZERO;
+
+        return this;
+    }
+    public RecipeEntity addPreparationHours (int hours) {
+
+        this.preparationTime = this.preparationTime.plusHours(hours);
+
+        return this;
+    }
+
+    public RecipeEntity addPreparationMinutes (int minutes) {
+
+        this.preparationTime = this.preparationTime.plusMinutes(minutes);
+
+        return this;
+    }
+
+    public RecipeEntity addCookingHours (int hours) {
+
+        this.cookingTime = this.cookingTime.plusHours(hours);
+
+        return this;
+    }
+
+    public RecipeEntity addCookingMinutes (int minutes) {
+
+        this.cookingTime = this.cookingTime.plusMinutes(minutes);
 
         return this;
     }
 
 
-
-
     public RecipeEntity resetCookingTime () {
 
-        this.cookingTime = 0;
+        this.cookingTime = Duration.ZERO;
 
         return this;
     }
@@ -120,4 +146,6 @@ public class RecipeEntity {
 
         return this.likes.remove(userEntity);
     }
+
+
 }

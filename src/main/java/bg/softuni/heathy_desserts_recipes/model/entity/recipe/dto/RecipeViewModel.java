@@ -58,12 +58,12 @@ public class RecipeViewModel {
                         .map(IngredientViewModel::fromEntity)
                         .toList())
                 .setPreparationTime("%02d:%02d".formatted(
-                        entity.getPreparationTime(),
-                        entity.getPreparationTime()
+                        entity.getPreparationTime().toHoursPart(),
+                        entity.getPreparationTime().toMinutesPart()
                 ))
                 .setCookingTime("%02d:%02d".formatted(
-                        entity.getCookingTime(),
-                        entity.getCookingTime()
+                        entity.getCookingTime().toHoursPart(),
+                        entity.getCookingTime().toMinutesPart()
                 ))
                 .setServings(entity.getServings())
                 .setLikes(entity.getLikes().stream()

@@ -29,7 +29,7 @@ public class RecipeAdd {
     private String coverPhotoUrl;
 
     @Column
-    private Integer cookingTime;
+    private Duration cookingTime;
 
     public static RecipeAdd fromEntity (RecipeEntity entity) {
 
