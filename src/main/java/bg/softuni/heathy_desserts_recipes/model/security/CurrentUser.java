@@ -38,6 +38,10 @@ public class CurrentUser extends User {
     public CurrentUser (String username, String password, Collection<? extends GrantedAuthority> authorities) {
 
         super(username, password, authorities);
+        this.contextAuthorities = new HashMap<>();
+        this.contextRoles = new HashMap<>();
+        resetContextAuthorities();
+        resetContextRoles();
     }
 
     public static CurrentUser fromEntity (UserEntity userEntity) {

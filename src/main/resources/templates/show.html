@@ -56,17 +56,18 @@
             <div class="row">
                 <div class="col-xl-12">
                     <div class="recepies_text">
-                        <h3>Preparation <p th:text="|${recipeViewModel.getDescription()} |"></p></h3>
+                        <h3>Preparation <a th:text="|${recipeViewModel.getDescription()} |"></a></h3>
                     </div>
                 </div>
             </div>
+    <br><br><br>
+
 
     <!--Danger Area-->
             <div class="content">
-               <div class="danger-area"
-                     >
+               <div class="danger-area" th:if="${canDelete}">
                    <p><a class="padded-10 border-dashed-2 danger-text"
-                       href="">Delete</a></p>
+                         th:href="@{/recipes/delete/{id}(id=${recipeViewModel.id})}">Delete</a></p>
                 </div>
             </div>
     </div>

@@ -3,6 +3,7 @@ package bg.softuni.heathy_desserts_recipes.web.controller;
 
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeDto;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
+import bg.softuni.heathy_desserts_recipes.service.RecipeService;
 import bg.softuni.heathy_desserts_recipes.service.utility.RecipeForm;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -11,14 +12,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.util.List;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -28,9 +25,11 @@ import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.BINDING_
 @Controller
 public class RecipeController {
     private final RecipeForm recipeForm;
+    private final RecipeService recipeService;
 
-    public RecipeController(RecipeForm recipeForm) {
+    public RecipeController(RecipeForm recipeForm, RecipeService recipeService) {
         this.recipeForm = recipeForm;
+        this.recipeService = recipeService;
     }
 
 
@@ -104,8 +103,20 @@ public class RecipeController {
             model.addAttribute("recipeViewModel", this.recipeForm.getRecipeVMForUser(id, currentUser));
             model.addAttribute("contextAuthorities", currentUser.getContextAuthorities());
             model.addAttribute("contextRoles", currentUser.getContextRoles());
+            model.addAttribute("canDelete", this.recipeService.checkCanDelete(currentUser, id));
 
             return "show";
         }
+
+    @RequestMapping(value = "/recipes/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
+    public String deleteRecipe(@PathVariable Long id,
+                               @AuthenticationPrincipal CurrentUser currentUser) {
+        if (recipeService.checkCanDelete(currentUser, id)) {
+            this.recipeService.deleteRecipe(id);
+            return "redirect:/index";
+        } else {
+            return "redirect:/recipes/{id}";
+        }
+    }
     }
 
