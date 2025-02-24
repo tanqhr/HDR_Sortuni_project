@@ -143,4 +143,17 @@ public class RecipeForm {
         return recipeService.isAvailableRecipeTitle(title, author.getId());
     }
 
+    public List<RecipeAdd> getAllRecipes (CurrentUser currentUser) {
+
+        return this.recipeService.getAll(currentUser);
+    }
+
+    public List<RecipeAdd> getOwnRecipes (CurrentUser currentUser) {
+
+        return this.recipeService.getOwn(currentUser);
+    }
+
 }
+
+
+

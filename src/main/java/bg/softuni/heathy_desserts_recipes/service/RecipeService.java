@@ -3,11 +3,16 @@ package bg.softuni.heathy_desserts_recipes.service;
 
 import bg.softuni.heathy_desserts_recipes.common.error.exceptions.RecipeNotFoundException;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeAdd;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeDto;
+import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.repository.RecipeRepository;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 @Service
@@ -53,11 +58,11 @@ public class RecipeService {
         return currentUser.getId().equals(recipeEntity.getAuthor().getId());
     }
 
-    public boolean checkCanView(CurrentUser currentUser, Long recipeId) {
+    public boolean checkCanView (CurrentUser currentUser, Long recipeId) {
 
         final RecipeEntity recipeEntity = findById(recipeId);
 
-        return checkCanView(currentUser, recipeEntity.getId());
+        return checkCanView(currentUser, recipeEntity);
     }
 
     public Boolean checkCanEdit(CurrentUser currentUser, long recipeId) {
@@ -86,6 +91,39 @@ public class RecipeService {
 @Transactional
     public void deleteRecipe(Long id) {
         recipeRepository.deleteById(id);
+    }
+
+    public List<String> findAllRecipeTitlesByAuthor (UserEntity author) {
+        return this.recipeRepository
+                .findAllByAuthor(author)
+                .stream()
+                .map(RecipeEntity::getTitle)
+                .toList();
+    }
+
+    private static Boolean checkCanView (CurrentUser currentUser, RecipeEntity recipeEntity) {
+
+        if (isAuthor(currentUser, recipeEntity) || currentUser.isAdmin()) {
+
+            return Boolean.TRUE;
+        }
+        return Boolean.FALSE;
+    }
+
+
+
+    public List<RecipeAdd> getAll (CurrentUser currentUser) {
+
+        return this.recipeRepository.findAll().stream()
+                .map(RecipeAdd::fromEntity)
+                .toList();
+    }
+
+    public List<RecipeAdd> getOwn (CurrentUser currentUser) {
+
+        return this.recipeRepository.findByAuthor_Id(currentUser.getId()).stream()
+                .map(RecipeAdd::fromEntity)
+                .toList();
     }
 }
 
