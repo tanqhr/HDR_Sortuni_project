@@ -5,17 +5,23 @@ import bg.softuni.heathy_desserts_recipes.model.entity.role.RoleEntity;
 import jakarta.annotation.Nonnull;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 @Getter
 @Setter
 @Accessors(chain = true)
 @Entity
+
 @Table(name = "users")
 public class UserEntity {
 
@@ -41,6 +47,7 @@ public class UserEntity {
     @Column
     private boolean active;
 
+
     @ManyToMany
     private List<RoleEntity> roles;
 
@@ -65,12 +72,20 @@ public class UserEntity {
     )
     private List<UserEntity> blockList;
 
-    public UserEntity () {
 
+   public UserEntity () {
         this.roles = new ArrayList<>();
-        this.likedRecipes = new ArrayList<>();
-        this.followers = new ArrayList<>();
+       this.likedRecipes = new ArrayList<>();
+       this.followers = new ArrayList<>();
         this.blockList = new ArrayList<>();
+    }
+
+    public UserEntity(String firstName, String lastName, String username, String email, String password) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.username = username;
+        this.email = email;
+        this.password = password;
     }
 
     public UserEntity addRoles (RoleEntity... roles) {
@@ -102,4 +117,6 @@ public class UserEntity {
 
         return this.blockList.contains(candidate);
     }
+
+
 }

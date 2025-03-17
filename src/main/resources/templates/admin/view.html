@@ -84,8 +84,11 @@
             </th>
             <th class="th-sm text-center"><b>Moderator</b>
             </th>
-            <th class="th-sm text-center"><b>Admin</b>
             </th>
+            <th class="th-sm text-center"><b>Inactive</b>
+            </th>
+            <th class="th-sm text-center"><b>Admin</b>
+
         </tr>
         </thead>
         <tbody>
@@ -104,16 +107,34 @@
             </td>
             <td class="text-align-center">
                 <label>
-                    <input th:id="|is-admin-${user.id}|"
-                           type="checkbox" th:checked="${user.isAdmin()}"
-                           disabled>
+                    <input th:id="|Deactive-${user.id}|"
+                           type="checkbox" th:checked="${user.isActive()}"
+                           th:onclick="|toggleIsActive(${user.id})|"
+                           th:disabled="${user.isAdmin()}">
                 </label>
+            </td>
+            <td class="text-align-center">
+                <label>
+                    <input th:action="@{/admin/moderators/{id}/promote(id=${user.id})}" th:method="POST"
+                           type="checkbox" th:checked="${user.isAdmin()}" disabled>
+                </label>
+            </td>
+            <td>
+                <form th:action="@{/admin/moderators/{id}/promote(id=${user.id})}" th:method="POST">
+                    <button type="submit" class="btn-reject">Moderate</button>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/admin/users/{id}/deactivate(id=${user.id})}" th:method="POST">
+                    <button type="submit" class="btn-reject">Activate</button>
+                </form>
             </td>
             <td>
                 <form th:action="@{/admin/users/delete/{id}(id=${user.id})}" th:method="GET">
                     <button type="submit" class="btn-reject">Delete</button>
                 </form>
             </td>
+
         </tr>
         </tbody>
 

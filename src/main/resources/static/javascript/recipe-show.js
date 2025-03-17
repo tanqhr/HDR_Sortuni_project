@@ -19,7 +19,7 @@ function toggleLiked() {
     let recipeId = document.getElementById('recipe-id').getAttribute('value');
     let pathEnd = (isLiked) ? 'like' : 'unlike';
 
-    fetch(`/api/recipes/${recipeId}/${pathEnd}`, {
+    fetch(` `, {
         method: "POST",
         headers: {
             [csrfHeaderName]: csrfHeaderToken
@@ -40,9 +40,21 @@ function toggleLiked() {
         });
 }
 
-function deleteRecipe() {
-    //TODO Delete Recipe
-    console.log('Implement me please!')
-}
+
+
+    function onDeleteRecipe(event) {
+        let recipeId=event.target.dataset.id
+        let requestOptions = {
+            method: 'DELETE'
+        }
+
+        fetch(`http://localhost:8080/api/recipes/${recipeId}`, requestOptions)
+            .then(response => response.json())
+            .catch(error => console.log('error', error))
+        
+    }
+
+
 
 window.addEventListener("load", showLiked);
+document.getElementById("submit-btn-delete-recipe").addEventListener("click", onDeleteRecipe);

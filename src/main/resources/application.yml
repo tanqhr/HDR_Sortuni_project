@@ -38,7 +38,7 @@ cloud:
     mocked: false
 
     whether:
-      api-key: "30bbc14329b65a2e4a74dc84dc4a4765"
+      api-key: ${whether.api-key}
 
   mail:
     host: smtp.gmail.com

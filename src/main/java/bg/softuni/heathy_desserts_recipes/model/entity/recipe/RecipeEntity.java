@@ -75,7 +75,6 @@ public class RecipeEntity {
         this.likes = new HashSet<>();
         this.photos = new ArrayList<>();
         this.ingredients = new ArrayList<>();
-
         this.preparationTime= Duration.ZERO;
         this.cookingTime = Duration.ZERO;
     }

@@ -28,12 +28,24 @@
                 <div class="receipe-slider owl-carousel">
 
             <div th:each="photo, photoStat : ${recipeViewModel.listPhotoVM}">
+
                 <img th:src="${photo.url}" alt="" width="100%">
             </div>
                 </div>
+
+                        <input id="isLiked" type="hidden" th:value="${recipeViewModel.isLiked}">
+                <form th:method="POST" th:action="@{/like/{id}(id = ${recipeViewModel.getId()})}">
+                    <button type="submit">
+                        <img th:if="${recipeViewModel.isLiked()}" class="mr-2 " src="/images/liked.png" alt="" width="20px" height="20px">
+                        <img th:unless="${recipeViewModel.isLiked()}" class="mr-2 " src="/images/like.png" alt="" width="20px" height="20px">
+
+                    </button>
+
+                        <a id="likes-counter" th:text="${recipeViewModel.likes.size()}">&nbsp;</a>
+
                 <div class="col-xl-6 col-md-6">
                     <div class="recepies_info">
-                        <h1 th:text="|${recipeViewModel.title} |">Dragon tiger phoenix</h1>
+                        <h1 th:text="|${recipeViewModel.title} |">Healthy dessert recipe</h1>
                         <p>INGREDIENTS </p>
                         <div class="custom-control custom-checkbox" th:each="ingredient, ingrStat : ${recipeViewModel.listIngredientVM}">
                             <input type="checkbox" class="custom-control-input" id="customCheck1" th:text="${ingredient.ingredientName}">

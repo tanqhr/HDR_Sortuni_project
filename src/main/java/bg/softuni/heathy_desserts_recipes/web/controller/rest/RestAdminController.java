@@ -32,64 +32,6 @@ public class RestAdminController {
         return this.userService.getAllUsers();
     }
 
-    @PostMapping("/api/admin/users/{userId}/activate")
-    public ResponseEntity<Object> activateUser (@AuthenticationPrincipal CurrentUser requester,
-                                                @PathVariable Long userId) {
 
-        this.userService.activate(userId, requester);
-
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
-    }
-
-    @PostMapping("/api/admin/users/{userId}/inactivate")
-    public ResponseEntity<Object> inactivateUser (@AuthenticationPrincipal CurrentUser requester,
-                                                  @PathVariable Long userId) {
-
-        this.userService.inactivate(userId, requester);
-
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
-    }
-
-    @PostMapping("/api/admin/moderators/{userId}/promote")
-    public ResponseEntity<Object> promoteModerator (@AuthenticationPrincipal CurrentUser requester,
-                                                    @PathVariable Long userId) {
-
-        this.userService.promoteModerator(userId, requester);
-
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
-    }
-
-    @PostMapping("/api/admin/moderators/{userId}/demote")
-    public ResponseEntity<Object> demoteModerator (@AuthenticationPrincipal CurrentUser requester,
-                                                   @PathVariable Long userId) {
-
-        this.userService.demoteModerator(userId, requester);
-
-        return ResponseEntity
-                .status(HttpStatus.NO_CONTENT)
-                .build();
-    }
-
-    @ExceptionHandler({NotAuthorizedException.class, IllegalTargetException.class})
-    public ResponseEntity<Object> handleUnauthorized (RuntimeException e) {
-
-        return ResponseEntity
-                .status(HttpStatus.UNAUTHORIZED)
-                .body(Message.from(e.getMessage()));
-    }
-
-    @ExceptionHandler(IllegalStateException.class)
-    public ResponseEntity<Object> handleConflict (IllegalStateException e) {
-
-        return ResponseEntity
-                .status(HttpStatus.CONFLICT)
-                .body(Message.from(e.getMessage()));
-    }
 
 }

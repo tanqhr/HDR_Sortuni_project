@@ -5,25 +5,32 @@ import bg.softuni.heathy_desserts_recipes.common.error.exceptions.RecipeNotFound
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeAdd;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeDto;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeShortDto;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeViewModel;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
+import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.UserShortViewModel;
 import bg.softuni.heathy_desserts_recipes.model.repository.RecipeRepository;
+import bg.softuni.heathy_desserts_recipes.model.repository.UserRepository;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @Service
 public class RecipeService {
 
     private final RecipeRepository recipeRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public RecipeService(RecipeRepository recipeRepository) {
+    public RecipeService(RecipeRepository recipeRepository, UserRepository userRepository) {
 
         this.recipeRepository = recipeRepository;
+        this.userRepository = userRepository;
     }
 
     public boolean isAvailableRecipeTitle(String recipeTitle, Long principalId) {
@@ -64,7 +71,17 @@ public class RecipeService {
 
         return checkCanView(currentUser, recipeEntity);
     }
+    public Boolean checkCanAdd(CurrentUser currentUser) {
 
+        Optional<UserEntity> userEntity = userRepository.findById(currentUser.getId());
+
+        if (userEntity.get().isActive()) {
+
+            return Boolean.TRUE;
+        }
+
+        return Boolean.FALSE;
+    }
     public Boolean checkCanEdit(CurrentUser currentUser, long recipeId) {
 
         final RecipeEntity recipeEntity = findById(recipeId);
@@ -81,7 +98,7 @@ public class RecipeService {
 
         final RecipeEntity recipeEntity = findById(recipeId);
 
-        if (isAuthor(currentUser, recipeEntity) || currentUser.isAdmin()) {
+        if (isAuthor(currentUser, recipeEntity) || currentUser.isAdmin() || currentUser.isModerator()) {
 
             return Boolean.TRUE;
         }
@@ -125,5 +142,78 @@ public class RecipeService {
                 .map(RecipeAdd::fromEntity)
                 .toList();
     }
+
+
+    private UserEntity createNewAuthor(String authorName) {
+        return userRepository.save(new UserEntity().setUsername(authorName));
+    }
+
+    public void deleteById(Long recipeId) {
+        recipeRepository.
+                findById(recipeId).
+                ifPresent(recipeRepository::delete);
+    }
+
+    public Optional<RecipeShortDto> findRecipeById(Long recipeId) {
+        return recipeRepository.
+                findById(recipeId).
+                map(this::map);
+    }
+
+    public List<RecipeShortDto> getAllRecipes() {
+        return recipeRepository.findAll().
+                stream().
+                map(this::map).
+                toList();
+    }
+
+    private RecipeShortDto map(RecipeEntity recipeEntity) {
+
+        UserShortViewModel userDto = new UserShortViewModel().
+        setUsername(recipeEntity.getAuthor().getUsername());
+
+        return new RecipeShortDto().
+                setId(recipeEntity.getId()).
+                setAuthorName(userDto.getUsername()) .
+                setDescription(recipeEntity.getDescription()).
+                setTitle(recipeEntity.getTitle());
+    }
+
+
+
+    @Transactional
+    public void like(Long id, long recipeId) {
+        Optional<UserEntity> userOpt = userRepository.findById(id);
+
+        if (userOpt.isEmpty()) {
+            return;
+        }
+
+        Optional<RecipeEntity> recipeOpt = recipeRepository.findById(recipeId);
+        if (recipeOpt.isEmpty()|| userOpt.get().getUsername().equals(recipeOpt.get().getAuthor().getUsername())) {
+            return;
+        }
+        if (!userOpt.get().getLikedRecipes().contains(recipeOpt.get())) {
+            userOpt.get().likeRecipe(recipeOpt.get());
+            userRepository.save(userOpt.get());
+        }
+
+        else {
+            userOpt.get().unlikeRecipe(recipeOpt.get());
+            userRepository.save(userOpt.get());
+        }
+    }
+
+    public List<RecipeShortDto> getAllUsers () {
+
+        return this.recipeRepository.findAll()
+                .stream()
+                .map(RecipeShortDto::fromEntity)
+                .toList();
+    }
+
 }
+
+
+
 

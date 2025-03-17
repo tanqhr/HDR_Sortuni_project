@@ -1,19 +1,17 @@
 package bg.softuni.heathy_desserts_recipes.service;
 
 import bg.softuni.heathy_desserts_recipes.common.enums.Role;
-import bg.softuni.heathy_desserts_recipes.common.error.exceptions.IllegalTargetException;
 import bg.softuni.heathy_desserts_recipes.common.error.exceptions.NotAuthorizedException;
 import bg.softuni.heathy_desserts_recipes.common.error.exceptions.UserNotFoundException;
 import bg.softuni.heathy_desserts_recipes.model.entity.role.RoleEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
-import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.UserRegistrationDTO;
-import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.UserShortViewModel;
-import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.UserViewModel;
+import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.*;
 import bg.softuni.heathy_desserts_recipes.model.repository.RoleRepository;
 import bg.softuni.heathy_desserts_recipes.model.repository.UserRepository;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -27,16 +25,18 @@ public class UserService {
     private final RoleRepository roleRepository;
     private final ModelMapper userMapper;
     private final PasswordEncoder encoder;
+    private final ModelMapper modelMapper;
 
     public UserService (UserRepository userRepository,
                         RoleRepository roleRepository,
                         @Qualifier("userMapper") ModelMapper userMapper,
-                        PasswordEncoder passwordEncoder) {
+                        PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
 
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userMapper = userMapper;
         this.encoder = passwordEncoder;
+        this.modelMapper = modelMapper;
     }
 
 
@@ -59,9 +59,9 @@ public class UserService {
                 .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found!"));
     }
 
-    public UserShortViewModel findUserProfileById (Long id) {
+    public UserRestDTO findUserProfileById (Long id) {
 
-        return UserShortViewModel.fromEntity(this.findById(id));
+        return UserRestDTO.fromEntity(this.findById(id));
     }
 
     public boolean existsByEmail (String email) {
@@ -92,72 +92,41 @@ public class UserService {
         return UserViewModel.fromEntity(findById(userId));
     }
 
-    public void activate (Long userId, CurrentUser requester) {
+    public void deactivate(Long id) {
 
-        ensureAdminOrModerator(requester);
 
-        final UserEntity userEntity = this.findById(userId);
+        final UserEntity userEntity = this.findById(id);
 
         if (userEntity.isActive()) {
-            throw new IllegalStateException("Trying to activate an active user!");
+            userEntity.setActive(Boolean.FALSE);
+
+            this.userRepository.saveAndFlush(userEntity);
+        } else {
+
+            userEntity.setActive(Boolean.TRUE);
+
+            this.userRepository.saveAndFlush(userEntity);
         }
-
-        userEntity.setActive(Boolean.TRUE);
-
-        this.userRepository.saveAndFlush(userEntity);
     }
 
-    public void inactivate (Long userId, CurrentUser requester) {
 
+    public void promoteModerator (Long id){
 
-        ensureAdminOrModerator(requester);
-
-        final UserEntity userEntity = this.findById(userId);
-
-        if (!userEntity.isActive()) {
-            throw new IllegalStateException("Trying to inactivate an inactive user!");
-        }
-
-        if (hasRole(userEntity, Role.ADMIN)) {
-            throw new IllegalTargetException("Operation not allowed for target: admin");
-        }
-
-        userEntity.setActive(Boolean.FALSE);
-
-        this.userRepository.saveAndFlush(userEntity);
-    }
-
-    public void promoteModerator (Long userId, CurrentUser requester) {
-
-        ensureAdmin(requester);
-
-        final UserEntity userEntity = this.findById(userId);
+        final UserEntity userEntity = this.findById(id);
 
         if (hasRole(userEntity, Role.MODERATOR)) {
-            throw new IllegalStateException("Trying to promote an user who already has role: moderator!");
+            final RoleEntity roleEntity = getRole(Role.MODERATOR);
+            userEntity.removeRoles(roleEntity);
+            this.userRepository.saveAndFlush(userEntity);
+        }else {
+
+            final RoleEntity roleEntity = getRole(Role.MODERATOR);
+            userEntity.addRoles(roleEntity);
+
+            this.userRepository.saveAndFlush(userEntity);
         }
-
-        final RoleEntity roleEntity = getRole(Role.MODERATOR);
-        userEntity.addRoles(roleEntity);
-
-        this.userRepository.saveAndFlush(userEntity);
     }
 
-    public void demoteModerator (Long userId, CurrentUser requester) {
-
-        ensureAdmin(requester);
-
-        final UserEntity userEntity = this.findById(userId);
-
-        if (!hasRole(userEntity, Role.MODERATOR)) {
-            throw new IllegalStateException("Trying to demote an user who does not have role: moderator!");
-        }
-
-        final RoleEntity roleEntity = getRole(Role.MODERATOR);
-        userEntity.removeRoles(roleEntity);
-
-        this.userRepository.saveAndFlush(userEntity);
-    }
 
     private static void ensureAdminOrModerator (CurrentUser requester) {
 
@@ -183,7 +152,54 @@ public class UserService {
         return this.roleRepository.getByRole(role);
     }
 
-    public void deleteUser(Long id) { 
+    public void deleteUser(Long id) {
        userRepository.deleteById(id);
     }
+
+
+    public long createUser(UserRestDTO newUser) {
+
+        UserEntity newUserEntity = new UserEntity().
+                setFirstName(newUser.getFirstName()).
+                setLastName(newUser.getLastName()).
+                setUsername(newUser.getUsername()).
+                setEmail(newUser.getEmail());
+
+        return userRepository.save(newUserEntity).getId();
+    }
+
+   // public UserUpdateDto editUser(UserUpdateDto userUpdateBindingModel, String loggedInUserEmail) {
+
+   //     UserEntity loggedInUser = userRepository.findUserByEmail(loggedInUserEmail)
+//                .orElseThrow();
+
+  //      UserEntity userToEdit;
+
+   //     userToEdit = loggedInUser;
+
+
+     //   if (!userToEdit.getFirstName().equals(userUpdateBindingModel.getFirstName())) {
+     //       userToEdit.setFirstName(userUpdateBindingModel.getFirstName()
+    //                .toUpperCase());
+    //    }
+
+     //   if (!userToEdit.getLastName().equals(userUpdateBindingModel.getLastName())) {
+     //       userToEdit.setLastName(userUpdateBindingModel.getLastName());
+     //   }
+
+    //    if (!userToEdit.getUsername().equals(userUpdateBindingModel.getUsername())) {
+    //       userToEdit.setUsername(userUpdateBindingModel.getUsername());
+    //    }
+
+
+   //     return null;
+  //  }
+
+
+    public UserEntity getUserByUsername(String username) {
+        return userRepository.findUserByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+    }
 }
+
+

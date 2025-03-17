@@ -101,6 +101,13 @@
         <a th:href="@{/recipes/add}" href=#>
             <span class="dot">&nbsp;</span>
             <span th:text="#{home_add_recipes}">Link</span>
+        </a>
+
+    </div>
+    <div sec:authorize="isAuthenticated()" class="left-link-ctr">
+        <a th:href="@{/users/profile}" href=#>
+            <span class="dot">&nbsp;</span>
+            <span th:text="#{home_profile}">Link</span>
             <img class="product-item-img mx-auto d-flex rounded img-fluid mb-3 mb-lg-0" src="/images/recipes.png" alt="..." />
         </a>
 
@@ -118,7 +125,7 @@
     <a th:href="@{/terms}" th:text="#{footer_privacy_policy}">Terms & Privacy</a>
     <a th:href="@{/contact}" th:text="#{footer_contact_us}">Contact us</a>
     <a th:href="@{/about}" th:text="#{footer_about_us}">About us</a>
-    <a href=# th:text="#{footer_faq}">FAQ</a>
+    <a th:href="@{/faq}" th:text="#{footer_faq}">FAQ</a>
 </footer>
 
 </body>

@@ -144,7 +144,6 @@ public class RecipeForm {
     }
 
     public List<RecipeAdd> getAllRecipes (CurrentUser currentUser) {
-
         return this.recipeService.getAll(currentUser);
     }
 

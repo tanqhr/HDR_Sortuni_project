@@ -6,6 +6,7 @@ import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoViewModel;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Getter;
@@ -36,14 +37,17 @@ public class RecipeDto {
 
 
     @PositiveOrZero(message = "Preparation minutes should not be negative.")
-    private int preparationMinutes;
+    @NotNull
+    private Integer preparationMinutes;
 
 
     @PositiveOrZero(message = "Cooking minutes should not be negative.")
-    private int cookingMinutes;
+    @NotNull
+    private Integer cookingMinutes;
 
     @Positive(message = "Servings should be positive number.")
-    private int servings;
+    @NotNull
+    private Integer servings;
 
     @NotEmpty(message = "Description is required.")
     private String description;
@@ -70,5 +74,6 @@ public class RecipeDto {
                 .setDescription(this.getDescription())
                 .setVisibilityStatus(this.getVisibilityStatus());
     }
+
    
 }

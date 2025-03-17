@@ -1,8 +1,10 @@
 package bg.softuni.heathy_desserts_recipes.web.controller;
 
 
+import bg.softuni.heathy_desserts_recipes.common.error.exceptions.NotAuthorizedException;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeAdd;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeDto;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeViewModel;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
 import bg.softuni.heathy_desserts_recipes.service.RecipeService;
 import bg.softuni.heathy_desserts_recipes.service.utility.RecipeForm;
@@ -77,25 +79,26 @@ public class RecipeController {
     public ModelAndView addRecipe(@Valid RecipeDto recipeDto,
                                   BindingResult bindingResult,
                                   RedirectAttributes redirectAttributes,
-                                  @AuthenticationPrincipal CurrentUser author) {
+                                  @AuthenticationPrincipal CurrentUser author, Model model) {
 
         this.recipeForm.process(recipeDto);
 
         checkUniqueTitle(bindingResult);
 
 
-        if (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()|| recipeService.checkCanAdd(author)) {
 
             redirectAttributes.addFlashAttribute("recipeDto", recipeDto);
-            redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH.concat("recipeDto"), bindingResult);
-
-            return new ModelAndView("redirect:/recipes/add", HttpStatus.BAD_REQUEST);
+            redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH+ recipeDto, bindingResult);
+          return (ModelAndView) model.addAttribute(HttpStatus.BAD_REQUEST);
+           // return new ModelAndView("redirect:/recipes/add", HttpStatus.BAD_REQUEST);
         }
         final Long recipeId = this.recipeForm.save(recipeDto, author.getId());
 
         return new ModelAndView("redirect:/recipes/%d".formatted(recipeId),
                 HttpStatus.FOUND);
     }
+
 
         @GetMapping("/recipes/{id}")
         public String getRecipe (@PathVariable Long id,
@@ -138,5 +141,14 @@ public class RecipeController {
 
         return "all";
     }
+
+    @PostMapping("/like/{recipeId}")
+    public ModelAndView addLike(@PathVariable long recipeId, @AuthenticationPrincipal CurrentUser currentUser) {
+
+        recipeService.like(currentUser.getId(), recipeId);
+
+        return new ModelAndView("redirect:/recipes/{recipeId}");
+    }
+
     }
 

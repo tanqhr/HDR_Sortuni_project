@@ -49,8 +49,9 @@
                            required minlength="5" maxlength="30">
                 </div>
             </div>
-            <div th:if="${param.error}" class="grid-label-input-ctr">
-                <h4 th:text="'Bad Credentials'" class="error-text grid-input">Error</h4>
+
+            <div th:if="${param.error}" class="errors alert alert-danger">
+                <h4 th:text="#{invalid_login}" class="error-text grid-input">Error</h4>
             </div>
         </form>
         <button id="login-submit-btn" class="submit-btn"
