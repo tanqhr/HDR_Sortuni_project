@@ -1,0 +1,47 @@
+<!doctype html>
+                                <html lang="en"
+                                      xmlns="http://www.w3.org/1999/xhtml"
+                                      xmlns:th="http://www.thymeleaf.org">
+
+                                <head>
+                                    <th:block th:insert="~{index.html :: head-include}">&nbsp;</th:block>
+                                    <title>Healthy desserts recipes</title>
+                                </head>
+
+                                <body>
+
+                                <header th:replace="~{index.html :: header}">&nbsp;</header>
+
+                                <nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
+                                <div class="content">
+                                    <th:block th:each="recipe : ${allRecipes}">
+                                        <div class="recepie_area inc_padding">
+                                            <div class="container">
+                                                <div class="row">
+                                                    <div class="col-xl-4 col-lg-4 col-md-6">
+                                                        <div class="single_recepie text-center">
+                                                            <div class="recepie_thumb">
+                                                                <img th:src="${recipe.getCoverPhotoUrl()}" src="" width="150">
+                                                                <h3 th:text="${recipe.getTitle()}">
+                                                                     Vegan iceCream</h3>
+                            <span>Time Needs in Minutes:</span>
+                            <p th:text="${recipe.getCookingTime.getSeconds()/60}"> Mins</p>
+                            <a th:onclick="|location.href ='/recipes/__${recipe.entityId}__'|" class="line_btn">View Full Recipe</a>
+                        </div>
+                    </div>
+                </div>
+</div>
+            </div>
+        </div>
+    </th:block>
+
+</div>
+
+<nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
+
+<footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+
+
+</body>
+
+</html>

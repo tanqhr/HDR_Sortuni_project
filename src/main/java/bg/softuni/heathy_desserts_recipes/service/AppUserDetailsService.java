@@ -29,7 +29,7 @@ public class AppUserDetailsService implements UserDetailsService {
     }
 
    @Override
-    @Transactional
+   @Transactional
   public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
      return this.userRepository

@@ -6,9 +6,12 @@ import bg.softuni.heathy_desserts_recipes.common.error.exceptions.UserNotFoundEx
 import bg.softuni.heathy_desserts_recipes.model.entity.role.RoleEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.*;
+import bg.softuni.heathy_desserts_recipes.model.entity.user.view.UserProfileViewModel;
 import bg.softuni.heathy_desserts_recipes.model.repository.RoleRepository;
 import bg.softuni.heathy_desserts_recipes.model.repository.UserRepository;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -26,6 +29,7 @@ public class UserService {
     private final ModelMapper userMapper;
     private final PasswordEncoder encoder;
     private final ModelMapper modelMapper;
+
 
     public UserService (UserRepository userRepository,
                         RoleRepository roleRepository,
@@ -168,37 +172,19 @@ public class UserService {
         return userRepository.save(newUserEntity).getId();
     }
 
-   // public UserUpdateDto editUser(UserUpdateDto userUpdateBindingModel, String loggedInUserEmail) {
 
-   //     UserEntity loggedInUser = userRepository.findUserByEmail(loggedInUserEmail)
-//                .orElseThrow();
+@Transactional
+    public void updateUser(Long id, UserUpdateDto userDetails) {
+        UserEntity user = userRepository.findById(id).orElseThrow(() -> new EntityNotFoundException("User not found"));
 
-  //      UserEntity userToEdit;
+        user.setUsername(userDetails.getUsername());
+        user.setFirstName(userDetails.getFirstName());
+        user.setLastName(userDetails.getLastName());
+        userRepository.saveAndFlush(user);
+    }
 
-   //     userToEdit = loggedInUser;
-
-
-     //   if (!userToEdit.getFirstName().equals(userUpdateBindingModel.getFirstName())) {
-     //       userToEdit.setFirstName(userUpdateBindingModel.getFirstName()
-    //                .toUpperCase());
-    //    }
-
-     //   if (!userToEdit.getLastName().equals(userUpdateBindingModel.getLastName())) {
-     //       userToEdit.setLastName(userUpdateBindingModel.getLastName());
-     //   }
-
-    //    if (!userToEdit.getUsername().equals(userUpdateBindingModel.getUsername())) {
-    //       userToEdit.setUsername(userUpdateBindingModel.getUsername());
-    //    }
-
-
-   //     return null;
-  //  }
-
-
-    public UserEntity getUserByUsername(String username) {
-        return userRepository.findUserByEmail(username)
-                .orElseThrow(() -> new UsernameNotFoundException("User not found!"));
+    public UserProfileViewModel getUserInfo(Long id) {
+        return modelMapper.map(userRepository.findById(id), UserProfileViewModel.class);
     }
 }
 
