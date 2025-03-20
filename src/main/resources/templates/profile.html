@@ -15,10 +15,9 @@
 
 
 
-<div class="container py-5">
+<div class="containers-py-5">
     <div class="row justify-content-center">
         <div class="col-md-6">
-            <br><br>
            <div class="flip-card mx-auto">
                 <div class="flip-card-inner">
                     <div th:object="${user}" class="flip-card-front">
@@ -26,18 +25,18 @@
                         <h3 th:text="*{firstName}" >Jane </h3>
                         <h3 th:text="*{lastName}" >Doe</h3>
                         <p th:text="*{username}">Username</p>
-                        <p class="mt-3">
-                            <span class="waving-hand">👋</span> Hover to EDIT!
+                            <span class="waving-hand">👋</span>
+                        <p class="mt-3" th:text="#{profile_hover}">
                         </p>
                     </div>
-                    <div class="flip-card-back" >
-                        <h3>Edit user:</h3>
+                    <div class="flip-card-back">
+                        <h3 th:text="#{profile_edit}">EDIT USER:</h3>
                         <br>
                         <form class="main-form mt-3 mx-auto col-ms-8 col-md-6 d-flex flex-column justify-content-center"
                               th:action="@{/users/edit/{id} (id=${user.id})}"
                               th:method="POST"
                               th:object="${user}">
-                        <p><label for="edit-username">Change username:</label>
+                        <p><label for="edit-username" th:text="#{profile_username}">Change Username:</label>
                             <input
                                     type="username"
                                     placeholder=""
@@ -48,7 +47,7 @@
                                     th:field="*{username}"
                                     th:value="${user.username} ?: *{username}"/>
                         </p>
-                            <p> <label for="edit-firstName">Change First name:</label>
+                            <p> <label for="edit-firstName" th:text="#{profile_firstName}">Change First name:</label>
                         <input
                                 type="firstName"
 
@@ -60,7 +59,7 @@
                                 th:field="*{firstName}"
                                 th:value="${user.firstName} ?: *{firstName}"/>
                             </p>
-                            <p> <label for="edit-lastName">Change Last name:</label>
+                            <p> <label for="edit-lastName" th:text="#{profile_lastName}">Change Last name:</label>
                             <input
                                 type="lastName"
 
@@ -75,9 +74,9 @@
 
                         <br>
                         <div class="buttons">
-                            <button onclick="history.back()" class="btn btn-outline-primary px-4">BACK</button>
+                            <button onclick="history.back()" class="btn btn-outline-primary px-4" th:text="#{profile_back}">BACK</button>
                             <!--                            <button class="btn btn-primary px-4 ms-3">Contact</button>-->
-                            <button class="btn btn-outline-primary px-4">SAVE</button>
+                            <button class="btn btn-outline-primary px-4" th:text="#{profile_save}">SAVE</button>
                         </div>
                         </form>
                     </div>

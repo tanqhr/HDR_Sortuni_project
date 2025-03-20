@@ -5,6 +5,7 @@ import bg.softuni.heathy_desserts_recipes.common.error.exceptions.NotAuthorizedE
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeAdd;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeDto;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeViewModel;
+import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
 import bg.softuni.heathy_desserts_recipes.service.RecipeService;
 import bg.softuni.heathy_desserts_recipes.service.utility.RecipeForm;
@@ -86,7 +87,7 @@ public class RecipeController {
         checkUniqueTitle(bindingResult);
 
 
-        if (bindingResult.hasErrors()|| recipeService.checkCanAdd(author)) {
+        if (bindingResult.hasErrors()|| !recipeService.checkCanAdd(author)) {
 
             redirectAttributes.addFlashAttribute("recipeDto", recipeDto);
             redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH+ recipeDto, bindingResult);

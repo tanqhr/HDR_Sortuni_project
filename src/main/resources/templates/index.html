@@ -39,7 +39,7 @@
         <div sec:authorize="isAuthenticated()"
              class="displayName">
                     <span th:text="#{logged_in}"></span>
-                        <a th:href="@{/users/me}"><span sec:authentication="name">Kosta</span></a>
+                        <a th:href="@{/users/me}"><th:block sec:authentication="name">Kosta</th:block></a>
 
         </div>
 

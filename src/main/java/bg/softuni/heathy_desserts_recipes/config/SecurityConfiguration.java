@@ -13,6 +13,10 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.DelegatingSecurityContextRepository;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
+import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
+import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
 @EnableWebSecurity
@@ -20,7 +24,7 @@ public class SecurityConfiguration {
 
 
     @Bean
-    public SecurityFilterChain filterChain (HttpSecurity httpSecurity) throws Exception {
+    public SecurityFilterChain filterChain (HttpSecurity httpSecurity, SecurityContextRepository securityContextRepository) throws Exception {
 
         httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
@@ -49,7 +53,11 @@ public class SecurityConfiguration {
                             .deleteCookies("JSESSIONID")
                             .clearAuthentication(true)
                             .invalidateHttpSession(true);
+                }).securityContext(securityContextConfigurer -> {
+                   securityContextConfigurer.
+                securityContextRepository(securityContextRepository);
                 });
+
 
         return httpSecurity.build();
     }
@@ -68,5 +76,12 @@ public class SecurityConfiguration {
     public UserDetailsService userDetailsService(UserRepository userRepository) {
         return new AppUserDetailsService(userRepository);
     }
+        @Bean
+        public SecurityContextRepository securityContextRepository() {
+            return new DelegatingSecurityContextRepository(
+                    new RequestAttributeSecurityContextRepository(),
+                    new HttpSessionSecurityContextRepository()
+            );
+        }
 
 }

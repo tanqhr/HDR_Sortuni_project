@@ -1405,6 +1405,7 @@ label {
 /* line 36, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
 .recepie_area.inc_padding {
     padding-bottom: 150px;
+
 }
 
 @media (min-width: 992px) and (max-width: 1200px) {
@@ -1449,6 +1450,7 @@ label {
     display: block;
     width: 50%;
     height: 50%;
+    border: 1px solid #000000;
     border-radius: 50%;
     overflow: hidden;
 
@@ -1519,388 +1521,11 @@ label {
     color: #777777;
     font-weight: 400;
     display: block;
-    margin-bottom: 0;
     margin-bottom: 31px;
 }
 
-/* line 104, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area {
-    padding-top: 100px;
-    padding-bottom: 130px;
-}
 
-@media (max-width: 767px) {
-    /* line 104, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area {
-        padding-top: 50px;
-        padding-bottom: 30px;
-    }
-}
 
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 104, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area {
-        padding-top: 50px;
-        padding-bottom: 50px;
-    }
-}
-
-/* line 115, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .recepie_info {
-    padding-right: 60px;
-}
-
-@media (max-width: 767px) {
-    /* line 115, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .recepie_info {
-        padding-right: 0;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 115, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .recepie_info {
-        margin-bottom: 40px;
-    }
-}
-
-/* line 127, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .recepie_info h3 {
-    font-size: 72px;
-}
-
-@media (max-width: 767px) {
-    /* line 127, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .recepie_info h3 {
-        font-size: 30px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 127, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .recepie_info h3 {
-        font-size: 40px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-    /* line 127, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .recepie_info h3 {
-        font-size: 40px;
-    }
-}
-
-/* line 139, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .recepie_info > p {
-    margin-top: 56px;
-    margin-bottom: 53px;
-}
-
-/* line 145, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .recepie_info .video_watch a {
-    display: inline-block;
-    width: 80px;
-    height: 80px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    background: #ffc000;
-    font-size: 30px;
-    color: #fff;
-    text-align: center;
-    line-height: 80px;
-    margin-right: 25px;
-}
-
-/* line 158, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .recepie_info .video_watch .watch_text h4 {
-    font-size: 30px;
-    margin-bottom: 7px;
-}
-
-/* line 162, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .recepie_info .video_watch .watch_text p {
-    color: #777777;
-    font-size: 14px;
-    margin-bottom: 0;
-}
-
-/* line 171, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .videos_thumb {
-    position: relative;
-}
-
-@media (max-width: 767px) {
-    /* line 171, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb {
-        margin-top: 40px;
-    }
-}
-
-/* line 176, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .videos_thumb .big_img {
-    padding-left: 100px;
-}
-
-@media (max-width: 767px) {
-    /* line 176, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .big_img {
-        padding-left: 0;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 176, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .big_img {
-        padding-left: 30px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-    /* line 176, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .big_img {
-        padding-left: 50px;
-    }
-}
-
-/* line 187, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .videos_thumb .big_img img {
-    width: 100%;
-}
-
-/* line 191, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .videos_thumb .small_thumb {
-    position: absolute;
-    top: 60px;
-    left: 0;
-}
-
-@media (max-width: 767px) {
-    /* line 191, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb {
-        display: none;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 198, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb img {
-        width: 100%;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-    /* line 198, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb img {
-        width: 100%;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 191, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb {
-        width: 120px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-    /* line 191, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb {
-        width: 120px;
-    }
-}
-
-/* line 213, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.recepie_videoes_area .videos_thumb .small_thumb_2 {
-    position: absolute;
-    right: 68px;
-    bottom: -105px;
-}
-
-@media (max-width: 767px) {
-    /* line 213, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb_2 {
-        display: none;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 213, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb_2 {
-        width: 120px;
-        bottom: -50px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-    /* line 213, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb_2 {
-        width: 120px;
-        bottom: -50px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 228, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb_2 img {
-        width: 100%;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-    /* line 228, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .recepie_videoes_area .videos_thumb .small_thumb_2 img {
-        width: 100%;
-    }
-}
-
-/* line 241, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.dish_area {
-    padding-top: 200px;
-    padding-bottom: 170px;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 241, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area {
-        padding-top: 100px;
-        padding-bottom: 70px;
-    }
-}
-
-@media (max-width: 767px) {
-    /* line 241, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area {
-        padding-top: 100px;
-        padding-bottom: 20px;
-    }
-}
-
-@media (min-width: 992px) and (max-width: 1200px) {
-    /* line 241, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area {
-        padding-top: 100px;
-        padding-bottom: 70px;
-    }
-}
-
-/* line 256, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.dish_area .single_dish {
-    -webkit-border-radius: 10px;
-    -moz-border-radius: 10px;
-    border-radius: 10px;
-    border: 1px solid #eee;
-    padding: 144px 42px 50px 42px;
-    margin-bottom: 30px;
-    position: relative;
-}
-
-@media (max-width: 767px) {
-    /* line 256, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .single_dish {
-        margin-bottom: 130px !important;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 256, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .single_dish {
-        padding: 90px 42px 50px 42px;
-    }
-}
-
-/* line 269, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.dish_area .single_dish .thumb {
-    width: 192px;
-    height: 192px;
-    -webkit-border-radius: 50%;
-    -moz-border-radius: 50%;
-    border-radius: 50%;
-    margin: auto;
-    position: absolute;
-    top: -94px;
-    left: 0;
-    right: 0;
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 269, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .single_dish .thumb {
-        width: 130px;
-        height: 130px;
-        position: absolute;
-
-        top: -66px;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 284, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .single_dish .thumb img {
-        width: 100%;
-    }
-}
-
-/* line 290, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.dish_area .single_dish h3 {
-    font-size: 30px;
-    color: #000000;
-    font-weight: 400;
-    margin-bottom: 24px;
-}
-
-/* line 296, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.dish_area .single_dish p {
-    font-size: 14px;
-    font-weight: 300;
-    margin-bottom: 0;
-}
-
-@media (max-width: 767px) {
-    /* line 302, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .single_dish:last-child {
-        margin-bottom: 50px !important;
-    }
-}
-
-/* line 307, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.dish_area .dish_wrap {
-    margin-left: -30px;
-    margin-right: -30px;
-}
-
-@media (max-width: 767px) {
-    /* line 307, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .dish_wrap {
-        margin: 0;
-    }
-}
-
-@media (max-width: 767px) {
-    /* line 307, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .dish_wrap {
-        display: block !important;
-    }
-}
-
-/* line 316, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-.dish_area .dish_wrap .single_dish {
-    margin: 0 30px;
-}
-
-@media (max-width: 767px) {
-    /* line 316, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .dish_wrap .single_dish {
-        margin: 0;
-    }
-}
-
-@media (min-width: 768px) and (max-width: 991px) {
-    /* line 316, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
-    .dish_area .dish_wrap .single_dish {
-        margin: 0 10px;
-    }
-}
 
 /* line 330, ../../Arafath/CL/CL October/220 Tasty Recipes/HTML/scss/_recepie.scss */
 .latest_trand_area {
@@ -2015,13 +1640,13 @@ label {
     perspective: 1000px;
     width: 300px;
     height: 400px;
+
 }
 
 .flip-card-inner {
     position: relative;
     width: 100%;
     height: 100%;
-    text-align: center;
     transition: transform 0.8s;
     transform-style: preserve-3d;
 }
@@ -2119,4 +1744,9 @@ label {
     animation: wave 2.5s infinite;
     transform-origin: 70% 70%;
 
+}
+.containers-py-5 {
+    padding:0;
+    margin:auto;
+    text-align:center;
 }

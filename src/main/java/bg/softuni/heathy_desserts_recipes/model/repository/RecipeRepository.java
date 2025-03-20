@@ -6,6 +6,7 @@ import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Repository
@@ -17,4 +18,5 @@ public interface RecipeRepository extends JpaRepository<RecipeEntity, Long> {
 
     List<RecipeEntity> findAllByAuthor (UserEntity author);
 
+     void deleteAllByAddedOnBefore(LocalDateTime a);
 }

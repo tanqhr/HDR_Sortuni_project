@@ -14,12 +14,17 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 @Service
 public class UserService {
@@ -30,22 +35,25 @@ public class UserService {
     private final PasswordEncoder encoder;
     private final ModelMapper modelMapper;
 
+    private final UserDetailsService userDetailsService;
+
 
     public UserService (UserRepository userRepository,
                         RoleRepository roleRepository,
                         @Qualifier("userMapper") ModelMapper userMapper,
-                        PasswordEncoder passwordEncoder, ModelMapper modelMapper) {
+                        PasswordEncoder passwordEncoder, ModelMapper modelMapper, UserDetailsService userDetailsService) {
 
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userMapper = userMapper;
         this.encoder = passwordEncoder;
         this.modelMapper = modelMapper;
+        this.userDetailsService = userDetailsService;
     }
 
 
 
-    public void register (UserRegistrationDTO userDTO) {
+    public void register (UserRegistrationDTO userDTO, Consumer<Authentication> successfulLoginProcessor) {
 
         UserEntity userEntity = this.userMapper.map(userDTO, UserEntity.class);
         userEntity.addRoles(roleRepository.getByRole(Role.USER));
@@ -54,7 +62,17 @@ public class UserService {
         userEntity.setActive(true);
 
         this.userRepository.saveAndFlush(userEntity);
+        UserDetails userDetails = userDetailsService.loadUserByUsername(userDTO.getEmail());
+
+        Authentication authentication = new UsernamePasswordAuthenticationToken(
+                userDetails,
+                userDetails.getPassword(),
+                userDetails.getAuthorities()
+        );
+
+        successfulLoginProcessor.accept(authentication);
     }
+
 
 
     public UserEntity findById (Long id) {

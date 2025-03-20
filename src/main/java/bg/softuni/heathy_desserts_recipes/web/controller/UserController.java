@@ -4,12 +4,18 @@ import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.UserRegistration
 import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.UserViewModel;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
 import bg.softuni.heathy_desserts_recipes.service.UserService;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.context.SecurityContext;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -31,11 +37,13 @@ import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.BINDING_
 public class UserController {
 
     private final UserService userService;
+    private final SecurityContextRepository securityContextRepository;
 
     @Autowired
-    public UserController (UserService userService) {
+    public UserController (UserService userService, SecurityContextRepository securityContextRepository) {
 
         this.userService = userService;
+        this.securityContextRepository = securityContextRepository;
     }
 
     @ModelAttribute("userRegistrationDTO")
@@ -54,20 +62,35 @@ public class UserController {
     @PostMapping("/registration")
     public ModelAndView doRegister (@Valid UserRegistrationDTO userRegistrationDTO,
                               BindingResult bindingResult,
-                              RedirectAttributes redirectAttrs) {
+                              RedirectAttributes redirectAttrs, HttpServletRequest request,
+                                    HttpServletResponse response) {
 
         checkPasswordsMatchError(bindingResult);
 
         if (bindingResult.hasErrors()) {
             redirectAttrs.addFlashAttribute("userRegistrationDTO", userRegistrationDTO);
             redirectAttrs.addFlashAttribute(BINDING_RESULT_PATH + userRegistrationDTO, bindingResult);
-            return new ModelAndView("auth/registration", HttpStatusCode.valueOf(400));
+            return new ModelAndView ("/registration", HttpStatusCode.valueOf(400));
         }
 
-        this.userService.register(userRegistrationDTO);
-        redirectAttrs.addFlashAttribute("displayName", userRegistrationDTO.getUsername());
 
-        return new ModelAndView("redirect:/registration/success");
+        //auto login
+        this.userService.register(userRegistrationDTO, successfulAuth -> {
+
+            SecurityContextHolderStrategy strategy = SecurityContextHolder.getContextHolderStrategy();
+
+            SecurityContext context = strategy.createEmptyContext();
+            context.setAuthentication(successfulAuth);
+
+            strategy.setContext(context);
+
+            securityContextRepository.saveContext(context, request, response);
+        });
+
+        return new ModelAndView("redirect:/");
+        //  redirectAttrs.addFlashAttribute("username", userRegistrationDTO.getUsername());
+
+        //  return new ModelAndView("redirect:/registration/success");
     }
 
     @GetMapping("/registration/success")

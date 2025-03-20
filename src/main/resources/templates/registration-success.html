@@ -15,7 +15,7 @@
     <nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
     <div th:if="${username}" class="content">
         Congratulations, <th:block th:text="${username}"></th:block>!
-        your registration was successful.
+        Your registration was successful.
         You can log in <a th:href="@{/login}">here</a>!
     </div>
     <div th:unless="${username}">

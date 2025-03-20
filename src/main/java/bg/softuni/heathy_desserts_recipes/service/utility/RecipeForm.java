@@ -74,7 +74,6 @@ public class RecipeForm {
 
         final UserEntity author = this.userService.findById(authorId);
         newRecipeEntity.setAuthor(author);
-
         final RecipeEntity savedRecipeEntity = this.recipeService.save(newRecipeEntity);
 
         final List<IngredientEntity> ingredientEntities = recipeDto.getListIngredientDto()

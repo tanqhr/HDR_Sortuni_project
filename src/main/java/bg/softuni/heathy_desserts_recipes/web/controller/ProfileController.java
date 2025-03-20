@@ -15,6 +15,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.BINDING_RESULT_PATH;
+
 @Controller
 public class ProfileController {
     private final UserService userService;
@@ -37,8 +39,9 @@ public class ProfileController {
     @PostMapping("/users/edit/{id}")
     public String updateUser(@PathVariable("id") Long id, @ModelAttribute("user") @Valid UserUpdateDto userDetails, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
         if (bindingResult.hasErrors()) {
-            redirectAttributes.addFlashAttribute("org.springframework.validation.BindingResult.user", bindingResult);
             redirectAttributes.addFlashAttribute("user", userDetails);
+            redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH+ userDetails, bindingResult);
+
             return "redirect:/users/edit/" + id;
         }
         redirectAttributes.addFlashAttribute("successEdit", true);
