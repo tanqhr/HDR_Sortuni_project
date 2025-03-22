@@ -7,6 +7,7 @@ import bg.softuni.heathy_desserts_recipes.model.entity.role.RoleEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.*;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.view.UserProfileViewModel;
+import bg.softuni.heathy_desserts_recipes.model.event.RegistrationUserEvent;
 import bg.softuni.heathy_desserts_recipes.model.repository.RoleRepository;
 import bg.softuni.heathy_desserts_recipes.model.repository.UserRepository;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
@@ -14,6 +15,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -34,21 +36,24 @@ public class UserService {
     private final ModelMapper userMapper;
     private final PasswordEncoder encoder;
     private final ModelMapper modelMapper;
-
+private final MessageService messageService;
     private final UserDetailsService userDetailsService;
+    private final ApplicationEventPublisher applicationEventPublisher;
 
 
     public UserService (UserRepository userRepository,
                         RoleRepository roleRepository,
                         @Qualifier("userMapper") ModelMapper userMapper,
-                        PasswordEncoder passwordEncoder, ModelMapper modelMapper, UserDetailsService userDetailsService) {
+                        PasswordEncoder passwordEncoder, ModelMapper modelMapper, MessageService messageService, UserDetailsService userDetailsService, ApplicationEventPublisher applicationEventPublisher) {
 
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
         this.userMapper = userMapper;
         this.encoder = passwordEncoder;
         this.modelMapper = modelMapper;
+        this.messageService = messageService;
         this.userDetailsService = userDetailsService;
+        this.applicationEventPublisher = applicationEventPublisher;
     }
 
 
@@ -61,7 +66,12 @@ public class UserService {
         //TODO email activation
         userEntity.setActive(true);
 
-        this.userRepository.saveAndFlush(userEntity);
+        UserEntity savedUser = this.userRepository.saveAndFlush(userEntity);
+        messageService.sendRegistrationEmail(savedUser.getEmail(), savedUser.getUsername());
+       // RegistrationUserEvent registrationUserEvent = new RegistrationUserEvent(this);
+      //  applicationEventPublisher.publishEvent(registrationUserEvent);
+
+
         UserDetails userDetails = userDetailsService.loadUserByUsername(userDTO.getEmail());
 
         Authentication authentication = new UsernamePasswordAuthenticationToken(
@@ -71,6 +81,9 @@ public class UserService {
         );
 
         successfulLoginProcessor.accept(authentication);
+
+
+
     }
 
 

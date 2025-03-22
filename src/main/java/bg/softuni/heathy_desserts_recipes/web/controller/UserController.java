@@ -73,7 +73,6 @@ public class UserController {
             return new ModelAndView ("/registration", HttpStatusCode.valueOf(400));
         }
 
-
         //auto login
         this.userService.register(userRegistrationDTO, successfulAuth -> {
 

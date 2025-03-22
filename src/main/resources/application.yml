@@ -40,22 +40,12 @@ cloud:
     whether:
       api-key: ${whether.api-key}
 
-  mail:
-    host: smtp.gmail.com
-    port: 578
-    username: ${email_username}
-    password: ${password_email}
-    test-connection: true
-    properties:
-      mail:
-        smtp:
-          auth=true:
 
-            properties:
-              mail:
-                smtp:
-                  starttls:
-                    enable=true:
-                      connectiontimeout: 5000  # Максимално време за изчакване на свързване (в милисекунди)
-                      timeout: 5000            # Максимално време за отговор
-                      writetimeout: 5000
+mail:
+        host: smtp.gmail.com
+        port: 587
+        username: "${email_username}"
+        password: "${password_email}"
+
+
+

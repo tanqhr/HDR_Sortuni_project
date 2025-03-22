@@ -1,5 +1,6 @@
 package bg.softuni.heathy_desserts_recipes.config;
 
+import bg.softuni.heathy_desserts_recipes.service.interceptor.StatisticInterceptor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -14,7 +15,11 @@ import java.util.Locale;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+private final StatisticInterceptor statisticInterceptor;
 
+    public WebConfig(StatisticInterceptor statisticInterceptor) {
+        this.statisticInterceptor = statisticInterceptor;
+    }
 
     @Bean
     public MessageSource messageSource() {
@@ -41,8 +46,10 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(localeChangeInterceptor());
+        registry.addInterceptor(statisticInterceptor).addPathPatterns("/recipes/all");
     }
 
 
 }
+
 
