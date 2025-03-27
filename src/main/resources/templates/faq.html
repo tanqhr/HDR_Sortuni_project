@@ -13,8 +13,16 @@
 <header th:replace="~{index.html :: header}">&nbsp;</header>
 
 <nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
-<div class="content" th:text="#{faq}">FAQ</div>
+<div class="content">
+    <div th:text="#{faq}">FAQ</div>
+    <br>
+    <br>
+    <br>
+<form th:method="GET" th:action="@{/messages/all-messages}">
+    <button type="submit" class="btn btn-danger delete-button" th:text="#{custom_q}">Customers questions</button>
+</form>
 
+</div>
 <nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
 
 <footer th:replace="~{index.html :: footer}">&nbsp;</footer>

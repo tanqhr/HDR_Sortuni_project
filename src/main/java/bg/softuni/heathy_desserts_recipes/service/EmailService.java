@@ -2,6 +2,11 @@ package bg.softuni.heathy_desserts_recipes.service;
 
 import bg.softuni.heathy_desserts_recipes.model.entity.email.Email;
 import bg.softuni.heathy_desserts_recipes.model.entity.email.dto.EmailDto;
+import bg.softuni.heathy_desserts_recipes.model.entity.email.dto.EmailViewDto;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeAdd;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeShortDto;
+import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.UserShortViewModel;
 import bg.softuni.heathy_desserts_recipes.model.repository.EmailRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;
@@ -12,6 +17,8 @@ import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 import org.thymeleaf.context.Context;
 
+import javax.xml.stream.events.Comment;
+import java.util.List;
 import java.util.Locale;
 
 @Service
@@ -52,10 +59,10 @@ public class EmailService {
         return newEmail.getId();
     }
 
-    public void deleteById(Long bookId) {
-        emailRepository.
-                findById(bookId).
-                ifPresent(emailRepository::delete);
+    public void deleteById(Long emailId) {
+        emailRepository.deleteById(emailId);
+               // findById(emailId).
+               // ifPresent(emailRepository::delete);
     }
 
 
@@ -85,4 +92,19 @@ public class EmailService {
         return templateEngine.process("email-newsletter", ctx);
     }
 
+    public List<EmailViewDto> getAllEmails() {
+        return emailRepository.findAll().
+                stream().
+                map(this::map).
+                toList();
+    }
+
+    private EmailViewDto map(Email email) {
+
+        return new EmailViewDto().
+                setId(email.getId()).setEmail(email.getEmail());
+
+
+
+    }
 }

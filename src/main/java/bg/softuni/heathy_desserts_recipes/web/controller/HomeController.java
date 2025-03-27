@@ -1,14 +1,13 @@
 package bg.softuni.heathy_desserts_recipes.web.controller;
 
-import bg.softuni.heathy_desserts_recipes.model.entity.message.Message;
 import bg.softuni.heathy_desserts_recipes.model.entity.message.dto.MessageDto;
+import bg.softuni.heathy_desserts_recipes.service.MessagesService;
 import bg.softuni.heathy_desserts_recipes.service.WeatherService;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
 
 import static org.springframework.data.jpa.domain.JpaSort.path;
 
@@ -16,9 +15,11 @@ import static org.springframework.data.jpa.domain.JpaSort.path;
 @Controller
 public class HomeController {
     private final WeatherService weatherService;
+    private final MessagesService messagesService;
 
-    public HomeController(WeatherService weatherService) {
+    public HomeController(WeatherService weatherService, MessagesService messagesService) {
         this.weatherService = weatherService;
+        this.messagesService = messagesService;
     }
 
     @GetMapping("/")
@@ -50,7 +51,8 @@ public class HomeController {
 
     @GetMapping("/faq")
     public String getFaq() {
-        return "faq";
+      return "faq";
+
 
     }
 }

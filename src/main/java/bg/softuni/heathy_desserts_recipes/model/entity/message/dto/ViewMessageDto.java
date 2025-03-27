@@ -1,8 +1,8 @@
-package bg.softuni.heathy_desserts_recipes.model.entity.email.dto;
+package bg.softuni.heathy_desserts_recipes.model.entity.message.dto;
 
 import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -10,8 +10,16 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class EmailDto {
-@Email
-@NotBlank
+@AllArgsConstructor
+public class ViewMessageDto {
+
+    private Long id;
+
+    private String name;
+
+
     private String email;
+
+
+    private String text;
 }

@@ -19,18 +19,17 @@ import org.springframework.security.web.context.RequestAttributeSecurityContextR
 import org.springframework.security.web.context.SecurityContextRepository;
 
 @Configuration
-@EnableWebSecurity
+//@EnableWebSecurity
 public class SecurityConfiguration {
 
 
     @Bean
     public SecurityFilterChain filterChain (HttpSecurity httpSecurity, SecurityContextRepository securityContextRepository) throws Exception {
-
         httpSecurity
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations())
                         .permitAll()
-                        .requestMatchers("/", "/terms", "/contact", "/about", "/faq", "/error/**", "/test", "/api/test", "/api/users/{id}", "/api/users/all", "/api/recipes", "/api/recipes/{id}", "/api/about")
+                        .requestMatchers("/", "/terms", "/contact", "/about", "/faq", "/error/**", "/test", "/api/test", "/api/users/{id}", "/api/users/all", "/api/recipes", "/api/recipes/{id}", "/api/about", "/api/about/delete/{id}","/api/about/emails", "messages/add", "messages/all-messages")
                         .permitAll()
                         .requestMatchers("/login/**", "/registration", "/registration/success")
                         .anonymous()
@@ -57,6 +56,11 @@ public class SecurityConfiguration {
                    securityContextConfigurer.
                 securityContextRepository(securityContextRepository);
                 });
+                //.csrf.disable();
+               // .csrf(httpSecurityCsrfConfigurer -> httpSecurityCsrfConfigurer.disable());
+
+
+
 
 
         return httpSecurity.build();

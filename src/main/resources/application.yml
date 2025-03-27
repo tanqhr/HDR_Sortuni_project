@@ -15,7 +15,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
-  
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+        message:
+          api:
+            baseUrl: "http://localhost:8081"
+
   sql:
     init:
       mode: always
@@ -48,4 +56,9 @@ mail:
         password: "${password_email}"
 
 
+message:
+  api:
+    baseUrl: "http://localhost:8081"
+
+    security.enable-csrf: false
 

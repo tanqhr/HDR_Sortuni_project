@@ -15,7 +15,7 @@ import java.util.Locale;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
-private final StatisticInterceptor statisticInterceptor;
+    private final StatisticInterceptor statisticInterceptor;
 
     public WebConfig(StatisticInterceptor statisticInterceptor) {
         this.statisticInterceptor = statisticInterceptor;
@@ -49,7 +49,7 @@ private final StatisticInterceptor statisticInterceptor;
         registry.addInterceptor(statisticInterceptor).addPathPatterns("/recipes/all");
     }
 
-
 }
+
 
 

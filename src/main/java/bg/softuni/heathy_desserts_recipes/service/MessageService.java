@@ -2,14 +2,11 @@ package bg.softuni.heathy_desserts_recipes.service;
 
 
 import bg.softuni.heathy_desserts_recipes.common.error.exceptions.EmailProblemException;
-import bg.softuni.heathy_desserts_recipes.model.entity.message.Message;
 import bg.softuni.heathy_desserts_recipes.model.entity.message.dto.MessageDto;
 import bg.softuni.heathy_desserts_recipes.model.event.RegistrationUserEvent;
-import bg.softuni.heathy_desserts_recipes.model.repository.MessageRepository;
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.InternetAddress;
 import jakarta.mail.internet.MimeMessage;
-import lombok.AllArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.event.EventListener;
 import org.springframework.mail.SimpleMailMessage;
@@ -29,16 +26,14 @@ public class MessageService {
 
     private final JavaMailSender javaMailSender;
     private final TemplateEngine templateEngine;
-    private final MessageRepository messageRepository;
 
     private final ModelMapper modelMapper;
     private static final String recipientEmail = "tanikalpazani@gmail.com";
     private final static String subjectAddUser = "New user registration in system !";
 
-    public MessageService(JavaMailSender javaMailSender, TemplateEngine templateEngine, MessageRepository messageRepository, ModelMapper modelMapper) {
+    public MessageService(JavaMailSender javaMailSender, TemplateEngine templateEngine, ModelMapper modelMapper) {
         this.javaMailSender = javaMailSender;
         this.templateEngine = templateEngine;
-        this.messageRepository = messageRepository;
         this.modelMapper = modelMapper;
     }
 
@@ -70,8 +65,6 @@ public class MessageService {
 
         return templateEngine.process("email-confirm", ctx);
     }
-
-
 
 
 
@@ -114,13 +107,6 @@ public class MessageService {
     }
 
 
-
-  public void sendMessage(MessageDto messageDto) {
-
-        Message message = modelMapper.map(messageDto, Message.class);
-         messageRepository.saveAndFlush(message);
-
-   }
 
 
 }

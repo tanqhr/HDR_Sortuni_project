@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+    <th:block th:insert="~{index.html :: head-include}">&nbsp;</th:block>
+    <title>Healthy desserts recipes</title>
+</head>
+
+<body>
+
+<header th:replace="~{index.html :: header}">&nbsp;</header>
+<nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
+
+<!-- Reviews Section -->
+<div class="content">
+    <h2 class="text-center" th:text="#{questions}">Questions</h2>
+    <br>
+    <br>
+    <div class="content">
+            <div class="text-center" th:each="message : ${allMessages}">
+                        <p th:text="*{message.getText()}">Text</p>
+                <br>
+                <div sec:authorize="isFullyAuthenticated()">
+                            <form th:method="DELETE" th:action="@{/messages/delete/{id}(id=${message.getId()})}">
+                                <button type="submit" class="btn btn-danger delete-button">Delete</button>
+                            </form>
+                </div>
+                <br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+<nav th:replace="~{index.html :: rightbar}">&nbsp;</nav>
+<footer th:replace="~{index.html :: footer}">&nbsp;</footer>
+</body>
+</html>

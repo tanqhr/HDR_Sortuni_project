@@ -15,17 +15,20 @@
 <div class="content">
     <span th:text="#{email}">email:</span>
             <a>info@healthydesserts.com</a>
-    <form th:method="POST" th:action="@{/contact}" th:object="${messageDto}">
+    <form th:method="POST" th:action="@{/messages/add}" th:object="${messageDto}">
         <label for="name"><span th:text="#{contact_name}" >name</span>
-            <input type="text" name="name" id="name" th:field="*{name}">
+            <input type="text" th:name="name" id="name" th:field="*{name}"
+                   minlength="5" maxlength="30">
         </label>
-        <label for="email2"><span th:text="#{email}">email</span>
-            <input type="text" th:name="email2" id="email2" th:field="*{email}">
+        <label for="email"><span th:text="#{email}">email</span>
+            <input type="email" th:name="email" id="email" th:field="*{email}"
+                    title="Please enter a valid email">
         </label>
-      <label for="message" ><span th:text="#{contact_message}">message</span>
-            <textarea id="message" cols="20" rows="5" th:field="*{text}" ></textarea>
+      <label for="text" ><span th:text="#{contact_message}">message</span>
+            <textarea cols="20" rows="5" th:name="text" id="text" th:field="*{text}"
+                      minlength="5"></textarea>
         </label>
-        <input type="submit" name="submit2" id="submit2"  class="submit-btn" th:value="#{contact_send}">
+        <input type="submit" name="submit" id="submit"  class="submit-btn" th:value="#{contact_send}">
     </form>
 
 </div>
