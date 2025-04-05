@@ -18,8 +18,8 @@ import java.util.Properties;
         public JavaMailSender javaMailSender(
         @Value("smtp.gmail.com") String mailHost,
         @Value("587") Integer mailPort,
-        @Value("${email_username}") String mailUsername,
-        @Value("${password_email}") String mailPassword)
+        @Value("${email_username:null}") String mailUsername,
+        @Value("${password_email:null}") String mailPassword)
 
     {
 

@@ -61,34 +61,11 @@ public class MessageController {
         } catch (EmailProblemException e) {
             throw new RuntimeException(e);
         }
-        //this.messagesService.createMessage(messageDto);
 
            return new ModelAndView("message");
     }
 
 
-
-   // @PostMapping("/contacts")
-//    public String sendEmail(@Valid MessageDto messageDto,
-    //                        BindingResult bindingResult,
-    //                        RedirectAttributes redirectAttributes){
-
-   //     if (bindingResult.hasErrors()){
-   //         redirectAttributes.addFlashAttribute("messageDto", messageDto);
-   //         redirectAttributes.addFlashAttribute(BINDING_RESULT_PATH.concat("messageDto"), bindingResult);
-   //         return "redirect:/contacts";
-   //     }
-
-    //    try {
-   //         messageService.sendEmail(messageDto.getName(),
-   //                 messageDto.getEmail(),
-   //                 messageDto.getText());
-   //     } catch (EmailProblemException e) {
-   //         throw new RuntimeException(e);
-    //    }
-//
-   //     return "redirect: message";
-  //  }
 
 
     @GetMapping("/all-messages")

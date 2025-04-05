@@ -26,7 +26,6 @@ public class RecipeDto {
 
     private UUID tempRecipeId;
 
-    @NotEmpty(message = "Title is required.")
     private String title;
 
     private List<PhotoViewModel> photoVMList;
@@ -53,7 +52,6 @@ public class RecipeDto {
     private String description;
 
 
-    private VisibilityStatus visibilityStatus;
 
     private Long authorId;
 
@@ -71,8 +69,7 @@ public class RecipeDto {
                 .resetCookingTime()
                 .addCookingMinutes(cookingMinutes)
                 .setServings(this.getServings())
-                .setDescription(this.getDescription())
-                .setVisibilityStatus(this.getVisibilityStatus());
+                .setDescription(this.getDescription());
     }
 
    

@@ -66,47 +66,4 @@ public class MessageService {
         return templateEngine.process("email-confirm", ctx);
     }
 
-
-
-
-    @EventListener(RegistrationUserEvent.class)
-    public void onRegisterUser(RegistrationUserEvent evt){
-
-        String emailContent = "Congratulations, you have registered successfully!" ;
-
-        sendEmail(recipientEmail, subjectAddUser, emailContent);
-
-    }
-
-
-    public void sendEmail(String emailSender, String subject, String content) {
-        MimeMessage mimeMessage = javaMailSender.createMimeMessage();
-
-       MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage);
-
-        try {
-            mimeMessageHelper.setFrom(new InternetAddress(emailSender, "App"));
-            mimeMessageHelper.setTo(recipientEmail);
-            mimeMessageHelper.setSubject(subject);
-            mimeMessageHelper.setText(content);
-
-           javaMailSender.send(mimeMessageHelper.getMimeMessage());
-
-        } catch (MessagingException | UnsupportedEncodingException e) {
-            throw new EmailProblemException();
-        }
-    }
-    public void sendSimpleEmail(String to) {
-
-        SimpleMailMessage message = new SimpleMailMessage();
-        message.setFrom("tanikalpazani@gmail.com");
-        message.setTo(to);
-        message.setSubject("New user registration in system !");
-        message.setText("Congratulations, you have registered successfully!");
-        javaMailSender.send(message);
-    }
-
-
-
-
 }

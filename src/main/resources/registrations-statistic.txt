@@ -33,3 +33,11 @@ A new user registered in the system with email: taicosss@abv.bg on date: 22 ма
 A new user registered in the system with email: taico33311@abv.bg on date: 22 март 2025!
 A new user registered in the system with email: taico3@abv.bg on date: 22 март 2025!
 A new user registered in the system with email: tanqhr@abv.bg on date: 22 март 2025!
+A new user registered in the system with email: pesho@example.com on date: 31 март 2025!
+A new user registered in the system with email: tester@testmail.com on date: 31 март 2025!
+A new user registered in the system with email: tester2@testmail.com on date: 31 март 2025!
+A new user registered in the system with email: hdr@example.com on date: 31 март 2025!
+A new user registered in the system with email: tanqhr@abv.bg on date: 04 април 2025!
+A new user registered in the system with email: tanqhr@abv.bg on date: 04 април 2025!
+A new user registered in the system with email: kosta.mail1@yahoo.com on date: 04 април 2025!
+A new user registered in the system with email: k_kazakov@yahoo.com on date: 04 април 2025!

@@ -63,14 +63,11 @@ private final MessageService messageService;
         UserEntity userEntity = this.userMapper.map(userDTO, UserEntity.class);
         userEntity.addRoles(roleRepository.getByRole(Role.USER));
         userEntity.setPassword(encoder.encode(userDTO.getPassword()));
-        //TODO email activation
+
         userEntity.setActive(true);
 
         UserEntity savedUser = this.userRepository.saveAndFlush(userEntity);
         messageService.sendRegistrationEmail(savedUser.getEmail(), savedUser.getUsername());
-       // RegistrationUserEvent registrationUserEvent = new RegistrationUserEvent(this);
-      //  applicationEventPublisher.publishEvent(registrationUserEvent);
-
 
         UserDetails userDetails = userDetailsService.loadUserByUsername(userDTO.getEmail());
 
@@ -83,9 +80,7 @@ private final MessageService messageService;
         successfulLoginProcessor.accept(authentication);
 
 
-
     }
-
 
 
     public UserEntity findById (Long id) {
@@ -94,25 +89,12 @@ private final MessageService messageService;
                 .orElseThrow(() -> new UserNotFoundException("User with id " + id + " not found!"));
     }
 
-    public UserRestDTO findUserProfileById (Long id) {
-
-        return UserRestDTO.fromEntity(this.findById(id));
-    }
 
     public boolean existsByEmail (String email) {
 
         return this.userRepository.existsByEmail(email);
     }
 
-    public boolean existsById (Long id) {
-
-        return this.userRepository.findUserById(id).isPresent();
-    }
-
-    public void saveAndFlush (UserEntity userEntity) {
-
-        this.userRepository.saveAndFlush(userEntity);
-    }
 
     public List<UserViewModel> getAllUsers () {
 
@@ -162,21 +144,6 @@ private final MessageService messageService;
         }
     }
 
-
-    private static void ensureAdminOrModerator (CurrentUser requester) {
-
-        if (!requester.isAdmin() && !requester.isModerator()) {
-            throw new NotAuthorizedException("What are you trying to do?");
-        }
-    }
-
-    private static void ensureAdmin (CurrentUser requester) {
-
-        if (!requester.isAdmin()) {
-            throw new NotAuthorizedException("What are you trying to do?");
-        }
-    }
-
     private static boolean hasRole (UserEntity userEntity, Role role) {
 
         return userEntity.getRoles().stream().anyMatch(r -> r.getRole().equals(role));
@@ -192,16 +159,6 @@ private final MessageService messageService;
     }
 
 
-    public long createUser(UserRestDTO newUser) {
-
-        UserEntity newUserEntity = new UserEntity().
-                setFirstName(newUser.getFirstName()).
-                setLastName(newUser.getLastName()).
-                setUsername(newUser.getUsername()).
-                setEmail(newUser.getEmail());
-
-        return userRepository.save(newUserEntity).getId();
-    }
 
 
 @Transactional

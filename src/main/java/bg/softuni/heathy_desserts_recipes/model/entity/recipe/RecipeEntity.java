@@ -58,9 +58,6 @@ public class RecipeEntity {
     @Column
     private String description;
 
-    @Enumerated(EnumType.STRING)
-    private VisibilityStatus visibilityStatus;
-
     @ManyToOne
     private UserEntity author;
 
@@ -86,12 +83,7 @@ public class RecipeEntity {
 
         return this;
     }
-    public RecipeEntity addPreparationHours (int hours) {
 
-        this.preparationTime = this.preparationTime.plusHours(hours);
-
-        return this;
-    }
 
     public RecipeEntity addPreparationMinutes (int minutes) {
 
@@ -100,12 +92,7 @@ public class RecipeEntity {
         return this;
     }
 
-    public RecipeEntity addCookingHours (int hours) {
 
-        this.cookingTime = this.cookingTime.plusHours(hours);
-
-        return this;
-    }
 
     public RecipeEntity addCookingMinutes (int minutes) {
 

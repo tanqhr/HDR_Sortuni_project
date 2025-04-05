@@ -4,6 +4,7 @@ import bg.softuni.heathy_desserts_recipes.model.entity.ingredient.IngredientEnti
 import bg.softuni.heathy_desserts_recipes.model.entity.ingredient.dto.IngredientDto;
 import bg.softuni.heathy_desserts_recipes.model.entity.ingredient.dto.IngredientViewModel;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.PhotoEntity;
+import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoBM;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoDto;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoViewModel;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
@@ -13,6 +14,7 @@ import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeViewMode
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
 import bg.softuni.heathy_desserts_recipes.service.*;
+import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Component;
@@ -43,14 +45,13 @@ public class RecipeForm {
         this.cloudUtility = cloudUtility;
     }
 
-    public List<String> getDistinctUnitNames () {
+    public List<String> getDistinctUnitNames() {
 
         return this.unitService.getDistinctUnitNames();
     }
 
 
-
-    public void process (RecipeDto recipeDto) {
+    public void process(RecipeDto recipeDto) {
 
         final UUID tempRecipeId = recipeDto.getTempRecipeId();
         final Long primaryPhotoId = recipeDto.getPrimaryPhotoId();
@@ -61,14 +62,15 @@ public class RecipeForm {
         recipeDto.setPhotoVMList(photoVMList);
     }
 
-    public RecipeViewModel getRecipeVMForUser (Long id, CurrentUser currentUser) {
+    public RecipeViewModel getRecipeVMForUser(Long id, CurrentUser currentUser) {
 
         final UserEntity userEntity = this.userService.findById(currentUser.getId());
         final RecipeEntity recipeEntity = this.recipeService.findById(id);
 
         return RecipeViewModel.fromEntity(recipeEntity);
     }
-    public Long save (RecipeDto recipeDto, Long authorId) {
+
+    public Long save(RecipeDto recipeDto, Long authorId) {
 
         RecipeEntity newRecipeEntity = recipeDto.toEntity();
 
@@ -84,6 +86,7 @@ public class RecipeForm {
 
         final List<PhotoDto> photoDTOList = this.tempPhotoService.getListPhotoDto(recipeDto.getTempRecipeId());
 
+
         final List<PhotoEntity> photoEntities = this.cloudUtility
                 .moveAll(photoDTOList, savedRecipeEntity.getId())
                 .stream()
@@ -98,54 +101,20 @@ public class RecipeForm {
         return this.recipeService.save(completeRecipeEntity).getId();
     }
 
-    private IngredientEntity IngredientEntityFromDto (@Valid IngredientDto dto) {
+    private IngredientEntity IngredientEntityFromDto(@Valid IngredientDto dto) {
 
         return new IngredientEntity()
                 .setIngredientName(ingredientNameService.getOrCreateByName(dto.getIngredientName()))
                 .setQuantity(dto.getQuantity())
                 .setUnit(unitService.getOrCreateByName(dto.getUnitName()));
     }
-    public int addLike (Long recipeId, CurrentUser visitor) {
 
-        final UserEntity visitorEntity = this.userService.findById(visitor.getId());
-        final RecipeEntity recipeEntity = this.recipeService.findById(recipeId);
 
-        if (!recipeEntity.addLike(visitorEntity) || !visitorEntity.likeRecipe(recipeEntity)) {
-
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-
-        userService.saveAndFlush(visitorEntity);
-        recipeService.saveAndFlush(recipeEntity);
-
-        return recipeEntity.getLikes().size();
-    }
-
-    public int removeLike (Long recipeId, CurrentUser visitor) {
-
-        final UserEntity visitorEntity = this.userService.findById(visitor.getId());
-        final RecipeEntity recipeEntity = this.recipeService.findById(recipeId);
-
-        if (!recipeEntity.removeLike(visitorEntity) || !visitorEntity.unlikeRecipe(recipeEntity)) {
-
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST);
-        }
-
-        userService.saveAndFlush(visitorEntity);
-        recipeService.saveAndFlush(recipeEntity);
-
-        return recipeEntity.getLikes().size();
-    }
-
-    public boolean isAvailableRecipeTitleForAuthor (String title, CurrentUser author) {
-
-        return recipeService.isAvailableRecipeTitle(title, author.getId());
-    }
-
+@Transactional
     public List<RecipeAdd> getAllRecipes (CurrentUser currentUser) {
         return this.recipeService.getAll(currentUser);
     }
-
+@Transactional
     public List<RecipeAdd> getOwnRecipes (CurrentUser currentUser) {
 
         return this.recipeService.getOwn(currentUser);

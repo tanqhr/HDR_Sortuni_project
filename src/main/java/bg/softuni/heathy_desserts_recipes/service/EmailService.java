@@ -43,12 +43,6 @@ public class EmailService {
     }
 
 
-  //  public Email createEmail(EmailDto emailDto) {
-    //    Email emailEntity = modelMapper.map(emailDto, Email.class);
-    //    Email savedEmail = emailRepository.save(emailEntity);
-   //     return modelMapper.map(savedEmail, Email.class);
-  //  }
-
     public Long createEmail(EmailDto emailDto) {
 
 
@@ -61,8 +55,7 @@ public class EmailService {
 
     public void deleteById(Long emailId) {
         emailRepository.deleteById(emailId);
-               // findById(emailId).
-               // ifPresent(emailRepository::delete);
+
     }
 
 

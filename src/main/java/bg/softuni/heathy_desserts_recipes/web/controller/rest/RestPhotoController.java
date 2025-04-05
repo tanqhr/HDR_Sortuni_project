@@ -1,10 +1,12 @@
 package bg.softuni.heathy_desserts_recipes.web.controller.rest;
 
+
 import bg.softuni.heathy_desserts_recipes.common.CloudException;
 import bg.softuni.heathy_desserts_recipes.common.CustomErrors;
 import bg.softuni.heathy_desserts_recipes.common.NoSuchTempPhotoException;
 import bg.softuni.heathy_desserts_recipes.common.messages.Message;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoBM;
+import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoDto;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoViewModel;
 import bg.softuni.heathy_desserts_recipes.service.PhotoService;
 import bg.softuni.heathy_desserts_recipes.service.TempPhotoService;
@@ -66,4 +68,3 @@ public class RestPhotoController {
     }
 
 }
-

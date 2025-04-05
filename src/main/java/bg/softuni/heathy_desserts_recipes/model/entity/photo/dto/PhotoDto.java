@@ -2,6 +2,7 @@ package bg.softuni.heathy_desserts_recipes.model.entity.photo.dto;
 
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.PhotoEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.TempPhotoEntity;
+import jakarta.persistence.Column;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;

@@ -14,7 +14,6 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -40,7 +39,7 @@ public class UserController {
     private final SecurityContextRepository securityContextRepository;
 
     @Autowired
-    public UserController (UserService userService, SecurityContextRepository securityContextRepository) {
+    public UserController(UserService userService, SecurityContextRepository securityContextRepository) {
 
         this.userService = userService;
         this.securityContextRepository = securityContextRepository;

@@ -2,7 +2,8 @@
 <!--suppress XmlDuplicatedId -->
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
 <head>
     <meta id="csrf" hidden th:name="${_csrf.getHeaderName()}" th:value="${_csrf.getToken()}">
@@ -21,68 +22,69 @@
 <header class="header-area" th:replace="~{index.html :: header}">&nbsp;</header>
 <nav th:replace="~{index.html :: leftbar}">&nbsp;</nav>
 
-<div class="recepie_area inc_padding">
+<div class="recipe-show">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-xl-6 col-md-6">
                 <div class="receipe-slider owl-carousel">
 
-            <div th:each="photo, photoStat : ${recipeViewModel.listPhotoVM}">
+                    <div th:each="photo, photoStat : ${recipeViewModel.listPhotoVM}">
 
-                <img th:src="${photo.url}" alt="" width="100%">
-            </div>
+                        <img th:src="${photo.url}" alt="" width="100%"></img>
+
+                    </div>
                 </div>
 
-                        <input id="isLiked" type="hidden" th:value="${recipeViewModel.isLiked}">
+                <input id="isLiked" type="hidden" th:value="${recipeViewModel.isLiked}">
                 <form th:method="POST" th:action="@{/like/{id}(id = ${recipeViewModel.getId()})}">
                     <button type="submit">
                         <img th:if="${recipeViewModel.isLiked()}" class="mr-2 " src="/images/liked.png" alt="" width="20px" height="20px">
                         <img th:unless="${recipeViewModel.isLiked()}" class="mr-2 " src="/images/like.png" alt="" width="20px" height="20px">
-
                     </button>
+                </form>
 
-                        <a id="likes-counter" th:text="${recipeViewModel.likes.size()}">&nbsp;</a>
+                    <a id="likes-counter" th:text="${recipeViewModel.likes.size()}">&nbsp;</a>
 
-                <div class="col-xl-6 col-md-6">
-                    <div class="recepies_info">
-                        <h1 th:text="|${recipeViewModel.title} |">Healthy dessert recipe</h1>
-                        <p>INGREDIENTS </p>
-                        <div class="custom-control custom-checkbox" th:each="ingredient, ingrStat : ${recipeViewModel.listIngredientVM}">
-                            <input type="checkbox" class="custom-control-input" id="customCheck1" th:text="${ingredient.ingredientName}">
-                            <label class="custom-control-label" for="customCheck1">
-                                <span th:text="${ingredient.quantity}?: ''"></span> <a th:text="${ingredient.getUnitName()}?: ''"></a></label>
-                        </div>
+                    <div class="col-xl-6 col-md-6">
+                        <div class="recepies_info">
+                            <h1 th:text="|${recipeViewModel.title} |">Healthy dessert recipe</h1>
+                            <p>INGREDIENTS </p>
+                            <div class="custom-control custom-checkbox" th:each="ingredient, ingrStat : ${recipeViewModel.listIngredientVM}">
+                                <input type="checkbox" class="custom-control-input" id="customCheck1" th:text="${ingredient.ingredientName}">
+                                <label class="custom-control-label" for="customCheck1">
+                                    <span th:text="${ingredient.quantity}?: ''"></span> <a th:text="${ingredient.getUnitName()}?: ''"></a></label>
+                            </div>
                         </div>
                     </div>
 
-                        <div class="resepies_details">
-                            <ul>
-                                <li><p><strong>Prep.: <a th:text="|${recipeViewModel.getPreparationTime()} |"></a>h./</strong></p></li>
-                                <li><p><strong>Cook: <a th:text="|${recipeViewModel.getCookingTime()} |"></a>h./</strong></p></li>
-                                <li><p><strong>Yields: <a th:text="|${recipeViewModel.getServings()} |"></a>serv. </strong></p></li>
-                            </ul>
-                        </div>
-                </div>
+                    <div class="resepies_details">
+                        <ul>
+                            <li><p><strong>Prep.: <a th:text="|${recipeViewModel.getPreparationTime()} |"></a>h./</strong></p></li>
+                            <li><p><strong>Cook: <a th:text="|${recipeViewModel.getCookingTime()} |"></a>h./</strong></p></li>
+                            <li><p><strong>Yields: <a th:text="|${recipeViewModel.getServings()} |"></a>serv. </strong></p></li>
+                        </ul>
+                    </div>
             </div>
         </div>
-            <div class="row">
-                <div class="col-xl-12">
-                    <div class="recepies_text">
-                        <h3>Preparation <a th:text="|${recipeViewModel.getDescription()} |"></a></h3>
-                    </div>
-                </div>
+    </div>
+    <div class="row">
+        <div class="col-xl-12">
+            <div class="recepies_text">
+                <h3>Preparation <a th:text="|${recipeViewModel.getDescription()} |"></a></h3>
             </div>
+        </div>
+    </div>
     <br><br><br>
 
 
     <!--Danger Area-->
-            <div class="content">
-               <div class="danger-area" th:if="${canDelete}">
-                   <p><a class="padded-10 border-dashed-2 danger-text"
-                         th:href="@{/recipes/delete/{id}(id=${recipeViewModel.id})}">Delete</a></p>
-                </div>
-            </div>
+    <div class="content">
+        <div class="danger-area" th:if="${canDelete}">
+            <p><a class="padded-10 border-dashed-2 danger-text"
+                  th:href="@{/recipes/delete/{id}(id=${recipeViewModel.id})}">Delete</a></p>
+        </div>
     </div>
+</div>
 
 <nav th:replace="~{index.html :: rightbar}"></nav>
 <nav th:replace="~{index.html :: footer}"></nav>

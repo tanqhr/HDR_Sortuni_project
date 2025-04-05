@@ -41,8 +41,6 @@ public class RecipeViewModel {
 
     private UserShortViewModel author;
 
-    private VisibilityStatus visibilityStatus;
-
     private LocalDateTime addedOn;
 
     private LocalDateTime lastUpdated;
@@ -72,7 +70,6 @@ public class RecipeViewModel {
                 .setLiked(Boolean.FALSE)
                 .setDescription(entity.getDescription())
                 .setAuthor(UserShortViewModel.fromEntity(entity.getAuthor()))
-                .setVisibilityStatus(entity.getVisibilityStatus())
                 .setAddedOn(entity.getAddedOn())
                 .setLastUpdated(entity.getLastUpdated());
     }

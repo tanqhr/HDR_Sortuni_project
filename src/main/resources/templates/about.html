@@ -25,7 +25,7 @@
         <b th:text="#{join_list}">If you want, you can join for our newsletter:</b>
 
         <form id="reg-form" th:method="POST" th:action="@{/about}" th:object="${emailDto}">
-            <input type="text" name="email" placeholder="Enter email-address" id="email" required>
+            <input type="email" name="email" placeholder="Enter email-address" id="email" title="Please enter a valid email" required>
             <input type="submit" name="submit1"  th:value="#{sign_up}" id="submit1">
         </form>
 </div>

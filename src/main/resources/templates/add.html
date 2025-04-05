@@ -34,7 +34,8 @@
                         <div class="form__item">
                             <label class="recipe__name" >Recipe Name<i class="red"></i></label>
                             <input name="recipe-name" id="title-input" class="input"
-                                   type="text" th:field="*{title}"/>
+                                   type="text" th:field="*{title}" th:errorclass="is-invalid"/>
+                        </p>
                         </div>
                         <div class="form__item">
                             <label >Ingredients</label>
@@ -141,13 +142,12 @@
                             </div>
                             <!-- Upload Photo Form -->
                             <div id="new-photo-ctr" class="new-photo-ctr">
-
-
                                 <div class="grid-label-input-ctr lbl80 new-photo-file">
                                     <label class="grid-label">File:</label>
                                     <div class="double-border grid-input">
                                         <input id="new-photo-file-data" class="new-photo-file-data"
                                                type="file" accept="image/*">
+
                                     </div>
                                 </div>
 

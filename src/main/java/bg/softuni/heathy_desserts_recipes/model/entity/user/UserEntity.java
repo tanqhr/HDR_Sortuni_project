@@ -48,7 +48,7 @@ public class UserEntity {
     private boolean active;
 
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<RoleEntity> roles;
 
     @ManyToMany
@@ -58,26 +58,10 @@ public class UserEntity {
     )
     private List<RecipeEntity> likedRecipes;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "follow_relations",
-            joinColumns = @JoinColumn(name = "follower"),
-            inverseJoinColumns = @JoinColumn(name = "followed")
-    )
-    private List<UserEntity> followers;
-
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "block_list",
-            joinColumns = @JoinColumn(name = "blocker"),
-            inverseJoinColumns = @JoinColumn(name = "blocked")
-    )
-    private List<UserEntity> blockList;
-
-
    public UserEntity () {
         this.roles = new ArrayList<>();
        this.likedRecipes = new ArrayList<>();
-       this.followers = new ArrayList<>();
-        this.blockList = new ArrayList<>();
+
     }
 
     public UserEntity(String firstName, String lastName, String username, String email, String password) {
@@ -108,15 +92,7 @@ public class UserEntity {
 
         return this.likedRecipes.remove(recipe);
     }
-    public boolean isFollowedBy (UserEntity candidate) {
 
-        return this.followers.contains(candidate);
-    }
-
-    public Boolean hasBlocked (UserEntity candidate) {
-
-        return this.blockList.contains(candidate);
-    }
 
 
 }

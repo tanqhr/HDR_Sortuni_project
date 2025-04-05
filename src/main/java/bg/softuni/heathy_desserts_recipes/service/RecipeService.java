@@ -50,43 +50,18 @@ public class RecipeService {
     }
 
 
-    public void saveAndFlush(RecipeEntity recipeEntity) {
-
-        this.recipeRepository.saveAndFlush(recipeEntity);
-    }
-
-    public boolean isAuthor (CurrentUser currentUser, long recipeId) {
-
-        return isAuthor(currentUser, findById(recipeId));
-    }
 
     private static boolean isAuthor(CurrentUser currentUser, RecipeEntity recipeEntity) {
 
         return currentUser.getId().equals(recipeEntity.getAuthor().getId());
     }
 
-    public boolean checkCanView (CurrentUser currentUser, Long recipeId) {
 
-        final RecipeEntity recipeEntity = findById(recipeId);
-
-        return checkCanView(currentUser, recipeEntity);
-    }
     public Boolean checkCanAdd(CurrentUser currentUser) {
 
         Optional<UserEntity> userEntity = userRepository.findById(currentUser.getId());
 
         if (userEntity.get().isActive()) {
-
-            return Boolean.TRUE;
-        }
-
-        return Boolean.FALSE;
-    }
-    public Boolean checkCanEdit(CurrentUser currentUser, long recipeId) {
-
-        final RecipeEntity recipeEntity = findById(recipeId);
-
-        if (isAuthor(currentUser, recipeEntity) || currentUser.isAdmin()) {
 
             return Boolean.TRUE;
         }
@@ -118,14 +93,6 @@ public class RecipeService {
                 .toList();
     }
 
-    private static Boolean checkCanView (CurrentUser currentUser, RecipeEntity recipeEntity) {
-
-        if (isAuthor(currentUser, recipeEntity) || currentUser.isAdmin()) {
-
-            return Boolean.TRUE;
-        }
-        return Boolean.FALSE;
-    }
 
 
 
@@ -146,37 +113,6 @@ public class RecipeService {
 
     private UserEntity createNewAuthor(String authorName) {
         return userRepository.save(new UserEntity().setUsername(authorName));
-    }
-
-    public void deleteById(Long recipeId) {
-        recipeRepository.
-                findById(recipeId).
-                ifPresent(recipeRepository::delete);
-    }
-
-    public Optional<RecipeShortDto> findRecipeById(Long recipeId) {
-        return recipeRepository.
-                findById(recipeId).
-                map(this::map);
-    }
-
-    public List<RecipeShortDto> getAllRecipes() {
-        return recipeRepository.findAll().
-                stream().
-                map(this::map).
-                toList();
-    }
-
-    private RecipeShortDto map(RecipeEntity recipeEntity) {
-
-        UserShortViewModel userDto = new UserShortViewModel().
-        setUsername(recipeEntity.getAuthor().getUsername());
-
-        return new RecipeShortDto().
-                setId(recipeEntity.getId()).
-                setAuthorName(userDto.getUsername()) .
-                setDescription(recipeEntity.getDescription()).
-                setTitle(recipeEntity.getTitle());
     }
 
 
@@ -204,13 +140,6 @@ public class RecipeService {
         }
     }
 
-    public List<RecipeShortDto> getAllUsers () {
-
-        return this.recipeRepository.findAll()
-                .stream()
-                .map(RecipeShortDto::fromEntity)
-                .toList();
-    }
 
 }
 

@@ -5,6 +5,7 @@ spring:
     password: "12345"
     driver-class-name: com.mysql.cj.jdbc.Driver
 
+
   jpa:
     defer-datasource-initialization: true
     open-in-view: true
@@ -14,7 +15,15 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.MySQLDialect
         format_sql: true
-  
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+        message:
+          api:
+            baseUrl: "http://localhost:8081"
+
   sql:
     init:
       mode: never
@@ -36,9 +45,20 @@ cloud:
   service:
     mocked: false
 
+    whether:
+      api-key: ${whether.api-key}
 
-    mail:
-      host: ${MAIL_HOST:localhost}
-      port: ${MAIL_PORT:1025}
-      username: ${MAIL_USERNAME:admin@example.com}
-      password: ${MAIL_PASS:}
+
+mail:
+        host: smtp.gmail.com
+        port: 587
+        username: "${email_username}"
+        password: "${password_email}"
+
+
+message:
+  api:
+    baseUrl: "http://localhost:8081"
+
+
+

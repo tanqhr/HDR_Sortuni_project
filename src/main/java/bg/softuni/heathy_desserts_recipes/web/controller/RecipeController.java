@@ -119,7 +119,7 @@ public class RecipeController {
                                @AuthenticationPrincipal CurrentUser currentUser) {
         if (recipeService.checkCanDelete(currentUser, id)) {
             this.recipeService.deleteRecipe(id);
-            return "redirect:/index";
+            return "redirect:/";
         } else {
             return "redirect:/recipes/{id}";
         }
