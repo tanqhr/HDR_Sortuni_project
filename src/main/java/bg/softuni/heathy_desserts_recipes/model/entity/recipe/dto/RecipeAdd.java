@@ -38,7 +38,6 @@ public class RecipeAdd {
                 .setTitle(entity.getTitle())
                 .setAuthorName(entity.getAuthor().getUsername())
                 .setAuthorId(entity.getAuthor().getId())
-                .setLastUpdated(entity.getLastUpdated())
                 .setCookingTime(entity.getCookingTime())
                 .setCoverPhotoUrl(entity.getPhotos().isEmpty()
                         ? "/images/system/no_photo.webp"

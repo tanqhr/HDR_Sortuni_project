@@ -1,4 +1,4 @@
-+let csrfHeaderName = document.getElementById("csrf").getAttribute("name");
+let csrfHeaderName = document.getElementById("csrf").getAttribute("name");
 let csrfHeaderToken = document.getElementById("csrf").getAttribute("value");
 
 function toggleActive(userId) {

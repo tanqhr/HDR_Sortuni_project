@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+import org.hibernate.annotations.Cascade;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.ArrayList;
@@ -51,15 +52,20 @@ public class UserEntity {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<RoleEntity> roles;
 
-    @ManyToMany
+    @ManyToMany()
     @JoinTable(name = "recipes_likes",
             joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "recipe_id")
-    )
+           inverseJoinColumns = @JoinColumn(name = "recipe_id"))
+
+
     private List<RecipeEntity> likedRecipes;
 
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL)
+    private List<RecipeEntity> recipes;
+
+
    public UserEntity () {
-        this.roles = new ArrayList<>();
+       this.roles = new ArrayList<>();
        this.likedRecipes = new ArrayList<>();
 
     }
@@ -83,6 +89,8 @@ public class UserEntity {
         return this.roles.removeAll(List.of(roles));
     }
 
+
+
     public boolean likeRecipe (RecipeEntity recipe) {
 
         return this.likedRecipes.add(recipe);
@@ -92,6 +100,7 @@ public class UserEntity {
 
         return this.likedRecipes.remove(recipe);
     }
+
 
 
 

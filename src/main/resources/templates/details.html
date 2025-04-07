@@ -2,8 +2,7 @@
 <!--suppress XmlDuplicatedId -->
 <html lang="en"
       xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta id="csrf" hidden th:name="${_csrf.getHeaderName()}" th:value="${_csrf.getToken()}">
@@ -30,7 +29,7 @@
 
                     <div th:each="photo, photoStat : ${recipeViewModel.listPhotoVM}">
 
-                        <img th:src="${photo.url}" alt="" width="100%"></img>
+                        <img th:src="${photo.url}" alt="" width="100%">
 
                     </div>
                 </div>
@@ -88,8 +87,6 @@
 
 <nav th:replace="~{index.html :: rightbar}"></nav>
 <nav th:replace="~{index.html :: footer}"></nav>
-<!-- JAVA SCRIPT -->
-<script src="/javascript/recipe-show.js"></script>
 
 </body>
 </html>

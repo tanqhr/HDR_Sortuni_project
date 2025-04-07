@@ -1,6 +1,5 @@
 package bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto;
 
-import bg.softuni.heathy_desserts_recipes.common.enums.VisibilityStatus;
 import bg.softuni.heathy_desserts_recipes.model.entity.ingredient.dto.IngredientViewModel;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoViewModel;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
@@ -41,6 +40,7 @@ public class RecipeViewModel {
 
     private UserShortViewModel author;
 
+
     private LocalDateTime addedOn;
 
     private LocalDateTime lastUpdated;
@@ -69,9 +69,7 @@ public class RecipeViewModel {
                         .toList())
                 .setLiked(Boolean.FALSE)
                 .setDescription(entity.getDescription())
-                .setAuthor(UserShortViewModel.fromEntity(entity.getAuthor()))
-                .setAddedOn(entity.getAddedOn())
-                .setLastUpdated(entity.getLastUpdated());
+                .setAuthor(UserShortViewModel.fromEntity(entity.getAuthor()));
     }
 
     public RecipeViewModel setLiked (boolean liked) {

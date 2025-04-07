@@ -41,8 +41,10 @@ public class AdminController {
     //* @DeleteMapping("/admin/users/delete/{id}")
     @RequestMapping(value = "/admin/users/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
     @PreAuthorize("hasAuthority('ADMIN')")
-    public String deleteUser(@PathVariable Long id) {
-        this.userService.deleteUser(id);
+    public String deleteUser( @AuthenticationPrincipal CurrentUser currentUser, @PathVariable Long id) {
+        if (userService.checkCanDelete(id)) {
+            this.userService.deleteUser(id);
+        }
         return "redirect:/admin/view";
     }
 

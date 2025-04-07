@@ -3,6 +3,7 @@ package bg.softuni.heathy_desserts_recipes.service;
 import bg.softuni.heathy_desserts_recipes.common.enums.Role;
 import bg.softuni.heathy_desserts_recipes.common.error.exceptions.NotAuthorizedException;
 import bg.softuni.heathy_desserts_recipes.common.error.exceptions.UserNotFoundException;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.role.RoleEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.*;
@@ -20,10 +21,10 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -36,7 +37,7 @@ public class UserService {
     private final ModelMapper userMapper;
     private final PasswordEncoder encoder;
     private final ModelMapper modelMapper;
-private final MessageService messageService;
+    private final MessageService messageService;
     private final UserDetailsService userDetailsService;
     private final ApplicationEventPublisher applicationEventPublisher;
 
@@ -150,16 +151,50 @@ private final MessageService messageService;
     }
 
     private RoleEntity getRole (Role role) {
-
         return this.roleRepository.getByRole(role);
     }
 
-    public void deleteUser(Long id) {
+    public Boolean checkCanDelete(long userId) {
+
+        final UserEntity userEntity = findById(userId);
+       if (hasRole(userEntity,Role.ADMIN)){
+            return Boolean.FALSE;
+        }
+
+        return Boolean.TRUE;
+    }
+     @Transactional
+     public void deleteUser(Long id) {
+        Optional<UserEntity> user=userRepository.findUserById(id);
+       List<RecipeEntity> all= user.get().getRecipes();
+
+     for(RecipeEntity recipe:all) {
+        for (UserEntity user1 : recipe.getLikes()) {
+            user1.getLikedRecipes().remove(recipe);
+            userRepository.saveAndFlush(user1);
+        }
+    }
        userRepository.deleteById(id);
     }
 
 
+    public void saveAndFlush (UserEntity userEntity) {
 
+        this.userRepository.saveAndFlush(userEntity);
+    }
+    private static void ensureAdminOrModerator (CurrentUser requester) {
+
+        if (!requester.isAdmin() && !requester.isModerator()) {
+            throw new NotAuthorizedException("What are you trying to do?");
+        }
+    }
+
+    private static void ensureAdmin (CurrentUser requester) {
+
+        if (!requester.isAdmin()) {
+            throw new NotAuthorizedException("What are you trying to do?");
+        }
+    }
 
 @Transactional
     public void updateUser(Long id, UserUpdateDto userDetails) {

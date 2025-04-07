@@ -1,6 +1,5 @@
 package bg.softuni.heathy_desserts_recipes.model.entity.recipe;
 
-import bg.softuni.heathy_desserts_recipes.common.enums.VisibilityStatus;
 import bg.softuni.heathy_desserts_recipes.model.entity.ingredient.IngredientEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.PhotoEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
@@ -9,9 +8,7 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
 
-import java.math.BigInteger;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -58,14 +55,12 @@ public class RecipeEntity {
     @Column
     private String description;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "user_id")
     private UserEntity author;
 
     @CreationTimestamp
     private LocalDateTime addedOn;
-
-    @UpdateTimestamp
-    private LocalDateTime lastUpdated;
 
     public RecipeEntity () {
 
@@ -109,27 +104,6 @@ public class RecipeEntity {
         return this;
     }
 
-    public RecipeEntity addPhotos (List<PhotoEntity> photos) {
-
-        this.photos.addAll(photos);
-        return this;
-    }
-
-    public RecipeEntity addProducts (List<IngredientEntity> products) {
-
-        this.ingredients.addAll(products);
-        return this;
-    }
-
-    public boolean addLike(UserEntity userEntity) {
-
-        return this.likes.add(userEntity);
-    }
-
-    public boolean removeLike (UserEntity userEntity) {
-
-        return this.likes.remove(userEntity);
-    }
 
 
 }

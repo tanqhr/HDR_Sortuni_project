@@ -1,6 +1,5 @@
 package bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto;
 
-import bg.softuni.heathy_desserts_recipes.common.enums.VisibilityStatus;
 import bg.softuni.heathy_desserts_recipes.model.entity.ingredient.dto.IngredientDto;
 import bg.softuni.heathy_desserts_recipes.model.entity.photo.dto.PhotoViewModel;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
@@ -26,6 +25,7 @@ public class RecipeDto {
 
     private UUID tempRecipeId;
 
+    @NotEmpty(message = "Title is required.")
     private String title;
 
     private List<PhotoViewModel> photoVMList;

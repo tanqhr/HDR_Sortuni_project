@@ -2,6 +2,7 @@ package bg.softuni.heathy_desserts_recipes.web.controller;
 
 
 import bg.softuni.heathy_desserts_recipes.common.error.exceptions.NotAuthorizedException;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeAdd;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeDto;
 import bg.softuni.heathy_desserts_recipes.model.entity.recipe.dto.RecipeViewModel;
@@ -107,7 +108,6 @@ public class RecipeController {
                 @AuthenticationPrincipal CurrentUser currentUser) {
 
             model.addAttribute("recipeViewModel", this.recipeForm.getRecipeVMForUser(id, currentUser));
-            model.addAttribute("contextAuthorities", currentUser.getContextAuthorities());
             model.addAttribute("contextRoles", currentUser.getContextRoles());
             model.addAttribute("canDelete", this.recipeService.checkCanDelete(currentUser, id));
 
@@ -115,13 +115,13 @@ public class RecipeController {
         }
 
     @RequestMapping(value = "/recipes/delete/{id}", method = {RequestMethod.GET, RequestMethod.DELETE})
-    public String deleteRecipe(@PathVariable Long id,
+    public ModelAndView deleteRecipe(@PathVariable Long id,
                                @AuthenticationPrincipal CurrentUser currentUser) {
         if (recipeService.checkCanDelete(currentUser, id)) {
             this.recipeService.deleteRecipe(id);
-            return "redirect:/";
+            return new ModelAndView("redirect:/");
         } else {
-            return "redirect:/recipes/{id}";
+            return new ModelAndView("redirect:/recipes/%d".formatted(id), HttpStatus.BAD_REQUEST);
         }
     }
 
@@ -144,7 +144,7 @@ public class RecipeController {
     }
 
     @PostMapping("/like/{recipeId}")
-    public ModelAndView addLike(@PathVariable long recipeId, @AuthenticationPrincipal CurrentUser currentUser) {
+    public ModelAndView addLike(@PathVariable Long recipeId, @AuthenticationPrincipal CurrentUser currentUser) {
 
         recipeService.like(currentUser.getId(), recipeId);
 

@@ -21,6 +21,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Component
@@ -76,6 +77,7 @@ public class RecipeForm {
 
         final UserEntity author = this.userService.findById(authorId);
         newRecipeEntity.setAuthor(author);
+        author.getRecipes().add(newRecipeEntity);
         final RecipeEntity savedRecipeEntity = this.recipeService.save(newRecipeEntity);
 
         final List<IngredientEntity> ingredientEntities = recipeDto.getListIngredientDto()
