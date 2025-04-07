@@ -22,8 +22,10 @@ public class UserUpdateDto {
     @Size(min = MIN_USERNAME_LENGTH, message = MIN_USERNAME_NAME)
     @Size(max = MAX_USERNAME_LENGTH, message = MAX_USERNAME_NAME)
     private String username;
-    @NotBlank(message = MIN_FIRST_NAME)
+    @Size(min = MIN_FIRSTNAME_LENGTH, message = MIN_FIRST_NAME)
+    @Size(max = MAX_FIRSTNAME_LENGTH, message = MAX_FIRST_NAME)
     private String firstName;
-    @NotBlank(message = MIN_LAST_NAME)
+    @Size(min = MIN_LASTNAME_LENGTH, message = MIN_LAST_NAME)
+    @Size(max = MAX_LASTNAME_LENGTH, message = MAX_LAST_NAME)
     private String lastName;
 }
