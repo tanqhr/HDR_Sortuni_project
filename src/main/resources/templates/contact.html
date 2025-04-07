@@ -17,16 +17,16 @@
             <a>info@healthydesserts.com</a>
     <form th:method="POST" th:action="@{/messages/add}" th:object="${messageDto}">
         <label for="name"><span th:text="#{contact_name}" >name</span>
-            <input type="text" th:name="name" id="name" th:field="*{name}"
-                   minlength="5" maxlength="30">
+            <input type="text" th:name="name" id="name" th:field="*{name}" required
+                   minlength="3" maxlength="30">
         </label>
         <label for="email"><span th:text="#{email}">email</span>
-            <input type="email" th:name="email" id="email" th:field="*{email}"
+            <input type="email" th:name="email" id="email" th:field="*{email}" required
                     title="Please enter a valid email">
         </label>
       <label for="text" ><span th:text="#{contact_message}">message</span>
-            <textarea cols="20" rows="5" th:name="text" id="text" th:field="*{text}"
-                      minlength="5"></textarea>
+            <textarea cols="20" rows="3" th:name="text" id="text" th:field="*{text}"
+                      minlength="5" required></textarea>
         </label>
         <input type="submit" name="submit" id="submit"  class="submit-btn" th:value="#{contact_send}">
     </form>
