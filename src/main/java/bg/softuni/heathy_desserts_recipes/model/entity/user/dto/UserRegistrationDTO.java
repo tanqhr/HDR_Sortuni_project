@@ -18,13 +18,16 @@ import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.Registra
 @PasswordsMatch()
 public class UserRegistrationDTO {
 
-    @NotBlank(message = FIRST_NAME_BLANK_OR_EMPTY)
+    @Size(min = MIN_FIRSTNAME_LENGTH, message = MIN_FIRST_NAME)
+    @Size(max = MAX_FIRSTNAME_LENGTH, message = MAX_FIRST_NAME)
+
+
     private String firstName;
 
-    @NotBlank(message = LAST_NAME_BLANK_OR_EMPTY)
+    @Size(min = MIN_LASTNAME_LENGTH, message = MIN_LAST_NAME)
+    @Size(max = MAX_LASTNAME_LENGTH, message = MAX_LAST_NAME)
     private String lastName;
 
-    @NotBlank(message = USERNAME_BLANK_OR_EMPTY)
     @Size(min = MIN_USERNAME_LENGTH, message = MIN_USERNAME_NAME)
     @Size(max = MAX_USERNAME_LENGTH, message = MAX_USERNAME_NAME)
     private String username;
@@ -33,7 +36,7 @@ public class UserRegistrationDTO {
     @UniqueEmail(message = EMAIL_NOT_AVAILABLE)
     private String email;
 
-    @NotBlank(message = PASSWORD_EMPTY)
+
     @Size(min = MIN_PASSWORD_LENGTH, message = MIN_PASSWORD_LENGTH_MSG)
     private String password;
 

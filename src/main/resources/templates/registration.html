@@ -35,9 +35,7 @@
                         <input id="first-name" th:field="*{firstName}"
                                th:errorclass="is-invalid"
                                type="text"
-                               placeholder="John" autocomplete="given-name" title="Your given name"
-                               required
-                        minlength="3" maxlength="30">
+                               placeholder="John" autocomplete="given-name" title="Your given name">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
@@ -57,9 +55,7 @@
                     <div class="grid-input angle-border">
                         <input id="last-name" th:field="*{lastName}"
                                type="text"
-                               placeholder="Smith" autocomplete="family-name" title="Your family name"
-                               required
-                               minlength="3" maxlength="30">
+                               placeholder="Smith" autocomplete="family-name" title="Your family name">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
@@ -80,9 +76,7 @@
                         <input id="display-name" th:field="*{username}"
                                type="text"
                                placeholder="Chef Johny" autocomplete="nickname"
-                               title="This name will be displayed to other users"
-                               required
-                               minlength="5" maxlength="30">
+                               title="This name will be displayed to other users">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
@@ -102,7 +96,7 @@
                     <div class="grid-input angle-border">
                         <input id="email" th:field="*{email}"
                                type="email"
-                               placeholder="mail@example.com" autocomplete="email" title="Please enter a valid email" required>
+                               placeholder="mail@example.com" autocomplete="email">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
@@ -122,9 +116,7 @@
                     <div class="grid-input angle-border">
                         <input id="password" th:field="*{password}"
                                type="password"
-                               placeholder="Enter password here" autocomplete="new-password"
-                               required
-                               minlength="5" maxlength="30">
+                               placeholder="Enter password here" autocomplete="new-password">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
@@ -145,9 +137,7 @@
                     <div class="grid-input angle-border">
                         <input id="password-confirm" th:field="*{confirmPassword}"
                                type="password"
-                               placeholder="Repeat password here" autocomplete="new-password"
-                               required
-                               minlength="5" maxlength="30">
+                               placeholder="Repeat password here" autocomplete="new-password">
                     </div>
                 </div>
                 <div class="grid-label-input-ctr">
