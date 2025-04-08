@@ -22,7 +22,7 @@
             <div class="text-center" th:each="message : ${allMessages}">
                         <p th:text="*{message.getText()}">Text</p>
                 <br>
-                <div sec:authorize="isFullyAuthenticated()">
+                <div sec:authorize="hasRole('ROLE_ADMIN')">
                             <form th:method="DELETE" th:action="@{/messages/delete/{id}(id=${message.getId()})}">
                                 <button type="submit" class="btn btn-danger delete-button">Delete</button>
                             </form>
