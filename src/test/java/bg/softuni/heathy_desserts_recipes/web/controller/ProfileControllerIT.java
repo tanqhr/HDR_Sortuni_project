@@ -59,7 +59,7 @@ public class ProfileControllerIT {
 
     @Test
     @WithUserDetails(
-            value = "taico@abv.bg",
+            value = "taico1@abv.bg",
             userDetailsServiceBeanName = "userDetailsService",
             setupBefore = TestExecutionEvent.TEST_EXECUTION
     )
@@ -72,7 +72,7 @@ public class ProfileControllerIT {
     }
 
     @Test
-    @WithMockUser(username = "taico@abv.bg")
+    @WithMockUser(username = "taico1@abv.bg")
     void testUpdateUserWithIncorrectData() throws Exception {
         mockMvc.perform(post("/users/edit/{id}", "1")
                         .param("firstName", "1")
@@ -86,7 +86,7 @@ public class ProfileControllerIT {
     }
 
     @Test
-    @WithMockUser(username = "taico@abv.bg")
+    @WithMockUser(username = "taico1@abv.bg")
     void testUpdateUser() throws Exception {
        // Optional<UserEntity>user=userRepository.findUserByEmail("taico@abv.bg");
         mockMvc.perform(post("/users/edit/{id}", "1")

@@ -33,7 +33,7 @@ public class UserTestData {
 
         UserEntity newUser = new UserEntity()
                 .setActive(true)
-                .setUsername("test1")
+                .setUsername("test123")
                 .setEmail(email)
                 .setPassword("12345")
                 .setFirstName("Test user first")

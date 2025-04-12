@@ -9,6 +9,7 @@ import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.*;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.view.UserProfileViewModel;
 import bg.softuni.heathy_desserts_recipes.model.event.RegistrationUserEvent;
+import bg.softuni.heathy_desserts_recipes.model.repository.RecipeRepository;
 import bg.softuni.heathy_desserts_recipes.model.repository.RoleRepository;
 import bg.softuni.heathy_desserts_recipes.model.repository.UserRepository;
 import bg.softuni.heathy_desserts_recipes.model.security.CurrentUser;
@@ -41,11 +42,13 @@ public class UserService {
     private final UserDetailsService userDetailsService;
     private final ApplicationEventPublisher applicationEventPublisher;
 
+    private final RecipeRepository recipeRepository;
+
 
     public UserService (UserRepository userRepository,
                         RoleRepository roleRepository,
                         @Qualifier("userMapper") ModelMapper userMapper,
-                        PasswordEncoder passwordEncoder, ModelMapper modelMapper, MessageService messageService, UserDetailsService userDetailsService, ApplicationEventPublisher applicationEventPublisher) {
+                        PasswordEncoder passwordEncoder, ModelMapper modelMapper, MessageService messageService, UserDetailsService userDetailsService, ApplicationEventPublisher applicationEventPublisher, RecipeRepository recipeRepository) {
 
         this.userRepository = userRepository;
         this.roleRepository = roleRepository;
@@ -55,6 +58,7 @@ public class UserService {
         this.messageService = messageService;
         this.userDetailsService = userDetailsService;
         this.applicationEventPublisher = applicationEventPublisher;
+        this.recipeRepository = recipeRepository;
     }
 
 
@@ -157,7 +161,7 @@ public class UserService {
     public Boolean checkCanDelete(long userId) {
 
         final UserEntity userEntity = findById(userId);
-       if (hasRole(userEntity,Role.ADMIN)){
+       if((hasRole(userEntity,Role.ADMIN))|| (hasRole(userEntity, Role.MODERATOR))){
             return Boolean.FALSE;
         }
 
@@ -167,13 +171,13 @@ public class UserService {
      public void deleteUser(Long id) {
         Optional<UserEntity> user=userRepository.findUserById(id);
        List<RecipeEntity> all= user.get().getRecipes();
+             for (RecipeEntity recipe : all) {
+                 for (UserEntity user1 : recipe.getLikes()) {
+                     user1.getLikedRecipes().remove(recipe);
+                     userRepository.saveAndFlush(user1);
+                 }
+             }
 
-     for(RecipeEntity recipe:all) {
-        for (UserEntity user1 : recipe.getLikes()) {
-            user1.getLikedRecipes().remove(recipe);
-            userRepository.saveAndFlush(user1);
-        }
-    }
        userRepository.deleteById(id);
     }
 

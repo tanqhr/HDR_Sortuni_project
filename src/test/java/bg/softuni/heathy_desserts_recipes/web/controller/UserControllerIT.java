@@ -3,6 +3,7 @@ package bg.softuni.heathy_desserts_recipes.web.controller;
 import bg.softuni.heathy_desserts_recipes.config.MailConfiguration;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.repository.UserRepository;
+import bg.softuni.heathy_desserts_recipes.testUtils.UserTestData;
 import com.icegreen.greenmail.util.GreenMail;
 import com.icegreen.greenmail.util.ServerSetup;
 import jakarta.mail.internet.MimeMessage;
@@ -59,6 +60,7 @@ class UserControllerIT {
 
     @Autowired
     private UserRepository userRepository;
+    
 
 
     //@BeforeEach
@@ -121,13 +123,13 @@ class UserControllerIT {
     }
 
     @Test
-    @WithUserDetails(value = "taico@abv.bg", userDetailsServiceBeanName = "userDetailsService")
+    @WithUserDetails(value = "taico1@abv.bg", userDetailsServiceBeanName = "userDetailsService")
     void getOwnProfile_byLoggedUser_returnsCorrectView () throws Exception {
      //  Optional<UserEntity> user=userRepository.findByEmail("taico@abv.bg");
         mockMvc.perform(get("/users/me"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("owner"))
-                .andExpect(model().attribute("displayName", "taico"));
+                .andExpect(model().attribute("displayName", "taico1"));
     }
 
     @Test
@@ -151,12 +153,12 @@ class UserControllerIT {
 
     @Test
     @WithUserDetails(
-            value = "taico@abv.bg",
+            value = "taico1@abv.bg",
             userDetailsServiceBeanName = "userDetailsService",
             setupBefore = TestExecutionEvent.TEST_EXECUTION
     )
     void getUserProfileOfExistingUser_byLoggedUser_returnCorrectView () throws Exception {
-        Optional<UserEntity> user= userRepository.findUserByEmail("taico@abv.bg");
+        Optional<UserEntity> user= userRepository.findUserByEmail("taico1@abv.bg");
 
         mockMvc.perform(get("/users/{id}", user.get().getId()))
                 .andExpect(status().isOk())

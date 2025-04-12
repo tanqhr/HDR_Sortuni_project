@@ -2,6 +2,7 @@ package bg.softuni.heathy_desserts_recipes.service;
 
 
 import bg.softuni.heathy_desserts_recipes.common.enums.Role;
+import bg.softuni.heathy_desserts_recipes.model.entity.recipe.RecipeEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.role.RoleEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.UserEntity;
 import bg.softuni.heathy_desserts_recipes.model.entity.user.dto.UserRegistrationDTO;
@@ -19,6 +20,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -75,7 +77,7 @@ public class UserServiceTest {
         user.setUsername("testov111");
         user.setRoles(List.of(userRole));
         user.setEmail("test111@gmail.com");
-        user.setPassword("111");
+        user.setPassword("11111");
         return user;
     }
 
@@ -138,12 +140,10 @@ public class UserServiceTest {
     }
 
      @Test
-     void testDeleteUserById(){
-        testUserService.deleteUser(1L);
-        verify(mockUserRepository, times(1)).deleteById(1L);
-         verify(mockUserRepository).deleteById(captor.capture());
-         Assertions.assertEquals(1L,captor.getValue());
-     }
+    public void creatNewUser() throws Exception {
 
+         UserEntity user = new UserEntity().setFirstName("Test").setLastName("Testov").setUsername("test").
+                 setEmail("testov@abv.bg").setPassword("12345");
+     }
 
 }

@@ -18,29 +18,28 @@ import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.Registra
 @PasswordsMatch()
 public class UserRegistrationDTO {
 
-    @Size(min = MIN_FIRSTNAME_LENGTH, message = MIN_FIRST_NAME)
-    @Size(max = MAX_FIRSTNAME_LENGTH, message = MAX_FIRST_NAME)
-
+    @Size(min = MIN_FIRSTNAME_LENGTH, message ="{first_name}")
+    @Size(max = MAX_FIRSTNAME_LENGTH, message = "{firstName_max}")
 
     private String firstName;
 
-    @Size(min = MIN_LASTNAME_LENGTH, message = MIN_LAST_NAME)
-    @Size(max = MAX_LASTNAME_LENGTH, message = MAX_LAST_NAME)
+    @Size(min = MIN_LASTNAME_LENGTH, message = "{last_name}")
+    @Size(max = MAX_LASTNAME_LENGTH, message = "{lastName_max}")
     private String lastName;
 
-    @Size(min = MIN_USERNAME_LENGTH, message = MIN_USERNAME_NAME)
-    @Size(max = MAX_USERNAME_LENGTH, message = MAX_USERNAME_NAME)
+    @Size(min = MIN_USERNAME_LENGTH, message = "{username}")
+    @Size(max = MAX_USERNAME_LENGTH, message = "{username_max}")
     private String username;
 
-    @Email(regexp = EMAIL_REG_EXP, message = NOT_WELL_FORMATTED_EMAIL)
-    @UniqueEmail(message = EMAIL_NOT_AVAILABLE)
+    @Email(regexp = EMAIL_REG_EXP, message = "{email_validation}")
+    @UniqueEmail(message = "{email-unique}")
     private String email;
 
 
-    @Size(min = MIN_PASSWORD_LENGTH, message = MIN_PASSWORD_LENGTH_MSG)
+    @Size(min = MIN_PASSWORD_LENGTH, message = "{password}")
     private String password;
 
-    @Size(min = MIN_PASSWORD_LENGTH, message = MIN_PASSWORD_LENGTH_MSG)
+    @Size(min = MIN_PASSWORD_LENGTH, message = "{password}")
     private String confirmPassword;
 
 }

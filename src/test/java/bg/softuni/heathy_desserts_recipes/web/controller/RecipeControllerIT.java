@@ -74,7 +74,7 @@ class RecipeControllerIT {
     }
 
     @Test
-    @WithUserDetails(value = "taico@abv.bg")
+    @WithUserDetails(value = "taico1@abv.bg")
     void getAddRecipe_byLoggedUser_returnsProperView() throws Exception {
 
         mockMvc.perform(get("/recipes/add"))
@@ -109,7 +109,7 @@ class RecipeControllerIT {
 
     @Test
     @WithUserDetails(
-            value = "taico@abv.bg",
+            value = "taico1@abv.bg",
             userDetailsServiceBeanName = "userDetailsService",
             setupBefore = TestExecutionEvent.TEST_EXECUTION
     )
@@ -132,7 +132,7 @@ class RecipeControllerIT {
 
     @Test
     @WithUserDetails(
-            value = "taico@abv.bg",
+            value = "taico1@abv.bg",
             userDetailsServiceBeanName = "userDetailsService",
             setupBefore = TestExecutionEvent.TEST_EXECUTION
     )
@@ -167,7 +167,6 @@ class RecipeControllerIT {
         RecipeDto recipeBM = new RecipeDto()
                 .setAuthorId(1L)
                 .setTempRecipeId(UUID.randomUUID());
-
         mockMvc.perform(post("/recipes/add")
                         .param("title", "veganCream")
                         .param("preparationMinutes", "15")
@@ -194,10 +193,10 @@ class RecipeControllerIT {
 
     }
 
+
     @Test
     @WithUserDetails(value = "kosta@abv.bg", userDetailsServiceBeanName = "userDetailsService")
     public void testDeleteRecipe() throws Exception {
-
         Optional<UserEntity> user = userRepository.findByEmail("kosta@abv.bg");
         var actualRecipe = recipeRepository.save(new RecipeEntity().setTitle("Vegan Cream").setDescription("mix").
                 setServings(3).setCookingTime(Duration.ofMinutes(20)).setPreparationTime((Duration.ofMinutes(20))).setAuthor(user.get()));
