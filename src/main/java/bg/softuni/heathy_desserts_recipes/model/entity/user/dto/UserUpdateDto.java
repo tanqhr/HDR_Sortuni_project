@@ -1,9 +1,6 @@
 package bg.softuni.heathy_desserts_recipes.model.entity.user.dto;
 
-import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,7 +12,7 @@ import static bg.softuni.heathy_desserts_recipes.common.enums.Constants.Registra
 @Setter
 @Accessors(chain = true)
 @NoArgsConstructor
-@AllArgsConstructor
+
 public class UserUpdateDto {
     private Long id;
     @Size(min = MIN_USERNAME_LENGTH, message = "{username}")
